@@ -1,0 +1,1216 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Семантика HTML, формы, accessibility, SEO, metadata, SVG, media и устройство браузерного документа"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="HTML"><meta property="og:description" content="Семантика HTML, формы, accessibility, SEO, metadata, SVG, media и устройство браузерного документа"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/html/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/html/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/html"><title>HTML</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.BrYpE28v.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/html" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: HTML"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="html-1"></span><span class="sidebar-navigation__marker" data-heading-marker="html-parsing-compatibility-и-resources"></span><span class="sidebar-navigation__marker" data-heading-marker="forms"></span><span class="sidebar-navigation__marker" data-heading-marker="accessibility"></span><span class="sidebar-navigation__marker" data-heading-marker="seo-и-metadata"></span><span class="sidebar-navigation__marker" data-heading-marker="svg-и-media"></span><span class="sidebar-navigation__marker" data-heading-marker="accessibility-и-seo"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#html-1" data-heading-link="html-1">HTML</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#html-parsing-compatibility-и-resources" data-heading-link="html-parsing-compatibility-и-resources">HTML parsing, compatibility и resources</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#forms" data-heading-link="forms">Forms</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#accessibility" data-heading-link="accessibility">Accessibility</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#seo-и-metadata" data-heading-link="seo-и-metadata">SEO и metadata</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#svg-и-media" data-heading-link="svg-и-media">SVG и media</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#accessibility-и-seo" data-heading-link="accessibility-и-seo">Accessibility и SEO</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="html">HTML</h2>
+<h3 id="html-1">HTML</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-html-и-какую-задачу-он-решает">Что такое HTML и какую задачу он решает?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTML описывает структуру и смысл документа: заголовки, текст, навигацию, формы, ссылки и изображения. Браузер разбирает
+разметку и строит DOM, который используют CSS, JavaScript, поисковые роботы и ассистивные технологии (assistive
+technologies).</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTML описывает структуру и смысл документа: заголовки, текст, навигацию, формы, ссылки и изображения. Браузер разбирает
+разметку и строит DOM, который используют CSS, JavaScript, поисковые роботы и ассистивные технологии (assistive
+technologies).</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">>Buy&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/html-and-css-difference.A45z9VOy_1lNyRQ.png" alt="img.png" loading="lazy" decoding="async" width="1024" height="604"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-html-attribute">Что такое HTML attribute?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Attribute задает дополнительную информацию или поведение element: href, type, disabled, lang. Global attributes вроде
+id, class, hidden и data- доступны большинству элементов, а часть attributes имеет смысл только для определенных tags.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/what-is-html-attribute.B1bhEULr_wQy1P.png" alt="img.png" loading="lazy" decoding="async" width="1536" height="1024"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+<p>Attribute задает дополнительную информацию или поведение element: <code>href</code>, <code>type</code>, <code>disabled</code>, <code>lang</code>. Global attributes
+вроде <code>id</code>, <code>class</code>, <code>hidden</code> и <code>data-*</code> доступны большинству элементов, а часть attributes имеет смысл только для
+определенных tags.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-semantic-html">Что такое semantic HTML?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Semantic HTML использует элементы по их назначению: nav для навигации, main для основного контента, button для действия.
+Это делает структуру понятнее браузеру, разработчикам, поисковым системам и assistive technologies.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Semantic HTML использует элементы по их назначению: <code>nav</code> для навигации, <code>main</code> для основного контента, <code>button</code> для
+действия. Это делает структуру понятнее браузеру, разработчикам, поисковым системам и assistive technologies.</p>
+<p>В командных guidelines semantic HTML должен быть отдельным правилом, потому что в Angular templates легко заменить
+структуру набором компонентов и директив. Хороший кандидат объяснит, что компоненты не отменяют базовые HTML semantics:
+landmarks, headings, form controls и интерактивные элементы все равно должны оставаться корректными.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-document-outline">Что такое document outline?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это логическая структура документа, прежде всего иерархия заголовков и landmarks. На практике нужно последовательно
+использовать h1–h6, не полагаясь на давно предложенный, но не реализованный браузерами outline algorithm для sectioning
+elements.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это логическая структура документа, прежде всего иерархия заголовков и landmarks. На практике нужно последовательно
+использовать <code>h1</code>–<code>h6</code>, не полагаясь на давно предложенный, но не реализованный браузерами outline algorithm для
+sectioning elements.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-doctype-и-зачем-он-нужен">Что такое <code>doctype</code> и зачем он нужен?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>сообщает браузеру, что документ следует обрабатывать в standards mode. Без корректного doctype браузер может включить
+quirks mode с устаревшими правилами layout и совместимости.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>&#x3C;!doctype html></code> сообщает браузеру, что документ следует обрабатывать в standards mode. Без корректного doctype браузер
+может включить quirks mode с устаревшими правилами layout и совместимости.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-custom-elements">Что такое custom elements?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Custom Elements API позволяет регистрировать собственные HTML-элементы с именем через дефис и lifecycle callbacks. Это
+часть Web Components; Shadow DOM и templates являются отдельными API и не включаются автоматически.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Custom Elements API позволяет регистрировать собственные HTML-элементы с именем через дефис и lifecycle callbacks. Это
+часть Web Components; Shadow DOM и templates являются отдельными API и не включаются автоматически.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-tag-отличается-от-html-element">Чем tag отличается от HTML element?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Tag — синтаксическая часть разметки, например или . Element — целый узел: открывающий tag, attributes, content и
+закрывающий tag. Void elements вроде не имеют closing tag и содержимого.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/what-the-difference-between-tag-and-element.BaKvEpTq_NX9e7.png" alt="img.png" loading="lazy" decoding="async" width="1448" height="1086"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+<p>Tag — синтаксическая часть разметки, например <code>&#x3C;p></code> или <code>&#x3C;/p></code>. Element — целый узел: открывающий tag, attributes,
+content и закрывающий tag. Void elements вроде <code>&#x3C;img></code> не имеют closing tag и содержимого.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-block-element-отличается-от-inline-element">Чем block element отличается от inline element?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Исторически block elements начинали новую строку, а inline elements участвовали в строке текста. В современном CSS
+реальное поведение задает display, поэтому семантическую категорию HTML-элемента нельзя использовать как замену знанию
+layout.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Исторически block elements начинали новую строку, а inline elements участвовали в строке текста. В современном CSS
+реальное поведение задает <code>display</code>, поэтому семантическую категорию HTML-элемента нельзя использовать как замену знанию
+layout.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-команде-договариваться-об-html-principles">Зачем команде договариваться об HTML principles?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTML principles фиксируют, как команда пишет разметку: использует семантические элементы, поддерживает accessibility, не
+заменяет button и a на кликабельные div, сохраняет правильную структуру headings и forms. Это снижает споры в review и
+помогает screen readers, SEO, автотестам и долгой поддержке интерфейса.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTML principles фиксируют, как команда пишет разметку: использует семантические элементы, поддерживает accessibility, не
+заменяет <code>button</code> и <code>a</code> на кликабельные <code>div</code>, сохраняет правильную структуру headings и forms. Это снижает споры в
+review и помогает screen readers, SEO, автотестам и долгой поддержке интерфейса.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-section-article-main-aside-и-nav-отличаются-друг-от-друга">Чем <code>section</code>, <code>article</code>, <code>main</code>, <code>aside</code> и <code>nav</code> отличаются друг от друга?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>main содержит основное уникальное содержимое страницы, nav — крупный блок навигации, article — самостоятельный материал,
+пригодный для отдельного распространения, section — тематический раздел обычно с заголовком, aside — связанный, но
+второстепенный контент.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>main</code> содержит основное уникальное содержимое страницы, <code>nav</code> — крупный блок навигации, <code>article</code> — самостоятельный
+материал, пригодный для отдельного распространения, <code>section</code> — тематический раздел обычно с заголовком, <code>aside</code> —
+связанный, но второстепенный контент.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-использовать-button-а-когда-a">Когда использовать <code>button</code>, а когда <code>a</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>button выполняет действие: отправляет форму, открывает dialog, меняет состояние. a с href выполняет навигацию к URL.
+Правильный элемент сразу дает ожидаемые keyboard behavior, semantics и browser features вроде открытия ссылки в новой
+вкладке.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>button</code> выполняет действие: отправляет форму, открывает dialog, меняет состояние. <code>a</code> с <code>href</code> выполняет навигацию к
+URL. Правильный элемент сразу дает ожидаемые keyboard behavior, semantics и browser features вроде открытия ссылки в
+новой вкладке.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-команда-может-использовать-html-preprocessor-или-template-engine">Когда команда может использовать HTML preprocessor или template engine?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTML preprocessor или template engine полезны, когда разметка генерируется сервером, CMS, static site generator или
+design system tooling. В Angular основным слоем обычно остаются Angular templates, но frontend-разработчик должен
+понимать, откуда приходит HTML, какие fragments может вставлять backend и какие ограничения это создает для структуры,
+styles и hydration.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTML preprocessor или template engine полезны, когда разметка генерируется сервером, CMS, static site generator или
+design system tooling. В Angular основным слоем обычно остаются Angular templates, но frontend-разработчик должен
+понимать, откуда приходит HTML, какие fragments может вставлять backend и какие ограничения это создает для структуры,
+styles и hydration.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-backend-или-cms-может-влиять-на-frontend-markup">Как backend или CMS может влиять на frontend markup?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Backend или CMS могут добавлять wrappers, ids, classes, служебные attributes и готовые HTML-фрагменты. Эти соглашения
+нужно учитывать, чтобы не сломать CSS, accessibility, analytics и автотесты. Хороший ответ включает мысль, что такие
+контракты лучше документировать, а не выяснять по случайным DOM-структурам в production.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Backend или CMS могут добавлять wrappers, ids, classes, служебные attributes и готовые HTML-фрагменты. Эти соглашения
+нужно учитывать, чтобы не сломать CSS, accessibility, analytics и автотесты. Хороший ответ включает мысль, что такие
+контракты лучше документировать, а не выяснять по случайным DOM-структурам в production.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-договориться-о-комментариях-в-html">Как договориться о комментариях в HTML?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTML-комментарии стоит оставлять только для неочевидной структуры, интеграционного ограничения или временного
+workaround. Они не должны пересказывать obvious markup. В Angular чаще лучше помогают понятные имена компонентов, inputs
+и template blocks, а большой комментарий в template может быть сигналом, что код стоит упростить.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTML-комментарии стоит оставлять только для неочевидной структуры, интеграционного ограничения или временного
+workaround. Они не должны пересказывать obvious markup. В Angular чаще лучше помогают понятные имена компонентов, inputs
+и template blocks, а большой комментарий в template может быть сигналом, что код стоит упростить.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делает-атрибут-lang">Что делает атрибут <code>lang</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>lang задает язык документа или фрагмента. Он помогает screen reader выбрать произношение, браузеру — проверку орфографии
+и переносы, а поисковым системам — интерпретировать содержимое.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>lang</code> задает язык документа или фрагмента. Он помогает screen reader выбрать произношение, браузеру — проверку
+орфографии и переносы, а поисковым системам — интерпретировать содержимое.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужны-data-attributes">Для чего нужны <code>data-*</code> attributes?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Они хранят небольшие пользовательские данные прямо на element и доступны через dataset. Их используют для связи разметки
+с поведением или тестами, но не как замену application state и не для секретных данных.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Они хранят небольшие пользовательские данные прямо на element и доступны через <code>dataset</code>. Их используют для связи
+разметки с поведением или тестами, но не как замену application state и не для секретных данных.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-из-каких-частей-состоит-html5-как-open-web-platform">Из каких частей состоит HTML5 как open web platform?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTML5 в широком смысле часто называют набором Web Platform API: semantic HTML, forms, media, canvas, SVG, storage,
+offline capabilities, history, drag and drop и messaging. На интервью важно не смешивать сам язык разметки с браузерными
+API вокруг него. Для Angular-разработчика это база, на которую опираются компоненты, forms, routing и интеграции с
+browser APIs.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTML5 в широком смысле часто называют набором Web Platform API: semantic HTML, forms, media, canvas, SVG, storage,
+offline capabilities, history, drag and drop и messaging. На интервью важно не смешивать сам язык разметки с браузерными
+API вокруг него. Для Angular-разработчика это база, на которую опираются компоненты, forms, routing и интеграции с
+browser APIs.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-cookie-отличается-от-sessionstorage-и-localstorage">Чем cookie отличается от <code>sessionStorage</code> и <code>localStorage</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Cookie может автоматически отправляться с HTTP-запросами и иметь флаги HttpOnly, Secure, SameSite. localStorage и
+sessionStorage доступны JavaScript, привязаны к origin и не отправляются автоматически; sessionStorage живет в рамках
+вкладки, localStorage сохраняется дольше. Секретные tokens опасно хранить в Web Storage из-за XSS.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Cookie может автоматически отправляться с HTTP-запросами и иметь флаги <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>. <code>localStorage</code>
+и <code>sessionStorage</code> доступны JavaScript, привязаны к origin и не отправляются автоматически; <code>sessionStorage</code> живет в
+рамках вкладки, <code>localStorage</code> сохраняется дольше. Секретные tokens опасно хранить в Web Storage из-за XSS.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-script-script-async-и-script-defer-отличаются">Чем <code>script</code>, <code>script async</code> и <code>script defer</code> отличаются?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Обычный script блокирует HTML parsing до загрузки и выполнения. async загружается параллельно и выполняется сразу после
+загрузки, поэтому порядок между async scripts не гарантирован. defer загружается параллельно, выполняется после parsing
+в порядке объявления и обычно лучше подходит для application bundle.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Обычный <code>script</code> блокирует HTML parsing до загрузки и выполнения. <code>async</code> загружается параллельно и выполняется сразу
+после загрузки, поэтому порядок между async scripts не гарантирован. <code>defer</code> загружается параллельно, выполняется после
+parsing в порядке объявления и обычно лучше подходит для application bundle.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-clickable-div-плохая-практика">Почему clickable <code>div</code> — плохая практика?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>div не получает focus, keyboard activation, role и accessible name интерактивного элемента автоматически. Их ручная
+имитация сложна и хрупка. Для действий следует использовать button, для переходов — a.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>div</code> не получает focus, keyboard activation, role и accessible name интерактивного элемента автоматически. Их ручная
+имитация сложна и хрупка. Для действий следует использовать <code>button</code>, для переходов — <code>a</code>.</p>
+</div></div>
+</details>
+<h3 id="html-parsing-compatibility-и-resources">HTML parsing, compatibility и resources</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-происходит-после-получения-html-документа">Что происходит после получения HTML-документа?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Браузер начинает streaming parse HTML еще до полной загрузки документа. Он строит DOM, заранее обнаруживает ресурсы
+через preload scanner, загружает CSS, JavaScript, изображения, fonts и другие зависимости.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Браузер начинает streaming parse HTML еще до полной загрузки документа. Он строит DOM, заранее обнаруживает ресурсы
+через preload scanner, загружает CSS, JavaScript, изображения, fonts и другие зависимости.</p>
+<p>Для первого render нужны DOM, CSSOM и render tree. Затем browser выполняет layout, paint и compositing. JavaScript,
+stylesheets, fonts и большие изображения могут задержать отдельные этапы, поэтому производительность оценивают по
+реальному Critical Rendering Path.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-progressive-enhancement">Что такое progressive enhancement?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Progressive enhancement начинает с базового доступного HTML и постепенно добавляет CSS, JavaScript и продвинутые browser
+features. Если часть улучшений недоступна, основной content и ключевые действия остаются рабочими. Для Angular это
+особенно заметно в SSR/prerender сценариях: пользователь не должен видеть пустую страницу до загрузки bundle.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Progressive enhancement начинает с базового доступного HTML и постепенно добавляет CSS, JavaScript и продвинутые browser
+features. Если часть улучшений недоступна, основной content и ключевые действия остаются рабочими. Для Angular это
+особенно заметно в SSR/prerender сценариях: пользователь не должен видеть пустую страницу до загрузки bundle.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-progressive-enhancement-отличается-от-graceful-degradation">Чем progressive enhancement отличается от graceful degradation?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Progressive enhancement проектирует опыт от базового слоя к улучшениям. Graceful degradation обычно начинается с
+полнофункционального варианта и пытается сохранить приемлемую работу при отсутствии части возможностей. Первый подход
+лучше помогает accessibility, слабым устройствам и нестабильной сети, второй часто встречается при поддержке старых
+браузеров.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Progressive enhancement проектирует опыт от базового слоя к улучшениям. Graceful degradation обычно начинается с
+полнофункционального варианта и пытается сохранить приемлемую работу при отсутствии части возможностей. Первый подход
+лучше помогает accessibility, слабым устройствам и нестабильной сети, второй часто встречается при поддержке старых
+браузеров.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-browser-support-отличается-от-browser-optimization">Чем browser support отличается от browser optimization?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Browser support означает, что пользователь может выполнить основной сценарий в браузере или на устройстве. Browser
+optimization означает, что под важные браузеры, устройства и сети интерфейс дополнительно улучшается. Не всегда нужно
+давать всем одинаковый experience, но базовый сценарий не должен ломаться без явной продуктовой причины.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Browser support означает, что пользователь может выполнить основной сценарий в браузере или на устройстве. Browser
+optimization означает, что под важные браузеры, устройства и сети интерфейс дополнительно улучшается. Не всегда нужно
+давать всем одинаковый experience, но базовый сценарий не должен ломаться без явной продуктовой причины.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-определить-какие-браузеры-поддерживать">Как определить, какие браузеры поддерживать?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Browser support должен опираться на аналитику пользователей, требования бизнеса, корпоративную среду, законодательные
+ограничения и стоимость поддержки. Решение нельзя принимать только по личным предпочтениям разработчиков. Его стоит
+записать в guidelines и регулярно пересматривать.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Browser support должен опираться на аналитику пользователей, требования бизнеса, корпоративную среду, законодательные
+ограничения и стоимость поддержки. Решение нельзя принимать только по личным предпочтениям разработчиков. Его стоит
+записать в guidelines и регулярно пересматривать.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-graded-browser-support">Что такое graded browser support?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Graded browser support делит браузеры или устройства на уровни. Например, в одних браузерах гарантируется полный
+experience, в других — базовая функциональность, а для устаревших окружений — readable content или explicit fallback.
+Это помогает управлять стоимостью поддержки и ожиданиями бизнеса.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Graded browser support делит браузеры или устройства на уровни. Например, в одних браузерах гарантируется полный
+experience, в других — базовая функциональность, а для устаревших окружений — readable content или explicit fallback.
+Это помогает управлять стоимостью поддержки и ожиданиями бизнеса.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-компоненту-нужна-отдельная-browser-support-policy">Когда компоненту нужна отдельная browser support policy?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Отдельная policy нужна, если компонент использует API с разной поддержкой: camera, clipboard, drag and drop, сложную
+графику, heavy animations, WebGL или нестандартные browser features. Продукт может поддерживать базовый сценарий шире, а
+конкретный advanced component — уже, если fallback честно описан.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Отдельная policy нужна, если компонент использует API с разной поддержкой: camera, clipboard, drag and drop, сложную
+графику, heavy animations, WebGL или нестандартные browser features. Продукт может поддерживать базовый сценарий шире, а
+конкретный advanced component — уже, если fallback честно описан.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-html-парсер-не-падает-на-невалидной-разметке">Почему HTML-парсер не падает на невалидной разметке?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTML parsing designed to be forgiving: браузеры десятилетиями должны были показывать страницы с ошибками разметки.
+Спецификация описывает tokenization, tree construction и error recovery, поэтому parser исправляет многие случаи сам.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTML parsing designed to be forgiving: браузеры десятилетиями должны были показывать страницы с ошибками разметки.
+Спецификация описывает tokenization, tree construction и error recovery, поэтому parser исправляет многие случаи сам.</p>
+<p>Например, браузер может автоматически закрыть тег, вставить пропущенный <code>&#x3C;tbody></code> или перестроить некорректную
+вложенность. Поэтому DOM может отличаться от исходного HTML source.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-dom-отличается-от-html-source">Чем DOM отличается от HTML source?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTML source — это текст, который пришел от сервера или был записан в документ. DOM — live object model, которую браузер
+построил после parsing и error recovery, а затем может изменять JavaScript.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTML source — это текст, который пришел от сервера или был записан в документ. DOM — live object model, которую браузер
+построил после parsing и error recovery, а затем может изменять JavaScript.</p>
+<p>DOM может содержать автоматически добавленные узлы, нормализованную структуру, элементы из templates после runtime
+rendering и изменения, которых не было в исходном HTML. На интервью важно не смешивать view-source и Elements panel.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-preload-prefetch-и-preconnect">Что такое preload, prefetch и preconnect?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>preload приоритетно загружает ресурс текущей страницы, prefetch с низким приоритетом готовит вероятный следующий
+переход, preconnect заранее устанавливает соединение с origin. Ошибочное применение расходует bandwidth и конкурирует с
+критическими ресурсами.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>preload</code> приоритетно загружает ресурс текущей страницы, <code>prefetch</code> с низким приоритетом готовит вероятный следующий
+переход, <code>preconnect</code> заранее устанавливает соединение с origin. Ошибочное применение расходует bandwidth и конкурирует
+с критическими ресурсами.</p>
+</div></div>
+</details>
+<h3 id="forms">Forms</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-работает-html-form">Как работает HTML form?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>form объединяет controls и при submit формирует набор успешных пар name=value. Браузер валидирует controls, кодирует
+данные и отправляет их на action выбранным method, если JavaScript не перехватил событие.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>form</code> объединяет controls и при submit формирует набор успешных пар <code>name=value</code>. Браузер валидирует controls, кодирует
+данные и отправляет их на <code>action</code> выбранным <code>method</code>, если JavaScript не перехватил событие.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-action-и-method-у-формы">Что делают <code>action</code> и <code>method</code> у формы?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>action задает URL отправки, method — HTTP-метод get или post. При GET данные попадают в query string, при POST — в
+request body. Для других HTTP-методов обычно используют JavaScript или backend method override.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>action</code> задает URL отправки, <code>method</code> — HTTP-метод <code>get</code> или <code>post</code>. При <code>GET</code> данные попадают в query string, при
+<code>POST</code> — в request body. Для других HTTP-методов обычно используют JavaScript или backend method override.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-get-form-отличается-от-post-form">Чем GET form отличается от POST form?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>GET подходит для безопасного поиска и фильтров: URL можно сохранить и повторить. POST используют для операций с побочным
+эффектом и больших или чувствительных данных, но HTTPS все равно обязателен. Выбор метода не является
+authorization-механизмом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>GET подходит для безопасного поиска и фильтров: URL можно сохранить и повторить. POST используют для операций с побочным
+эффектом и больших или чувствительных данных, но HTTPS все равно обязателен. Выбор метода не является
+authorization-механизмом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-специализированные-типы-input-полезнее-text">Почему специализированные типы <code>input</code> полезнее <code>text</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Типы email, number, date, url, search, tel, checkbox и другие дают подходящую семантику, native validation, мобильную
+клавиатуру и browser UI. Поддержка и локализация отдельных типов различаются, поэтому server validation все равно нужна.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Типы <code>email</code>, <code>number</code>, <code>date</code>, <code>url</code>, <code>search</code>, <code>tel</code>, <code>checkbox</code> и другие дают подходящую семантику, native
+validation, мобильную клавиатуру и browser UI. Поддержка и локализация отдельных типов различаются, поэтому server
+validation все равно нужна.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-label-и-как-связать-его-с-control">Что такое <code>label</code> и как связать его с control?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>label дает полю доступное имя и увеличивает clickable area. Его связывают атрибутом for, равным id control, или
+вкладывают control внутрь label.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>label</code> дает полю доступное имя и увеличивает clickable area. Его связывают атрибутом <code>for</code>, равным <code>id</code> control, или
+вкладывают control внутрь label.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">label</span><span style="color:#B392F0"> for</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span><span style="color:#E1E4E8">>Email&#x3C;/</span><span style="color:#85E89D">label</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">input</span></span>
+<span class="line"><span style="color:#B392F0">  id</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span></span>
+<span class="line"><span style="color:#B392F0">  name</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span></span>
+<span class="line"><span style="color:#B392F0">  type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-placeholder-не-должен-заменять-label">Почему <code>placeholder</code> не должен заменять <code>label</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Placeholder исчезает при вводе, часто имеет низкий contrast и не является надежной подписью для assistive technologies.
+Он может показывать пример формата, но постоянное понятное имя поля должен задавать label.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Placeholder исчезает при вводе, часто имеет низкий contrast и не является надежной подписью для assistive technologies.
+Он может показывать пример формата, но постоянное понятное имя поля должен задавать label.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-name-у-form-control">Для чего нужен <code>name</code> у form control?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>name определяет ключ при native form submission и объединяет radio buttons в одну группу. Control без name обычно не
+входит в отправляемый набор данных.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>name</code> определяет ключ при native form submission и объединяет radio buttons в одну группу. Control без <code>name</code> обычно не
+входит в отправляемый набор данных.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-native-validation">Что такое native validation?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Браузер проверяет constraints вроде required, min, max, minlength, maxlength, pattern и соответствие типу перед submit.
+Это улучшает UX, но не заменяет backend validation, потому что клиентскую проверку можно обойти.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Браузер проверяет constraints вроде <code>required</code>, <code>min</code>, <code>max</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code> и соответствие типу
+перед submit. Это улучшает UX, но не заменяет backend validation, потому что клиентскую проверку можно обойти.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-autocomplete">Для чего нужен <code>autocomplete</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>autocomplete подсказывает браузеру назначение поля, например name, email, current-password или one-time-code. Корректные
+tokens ускоряют заполнение и помогают пользователям с когнитивными и моторными ограничениями.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>autocomplete</code> подсказывает браузеру назначение поля, например <code>name</code>, <code>email</code>, <code>current-password</code> или <code>one-time-code</code>.
+Корректные tokens ускоряют заполнение и помогают пользователям с когнитивными и моторными ограничениями.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сделать-accessible-error-message-для-поля">Как сделать accessible error message для поля?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Сообщение должно быть конкретным, видимым и связанным с полем через aria-describedby; невалидность можно обозначить
+aria-invalid=“true”. После submit focus переводят осмысленно, а динамическую сводку ошибок при необходимости объявляют
+live region.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Сообщение должно быть конкретным, видимым и связанным с полем через <code>aria-describedby</code>; невалидность можно обозначить
+<code>aria-invalid="true"</code>. После submit focus переводят осмысленно, а динамическую сводку ошибок при необходимости объявляют
+live region.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-disabled-field-не-отправляется-вместе-с-формой">Почему disabled field не отправляется вместе с формой?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Disabled control исключается из focus order, validation и набора успешных controls при submit. Если значение должно
+отправляться, используют другой способ моделирования; скрытое поле нельзя считать защитой от подмены данных.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Disabled control исключается из focus order, validation и набора успешных controls при submit. Если значение должно
+отправляться, используют другой способ моделирования; скрытое поле нельзя считать защитой от подмены данных.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-disabled-отличается-от-readonly">Чем <code>disabled</code> отличается от <code>readonly</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>disabled control не фокусируется и не отправляется. readonly поддерживается только частью controls, остается focusable и
+отправляет значение, но пользователь не может его изменить обычным вводом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>disabled</code> control не фокусируется и не отправляется. <code>readonly</code> поддерживается только частью controls, остается
+focusable и отправляет значение, но пользователь не может его изменить обычным вводом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужны-fieldset-и-legend">Для чего нужны <code>fieldset</code> и <code>legend</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>fieldset семантически группирует связанные controls, а legend дает группе доступное название. Это особенно важно для
+radio buttons и checkbox groups, где отдельные labels не объясняют общий вопрос.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>fieldset</code> семантически группирует связанные controls, а <code>legend</code> дает группе доступное название. Это особенно важно для
+radio buttons и checkbox groups, где отдельные labels не объясняют общий вопрос.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-группировать-radio-buttons">Как группировать radio buttons?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Radio buttons одной группы получают одинаковый name, уникальные id и собственные labels. Группу помещают в fieldset с
+legend, чтобы ее назначение было понятно визуально и screen reader.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Radio buttons одной группы получают одинаковый <code>name</code>, уникальные <code>id</code> и собственные labels. Группу помещают в
+<code>fieldset</code> с <code>legend</code>, чтобы ее назначение было понятно визуально и screen reader.</p>
+</div></div>
+</details>
+<h3 id="accessibility">Accessibility</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-accessibility-и-wcag">Что такое accessibility и WCAG?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Accessibility, или a11y, — проектирование интерфейса так, чтобы им могли пользоваться люди с разными возможностями и
+устройствами. WCAG — рекомендации W3C, сгруппированные по принципам perceivable, operable, understandable и robust, с
+проверяемыми критериями уровней A, AA и AAA.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Accessibility, или a11y, — проектирование интерфейса так, чтобы им могли пользоваться люди с разными возможностями и
+устройствами. WCAG — рекомендации W3C, сгруппированные по принципам perceivable, operable, understandable и robust, с
+проверяемыми критериями уровней A, AA и AAA.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-keyboard-navigation-и-visible-focus">Что такое keyboard navigation и visible focus?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Все действия должны быть доступны с клавиатуры в логичном порядке. Текущий focus обязан быть заметен; нельзя убирать
+outline без равноценной замены. Native controls уже поддерживают Tab, Enter, Space и ожидаемые паттерны.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Все действия должны быть доступны с клавиатуры в логичном порядке. Текущий focus обязан быть заметен; нельзя убирать
+outline без равноценной замены. Native controls уже поддерживают Tab, Enter, Space и ожидаемые паттерны.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-focus-management-и-focus-trap">Что такое focus management и focus trap?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Focus management переводит focus после значимого UI-события и возвращает его в понятное место. Modal dialog ограничивает
+Tab внутри себя, устанавливает начальный focus и после закрытия возвращает его trigger. Focus trap не применяют к
+немодальным областям без необходимости.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Focus management переводит focus после значимого UI-события и возвращает его в понятное место. Modal dialog ограничивает
+Tab внутри себя, устанавливает начальный focus и после закрытия возвращает его trigger. Focus trap не применяют к
+немодальным областям без необходимости.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-screen-reader">Что такое screen reader?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Screen reader озвучивает accessibility tree и позволяет перемещаться по headings, landmarks, controls и другим
+семантическим узлам. Проверка только DOM или визуального вида не гарантирует корректный опыт screen reader.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Screen reader озвучивает accessibility tree и позволяет перемещаться по headings, landmarks, controls и другим
+семантическим узлам. Проверка только DOM или визуального вида не гарантирует корректный опыт screen reader.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-aria-и-когда-ее-использовать">Что такое ARIA и когда ее использовать?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>ARIA добавляет roles, states и relationships в accessibility tree, но не создает keyboard behavior и не меняет семантику
+для обычного UI автоматически. Сначала выбирают native HTML; ARIA используют, когда нужную семантику нельзя выразить
+подходящим элементом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>ARIA добавляет roles, states и relationships в accessibility tree, но не создает keyboard behavior и не меняет семантику
+для обычного UI автоматически. Сначала выбирают native HTML; ARIA используют, когда нужную семантику нельзя выразить
+подходящим элементом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-aria-и-screen-reader-связаны-с-accessibility">Как ARIA и screen reader связаны с accessibility?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Screen reader читает accessibility tree, который строится из HTML-семантики, текста, attributes и ARIA. ARIA может
+добавить role, state или связь между элементами, но не добавляет поведение клавиатуры и не исправляет неверный элемент.
+Поэтому сначала выбирают native HTML, а ARIA используют для сложных widgets и динамических состояний.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Screen reader читает accessibility tree, который строится из HTML-семантики, текста, attributes и ARIA. ARIA может
+добавить role, state или связь между элементами, но не добавляет поведение клавиатуры и не исправляет неверный элемент.
+Поэтому сначала выбирают native HTML, а ARIA используют для сложных widgets и динамических состояний.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сделать-страницу-доступнее-без-javascript">Как сделать страницу доступнее без JavaScript?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Использовать semantic landmarks, правильную иерархию заголовков, label, fieldset, legend, понятные ссылки, доступные
+изображения и native form validation. Контент и основные действия должны быть доступны как HTML, а JavaScript добавляет
+улучшения. Такой подход помогает progressive enhancement и снижает риск пустого интерфейса при ошибке bundle.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Использовать semantic landmarks, правильную иерархию заголовков, <code>label</code>, <code>fieldset</code>, <code>legend</code>, понятные ссылки,
+доступные изображения и native form validation. Контент и основные действия должны быть доступны как HTML, а JavaScript
+добавляет улучшения. Такой подход помогает progressive enhancement и снижает риск пустого интерфейса при ошибке bundle.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-команде-accessibility-checklist">Зачем команде accessibility checklist?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Accessibility checklist помогает не забывать базовые требования: semantic HTML, keyboard navigation, focus states,
+labels, contrast, alt text и корректные ARIA attributes. В большой команде это превращает accessibility из личной памяти
+отдельного разработчика в повторяемую часть review и testing workflow.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Accessibility checklist помогает не забывать базовые требования: semantic HTML, keyboard navigation, focus states,
+labels, contrast, alt text и корректные ARIA attributes. В большой команде это превращает accessibility из личной памяти
+отдельного разработчика в повторяемую часть review и testing workflow.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-accessibility-tools-стоит-использовать-во-frontend-workflow">Какие accessibility tools стоит использовать во frontend workflow?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Полезны axe, Lighthouse, browser DevTools, Angular ESLint template rules и component tests для важных состояний. Но
+инструменты находят только часть проблем, поэтому их дополняют ручной проверкой keyboard flow, focus order и screen
+reader поведения в ключевых сценариях.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Полезны axe, Lighthouse, browser DevTools, Angular ESLint template rules и component tests для важных состояний. Но
+инструменты находят только часть проблем, поэтому их дополняют ручной проверкой keyboard flow, focus order и screen
+reader поведения в ключевых сценариях.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-accessibility-нельзя-полностью-проверить-автоматическими-тестами">Почему accessibility нельзя полностью проверить автоматическими тестами?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Автотесты могут найти отсутствие label, часть ошибок ARIA, слабый contrast и очевидные нарушения semantics. Но они не
+понимают смысл текста, удобство сценария, ожидаемый порядок focus и реальное восприятие screen reader. Поэтому хороший
+workflow сочетает automated checks, ручную проверку и ревью компонентов design system.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Автотесты могут найти отсутствие label, часть ошибок ARIA, слабый contrast и очевидные нарушения semantics. Но они не
+понимают смысл текста, удобство сценария, ожидаемый порядок focus и реальное восприятие screen reader. Поэтому хороший
+workflow сочетает automated checks, ручную проверку и ревью компонентов design system.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-accessible-name-и-как-кнопка-его-получает">Что такое accessible name и как кнопка его получает?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Accessible name — имя элемента в accessibility tree. Кнопка обычно получает его из видимого текста, затем могут
+учитываться aria-labelledby или aria-label. Видимая подпись предпочтительнее скрытого имени, когда она уместна.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Accessible name — имя элемента в accessibility tree. Кнопка обычно получает его из видимого текста, затем могут
+учитываться <code>aria-labelledby</code> или <code>aria-label</code>. Видимая подпись предпочтительнее скрытого имени, когда она уместна.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-aria-label-aria-labelledby-и-aria-describedby-отличаются">Чем <code>aria-label</code>, <code>aria-labelledby</code> и <code>aria-describedby</code> отличаются?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>aria-label задает строку имени напрямую, aria-labelledby берет имя из текста других элементов, а aria-describedby
+добавляет описание после имени. Они не взаимозаменяемы: label отвечает «что это», description — за дополнительную
+инструкцию или ошибку.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>aria-label</code> задает строку имени напрямую, <code>aria-labelledby</code> берет имя из текста других элементов, а <code>aria-describedby</code>
+добавляет описание после имени. Они не взаимозаменяемы: label отвечает «что это», description — за дополнительную
+инструкцию или ошибку.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-aria-hidden">Для чего нужен <code>aria-hidden</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>aria-hidden=“true” скрывает element и его descendants от accessibility tree, не меняя визуальное отображение. Его нельзя
+ставить на focusable element или его ancestor: keyboard focus окажется на узле, который screen reader не видит.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>aria-hidden="true"</code> скрывает element и его descendants от accessibility tree, не меняя визуальное отображение. Его
+нельзя ставить на focusable element или его ancestor: keyboard focus окажется на узле, который screen reader не видит.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-live-region-и-rolealert">Что такое live region и <code>role="alert"</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Live region сообщает assistive technologies о динамических изменениях без перемещения focus. role=“alert” подходит для
+срочных ошибок и обычно объявляется assertive; обычные статусы лучше сообщать через менее навязчивый role=“status”.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Live region сообщает assistive technologies о динамических изменениях без перемещения focus. <code>role="alert"</code> подходит для
+срочных ошибок и обычно объявляется assertive; обычные статусы лучше сообщать через менее навязчивый <code>role="status"</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сделать-доступное-modal-dialog">Как сделать доступное modal dialog?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужны понятное имя, modal semantics, начальный focus, ограничение Tab внутри окна, закрытие Escape и возврат focus на
+trigger. Native решает часть поведения, но название, содержимое, trigger и тестирование остаются задачей приложения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужны понятное имя, modal semantics, начальный focus, ограничение Tab внутри окна, закрытие Escape и возврат focus на
+trigger. Native <code>&#x3C;dialog></code> решает часть поведения, но название, содержимое, trigger и тестирование остаются задачей
+приложения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сделать-доступные-dropdown-и-tabs">Как сделать доступные dropdown и tabs?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Сначала выбирают правильный паттерн: disclosure, menu, listbox и combobox имеют разное поведение. Tabs используют
+tablist, tab, tabpanel, arrow-key navigation и связи через aria-controls/aria-labelledby. Для сложных widgets следуют
+WAI-ARIA Authoring Practices и тестируют клавиатурой и screen reader.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Сначала выбирают правильный паттерн: disclosure, menu, listbox и combobox имеют разное поведение. Tabs используют
+<code>tablist</code>, <code>tab</code>, <code>tabpanel</code>, arrow-key navigation и связи через <code>aria-controls</code>/<code>aria-labelledby</code>. Для сложных widgets
+следуют WAI-ARIA Authoring Practices и тестируют клавиатурой и screen reader.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сделать-доступную-icon-button">Как сделать доступную icon button?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Используют настоящий button с accessible name, например aria-label=“Закрыть”; декоративную SVG внутри скрывают через
+aria-hidden=“true”. Нужны достаточный target size, visible focus и понятные hover/disabled states.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Используют настоящий <code>button</code> с accessible name, например <code>aria-label="Закрыть"</code>; декоративную SVG внутри скрывают через
+<code>aria-hidden="true"</code>. Нужны достаточный target size, visible focus и понятные hover/disabled states.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-цвет-не-должен-быть-единственным-способом-передачи-информации">Почему цвет не должен быть единственным способом передачи информации?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Различие может быть незаметно пользователям с нарушением цветовосприятия или на плохом дисплее. Ошибку, статус или
+выбранное состояние дублируют текстом, иконкой, формой или другим независимым признаком и обеспечивают достаточный
+contrast.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Различие может быть незаметно пользователям с нарушением цветовосприятия или на плохом дисплее. Ошибку, статус или
+выбранное состояние дублируют текстом, иконкой, формой или другим независимым признаком и обеспечивают достаточный
+contrast.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-атрибут-lang">Для чего нужен атрибут lang?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Атрибут lang задает язык документа или отдельного фрагмента текста.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Атрибут <code>lang</code> задает язык документа или отдельного фрагмента текста.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">html</span><span style="color:#B392F0"> lang</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"ru"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>Он помогает:</p>
+<ul>
+<li>скринридерам выбрать правильное произношение;</li>
+<li>браузеру проверять орфографию и предлагать перевод;</li>
+<li>поисковым системам определить язык страницы;</li>
+<li>применять языковые правила переноса и типографики.</li>
+</ul>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  Я изучаю</span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">span</span><span style="color:#B392F0"> lang</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"en"</span><span style="color:#E1E4E8">>frontend development&#x3C;/</span><span style="color:#85E89D">span</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  .</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p><code>lang</code> не меняет внешний вид напрямую, но помогает браузеру и assistive technologies правильно интерпретировать контент.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужны-семантические-html-теги">Для чего нужны семантические HTML-теги?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Семантические теги описывают назначение контента: header, nav, main, article, button.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Семантические теги описывают назначение контента: <code>header</code>, <code>nav</code>, <code>main</code>, <code>article</code>, <code>button</code>.</p>
+<p>Они улучшают accessibility, навигацию скринридеров, SEO и читаемость разметки. Семантика не заменяет корректную
+структуру заголовков, подписи элементов форм и поддержку клавиатуры.</p>
+</div></div>
+</details>
+<h3 id="seo-и-metadata">SEO и metadata</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-нужен-meta-nameviewport">Зачем нужен <code>meta name="viewport"</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>сопоставляет layout viewport ширине устройства. Без него мобильный браузер может отрендерить страницу в широком
+виртуальном viewport и уменьшить ее целиком.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>&#x3C;meta name="viewport" content="width=device-width, initial-scale=1"></code> сопоставляет layout viewport ширине устройства.
+Без него мобильный браузер может отрендерить страницу в широком виртуальном viewport и уменьшить ее целиком.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-favicon">Что такое favicon?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Favicon — набор иконок сайта для вкладок, bookmarks, history и устройств. Его подключают через , а форматы и размеры
+выбирают с учетом целевых браузеров и manifest приложения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Favicon — набор иконок сайта для вкладок, bookmarks, history и устройств. Его подключают через <code>&#x3C;link rel="icon"></code>, а
+форматы и размеры выбирают с учетом целевых браузеров и manifest приложения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-canonical-url">Что такое canonical URL?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>указывает предпочтительный URL для страниц с одинаковым или очень похожим content. Это сигнал поисковой системе против
+дублирования, а не redirect и не механизм безопасности.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>&#x3C;link rel="canonical" href="…"></code> указывает предпочтительный URL для страниц с одинаковым или очень похожим content. Это
+сигнал поисковой системе против дублирования, а не redirect и не механизм безопасности.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужны-title-и-meta-description">Для чего нужны <code>title</code> и meta description?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>title задает название документа во вкладке и часто заголовок поискового результата. Meta description кратко описывает
+страницу и может использоваться как snippet. Они должны быть уникальными и соответствовать реальному содержимому.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>title</code> задает название документа во вкладке и часто заголовок поискового результата. Meta description кратко описывает
+страницу и может использоваться как snippet. Они должны быть уникальными и соответствовать реальному содержимому.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-html-теги-важны-для-поисковых-систем">Какие HTML-теги важны для поисковых систем?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Важны содержательные title, headings, links с понятным текстом, semantic landmarks, img alt, canonical и metadata.
+Семантика помогает понять структуру, но не компенсирует слабый content, закрытую индексацию или плохую доступность.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Важны содержательные <code>title</code>, headings, links с понятным текстом, semantic landmarks, <code>img alt</code>, canonical и metadata.
+Семантика помогает понять структуру, но не компенсирует слабый content, закрытую индексацию или плохую доступность.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-seo-практики-важны-для-frontend-разработчика">Какие SEO-практики важны для frontend-разработчика?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Frontend-разработчик отвечает за содержательный HTML, корректные title и metadata, canonical URL, semantic headings,
+понятные links, alt у значимых изображений, robots rules и скорость first render. Для SPA важно, чтобы crawler получил
+контент через SSR, prerender или другой поддерживаемый rendering strategy. SEO не заменяет качество контента и не должно
+ломать accessibility.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Frontend-разработчик отвечает за содержательный HTML, корректные <code>title</code> и metadata, canonical URL, semantic headings,
+понятные links, <code>alt</code> у значимых изображений, robots rules и скорость first render. Для SPA важно, чтобы crawler получил
+контент через SSR, prerender или другой поддерживаемый rendering strategy. SEO не заменяет качество контента и не должно
+ломать accessibility.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-правильно-использовать-заголовки-h1h6">Как правильно использовать заголовки <code>h1</code>–<code>h6</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Заголовки создают иерархию, а не выбираются ради размера шрифта. Обычно у страницы один основной h1, затем уровни идут
+последовательно по структуре. Несколько h1 технически допустимы, но один главный заголовок обычно понятнее пользователям
+и инструментам.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Заголовки создают иерархию, а не выбираются ради размера шрифта. Обычно у страницы один основной <code>h1</code>, затем уровни идут
+последовательно по структуре. Несколько <code>h1</code> технически допустимы, но один главный заголовок обычно понятнее
+пользователям и инструментам.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-open-graph">Что такое Open Graph?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Open Graph metadata задает title, description, image и URL для preview при публикации ссылки в социальных сетях и
+мессенджерах. Это не замена обычным HTML metadata; изображения должны иметь доступный URL и подходящие размеры.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Open Graph metadata задает title, description, image и URL для preview при публикации ссылки в социальных сетях и
+мессенджерах. Это не замена обычным HTML metadata; изображения должны иметь доступный URL и подходящие размеры.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-ssr-влияет-на-seo">Как SSR влияет на SEO?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>SSR или prerender отдает содержательный HTML раньше JavaScript, упрощая индексацию и previews. Современные crawlers
+могут выполнять JavaScript, но это требует времени и ресурсов; SPA без server-rendered content также хуже работает у
+ботов без полного rendering support.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>SSR или prerender отдает содержательный HTML раньше JavaScript, упрощая индексацию и previews. Современные crawlers
+могут выполнять JavaScript, но это требует времени и ресурсов; SPA без server-rendered content также хуже работает у
+ботов без полного rendering support.</p>
+</div></div>
+</details>
+<h3 id="svg-и-media">SVG и media</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-jpeg-png-webp-avif-и-svg-отличаются-друг-от-друга">Чем JPEG, PNG, WebP, AVIF и SVG отличаются друг от друга?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>JPEG подходит для фотографий без прозрачности, PNG — для lossless-графики и прозрачности, WebP и AVIF дают более
+современное сжатие, SVG — векторную графику. Формат выбирают по типу изображения, качеству, размеру, transparency,
+animation и browser support.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>JPEG подходит для фотографий без прозрачности, PNG — для lossless-графики и прозрачности, WebP и AVIF дают более
+современное сжатие, SVG — векторную графику. Формат выбирают по типу изображения, качеству, размеру, transparency,
+animation и browser support.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-использовать-svg-а-когда-raster-image">Когда использовать SVG, а когда raster image?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>SVG подходит для иконок, схем и простой графики, которая должна масштабироваться и стилизоваться. Для фотографий и
+сложных текстур raster format обычно компактнее и быстрее. Очень сложный SVG тоже может быть тяжелым для rendering.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>SVG подходит для иконок, схем и простой графики, которая должна масштабироваться и стилизоваться. Для фотографий и
+сложных текстур raster format обычно компактнее и быстрее. Очень сложный SVG тоже может быть тяжелым для rendering.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-responsive-images-и-как-работают-srcsetsizes">Что такое responsive images и как работают <code>srcset</code>/<code>sizes</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>srcset перечисляет image candidates по ширине или density, а sizes сообщает ожидаемый layout size. Браузер выбирает
+ресурс с учетом viewport, DPR, доступной ширины и других факторов, не загружая все варианты.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>srcset</code> перечисляет image candidates по ширине или density, а <code>sizes</code> сообщает ожидаемый layout size. Браузер выбирает
+ресурс с учетом viewport, DPR, доступной ширины и других факторов, не загружая все варианты.</p>
+<p>На уровне командных guidelines стоит договориться, когда использовать <code>srcset</code>, <code>sizes</code>, <code>picture</code>, lazy loading и
+отдельные форматы. Responsive images нужны не ради синтаксиса, а чтобы мобильный пользователь не скачивал тяжелую
+desktop-картинку и не платил за это LCP, трафиком и battery usage.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делает-loadinglazy">Что делает <code>loading="lazy"</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Атрибут откладывает загрузку изображения или iframe, пока ресурс не приблизится к viewport. Это экономит сеть, но его не
+ставят на вероятный LCP image. width и height задают заранее, чтобы сохранить место и избежать CLS.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Атрибут откладывает загрузку изображения или iframe, пока ресурс не приблизится к viewport. Это экономит сеть, но его не
+ставят на вероятный LCP image. <code>width</code> и <code>height</code> задают заранее, чтобы сохранить место и избежать CLS.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-alt-и-когда-он-должен-быть-пустым">Что такое <code>alt</code> и когда он должен быть пустым?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>alt передает текстовую альтернативу смыслового изображения. У декоративного изображения используют alt="", чтобы screen
+reader его пропустил. Alt описывает назначение изображения в контексте, а не обязательно все визуальные детали.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>alt</code> передает текстовую альтернативу смыслового изображения. У декоративного изображения используют <code>alt=""</code>, чтобы
+screen reader его пропустил. Alt описывает назначение изображения в контексте, а не обязательно все визуальные детали.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-элемент-picture">Для чего нужен элемент <code>picture</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>picture позволяет задавать source для разных media conditions, crops и formats, сохраняя fallback img. Его используют
+для art direction или выбора формата; обычное изменение resolution часто достаточно решить через srcset.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>picture</code> позволяет задавать <code>source</code> для разных media conditions, crops и formats, сохраняя fallback <code>img</code>. Его
+используют для art direction или выбора формата; обычное изменение resolution часто достаточно решить через <code>srcset</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-svg">Что такое SVG?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>SVG — векторный формат изображения, который описывает картинку через XML-разметку: линии, пути, фигуры, градиенты и
+текст. В отличие от PNG и JPEG, SVG масштабируется без потери качества: браузер пересчитывает геометрию, а не
+растягивает пиксели.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>SVG — векторный формат изображения, который описывает картинку через XML-разметку: линии, пути, фигуры, градиенты и
+текст. В отличие от PNG и JPEG, SVG масштабируется без потери качества: браузер пересчитывает геометрию, а не
+растягивает пиксели.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-svg-подходит-для-scalable-icons">Почему SVG подходит для scalable icons?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>SVG-иконка остается четкой при разных размерах и плотностях экрана. Один файл можно использовать в размерах 16px, 24px,
+48px и на Retina-дисплеях без отдельного набора изображений.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>SVG-иконка остается четкой при разных размерах и плотностях экрана. Один файл можно использовать в размерах <code>16px</code>,
+<code>24px</code>, <code>48px</code> и на Retina-дисплеях без отдельного набора изображений.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сделать-svg-иконку-масштабируемой">Как сделать SVG-иконку масштабируемой?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно задать viewBox и управлять внешними width и height атрибутами или через CSS:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно задать <code>viewBox</code> и управлять внешними <code>width</code> и <code>height</code> атрибутами или через CSS:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">svg</span></span>
+<span class="line"><span style="color:#B392F0">  viewBox</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"0 0 24 24"</span></span>
+<span class="line"><span style="color:#B392F0">  width</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"24"</span></span>
+<span class="line"><span style="color:#B392F0">  height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"24"</span></span>
+<span class="line"><span style="color:#B392F0">  aria-hidden</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"true"</span></span>
+<span class="line"><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">path</span><span style="color:#B392F0"> d</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"M12 2L2 22h20L12 2z"</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">svg</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.icon</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  width</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">32</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  height</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">32</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p><code>viewBox</code> сохраняет внутреннюю систему координат, поэтому браузер корректно пересчитывает геометрию под новый размер.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-viewbox-в-svg">Что такое <code>viewBox</code> в SVG?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>viewBox задает координатную область SVG. Например, viewBox=“0 0 24 24” означает виртуальную область шириной и высотой 24
+единицы. По ней браузер масштабирует содержимое SVG под внешний размер.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>viewBox</code> задает координатную область SVG. Например, <code>viewBox="0 0 24 24"</code> означает виртуальную область шириной и
+высотой 24 единицы. По ней браузер масштабирует содержимое SVG под внешний размер.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-widthheight-отличаются-от-viewbox">Чем <code>width</code>/<code>height</code> отличаются от <code>viewBox</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>width и height задают внешний размер SVG на странице, а viewBox — внутреннюю координатную систему. При наличии viewBox
+внешний размер можно менять через CSS, сохраняя пропорции изображения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>width</code> и <code>height</code> задают внешний размер SVG на странице, а <code>viewBox</code> — внутреннюю координатную систему. При наличии
+<code>viewBox</code> внешний размер можно менять через CSS, сохраняя пропорции изображения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-менять-цвет-svg-иконки-через-css">Как менять цвет SVG-иконки через CSS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Значение currentColor позволяет иконке наследовать CSS-свойство color родителя:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Значение <code>currentColor</code> позволяет иконке наследовать CSS-свойство <code>color</code> родителя:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"button"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">svg</span></span>
+<span class="line"><span style="color:#B392F0">    viewBox</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"0 0 24 24"</span></span>
+<span class="line"><span style="color:#B392F0">    class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"icon"</span></span>
+<span class="line"><span style="color:#B392F0">    aria-hidden</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"true"</span></span>
+<span class="line"><span style="color:#E1E4E8">  ></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">path</span></span>
+<span class="line"><span style="color:#B392F0">      fill</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"currentColor"</span></span>
+<span class="line"><span style="color:#B392F0">      d</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"M12 2L2 22h20L12 2z"</span></span>
+<span class="line"><span style="color:#E1E4E8">    /></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;/</span><span style="color:#85E89D">svg</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  Отправить</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.button</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">#4f46e5</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">.icon</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  width</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">24</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  height</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">24</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-лучше-для-иконок-inline-svg-svg-sprite-или-img">Что лучше для иконок: inline SVG, SVG sprite или <code>img</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Inline SVG удобен для управления цветом, состояниями и доступностью через CSS. SVG sprite подходит для переиспользования
+большого набора символов. проще и хорошо кешируется, но не позволяет странице напрямую менять стили внутренних элементов
+SVG.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Inline SVG удобен для управления цветом, состояниями и доступностью через CSS. SVG sprite подходит для переиспользования
+большого набора символов. <code>&#x3C;img src="icon.svg"></code> проще и хорошо кешируется, но не позволяет странице напрямую менять
+стили внутренних элементов SVG.</p>
+<p>Команда должна заранее договориться, где живут иконки, кто отвечает за оптимизацию, как задаются имена и как
+обрабатываются декоративные и смысловые icons. SVG обычно предпочтительнее icon font, потому что лучше контролирует
+accessibility, цвет, размер и не зависит от font loading.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-проблемы-появляются-при-локализации-frontend-приложения">Какие проблемы появляются при локализации frontend-приложения?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Локализация влияет не только на перевод строк. Нужно учитывать длину текста, pluralization, даты, числа, валюты,
+сортировку, переносы, шрифты, SEO, accessibility и направление LTR/RTL. Если компоненты не проверять на разных locale,
+интерфейс может сломаться из-за длинных labels или другого порядка слов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Локализация влияет не только на перевод строк. Нужно учитывать длину текста, pluralization, даты, числа, валюты,
+сортировку, переносы, шрифты, SEO, accessibility и направление LTR/RTL. Если компоненты не проверять на разных locale,
+интерфейс может сломаться из-за длинных labels или другого порядка слов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сделать-svg-иконку-доступной">Как сделать SVG-иконку доступной?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Декоративную иконку нужно скрыть от accessibility tree:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Декоративную иконку нужно скрыть от accessibility tree:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">svg</span></span>
+<span class="line"><span style="color:#B392F0">  aria-hidden</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"true"</span></span>
+<span class="line"><span style="color:#B392F0">  focusable</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"false"</span></span>
+<span class="line"><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">svg</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>Если иконка передает смысл, ей нужен доступный текст, например видимая подпись рядом или имя изображения:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">svg</span></span>
+<span class="line"><span style="color:#B392F0">  role</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"img"</span></span>
+<span class="line"><span style="color:#B392F0">  aria-label</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"Поиск"</span></span>
+<span class="line"><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">svg</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>Для кнопки только с иконкой доступное имя обычно задают самой кнопке.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-ошибки-часто-делают-при-работе-с-svg-иконками">Какие ошибки часто делают при работе с SVG-иконками?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Забывают viewBox. - Жестко задают размеры и затрудняют масштабирование. - Не используют currentColor, когда цвет должен
+наследоваться. - Подключают тяжелые SVG без оптимизации. - Не учитывают accessibility. - Оставляют лишние metadata из
+Figma и других редакторов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Забывают <code>viewBox</code>.</li>
+<li>Жестко задают размеры и затрудняют масштабирование.</li>
+<li>Не используют <code>currentColor</code>, когда цвет должен наследоваться.</li>
+<li>Подключают тяжелые SVG без оптимизации.</li>
+<li>Не учитывают accessibility.</li>
+<li>Оставляют лишние metadata из Figma и других редакторов.</li>
+</ul>
+</div></div>
+</details>
+<h3 id="accessibility-и-seo">Accessibility и SEO</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-рассчитывается-accessible-name">Как рассчитывается accessible name?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Accessible name - имя элемента в accessibility tree. Его могут задавать видимый текст, aria-labelledby, aria-label, alt,
+label элемента формы и другие источники по алгоритму браузера.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Accessible name - имя элемента в accessibility tree. Его могут задавать видимый текст, <code>aria-labelledby</code>, <code>aria-label</code>,
+<code>alt</code>, label элемента формы и другие источники по алгоритму браузера.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> aria-label</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"Закрыть"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">svg</span><span style="color:#B392F0"> aria-hidden</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"true"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">svg</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>Лучше предпочитать видимый текст или <code>aria-labelledby</code>, потому что они синхронизированы с интерфейсом. <code>aria-label</code>
+полезен для icon-only controls, но его легко забыть обновить при переводе.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-использовать-aria-live">Когда использовать <code>aria-live</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>aria-live сообщает screen reader об изменениях, которые происходят без перемещения focus: ошибка сохранения, результат
+поиска, завершение загрузки. Для обычного контента, который появляется после действия и получает focus, live region
+часто не нужна.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>aria-live</code> сообщает screen reader об изменениях, которые происходят без перемещения focus: ошибка сохранения, результат
+поиска, завершение загрузки. Для обычного контента, который появляется после действия и получает focus, live region
+часто не нужна.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">p</span></span>
+<span class="line"><span style="color:#B392F0">  role</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"status"</span></span>
+<span class="line"><span style="color:#B392F0">  aria-live</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"polite"</span></span>
+<span class="line"><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  Данные сохранены</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p><code>polite</code> не перебивает текущую речь, <code>assertive</code> используют редко и только для срочных сообщений. Частая ошибка -
+объявлять слишком много изменений и создавать шум.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-structured-data-и-зачем-нужен-json-ld">Что такое structured data и зачем нужен JSON-LD?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Structured data описывает смысл страницы машинно-читаемым способом: article, product, breadcrumbs, FAQ, organization.
+JSON-LD удобно добавлять отдельным script block, не смешивая schema-разметку с HTML-структурой.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Structured data описывает смысл страницы машинно-читаемым способом: article, product, breadcrumbs, FAQ, organization.
+JSON-LD удобно добавлять отдельным script block, не смешивая schema-разметку с HTML-структурой.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"application/ld+json"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#E1E4E8">    "@context": "https://schema.org",</span></span>
+<span class="line"><span style="color:#E1E4E8">    "@type": "Article",</span></span>
+<span class="line"><span style="color:#E1E4E8">    "headline": "Frontend interview questions"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>JSON-LD не гарантирует rich results. Данные должны соответствовать видимому контенту страницы, иначе поисковая система
+может их игнорировать.</p>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

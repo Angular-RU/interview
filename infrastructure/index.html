@@ -1,0 +1,543 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="CI/CD, deployment, feature toggles и delivery frontend-приложений"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="DevOps"><meta property="og:description" content="CI/CD, deployment, feature toggles и delivery frontend-приложений"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/infrastructure/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/infrastructure/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/infrastructure"><title>DevOps</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.BrYpE28v.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/infrastructure" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: DevOps"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="cicd-overview"></span><span class="sidebar-navigation__marker" data-heading-marker="cicd-для-frontend-delivery"></span><span class="sidebar-navigation__marker" data-heading-marker="frontend-deployment"></span><span class="sidebar-navigation__marker" data-heading-marker="feature-toggles"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#cicd-overview" data-heading-link="cicd-overview">CI/CD overview</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#cicd-для-frontend-delivery" data-heading-link="cicd-для-frontend-delivery">CI/CD для frontend delivery</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#frontend-deployment" data-heading-link="frontend-deployment">Frontend deployment</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#feature-toggles" data-heading-link="feature-toggles">Feature toggles</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="devops">DevOps</h2>
+<h3 id="cicd-overview">CI/CD overview</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cicd">Что такое CI/CD?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>На уровне командного процесса CI/CD отвечает за правило: каждое изменение должно проходить одинаковые автоматические
+проверки, а доставка в окружения должна быть понятной и воспроизводимой.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>На уровне командного процесса CI/CD отвечает за правило: каждое изменение должно проходить одинаковые автоматические
+проверки, а доставка в окружения должна быть понятной и воспроизводимой.</p>
+<p>CI регулярно объединяет изменения и автоматически запускает проверки. CD отвечает за доставку проверенного artifact в
+окружения. Continuous delivery оставляет production release под ручным подтверждением, а continuous deployment
+автоматически публикует каждое прошедшее изменение.</p>
+<p>Deployment, artifacts, CDN cache и rollback описаны ниже в разделе <a href="#frontend-deployment">Frontend deployment</a>.</p>
+</div></div>
+</details>
+<h3 id="cicd-для-frontend-delivery">CI/CD для frontend delivery</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-проверяет-frontend-ci-pipeline">Что проверяет frontend CI pipeline?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Обычно pipeline устанавливает зависимости по lock-файлу, запускает type check, lint, unit/integration tests и production
+build. Для критичных пользовательских flows добавляют E2E или component tests в браузере.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Обычно pipeline устанавливает зависимости по lock-файлу, запускает type check, lint, unit/integration tests и production
+build. Для критичных пользовательских flows добавляют E2E или component tests в браузере.</p>
+<p>Важно сохранять artifacts диагностики: test reports, coverage, traces, screenshots и build logs.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делает-cd-pipeline-для-frontend">Что делает CD pipeline для frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CD берет уже проверенный build artifact и доставляет его в окружение: preview, staging или production. Хороший pipeline
+не пересобирает произвольный другой код на этапе выкладки, а продвигает понятный artifact между окружениями.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CD берет уже проверенный build artifact и доставляет его в окружение: preview, staging или production. Хороший pipeline
+не пересобирает произвольный другой код на этапе выкладки, а продвигает понятный artifact между окружениями.</p>
+<p>Для static frontend важно настроить cache headers: hashed chunks можно кешировать долго, а <code>index.html</code> и runtime config
+обычно обновляют осторожнее. Rollback должен возвращать совместимую версию <code>index.html</code>, assets и config.</p>
+</div></div>
+</details>
+<h3 id="frontend-deployment">Frontend deployment</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-значит-интегрировать-frontend-code-в-production-environment">Что значит интегрировать frontend code в production environment?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это значит не только собрать bundle, но и доставить его в окружение, где работают routing, API, CDN, cache, runtime
+config, security headers, monitoring и rollback. Для SPA важно настроить fallback на index.html, версионирование assets
+и стратегию cache invalidation, чтобы пользователь не получил несовместимые версии файлов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это значит не только собрать bundle, но и доставить его в окружение, где работают routing, API, CDN, cache, runtime
+config, security headers, monitoring и rollback. Для SPA важно настроить fallback на <code>index.html</code>, версионирование
+assets и стратегию cache invalidation, чтобы пользователь не получил несовместимые версии файлов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-вопросы-нужно-задать-перед-production-deployment-frontend-приложения">Какие вопросы нужно задать перед production deployment frontend-приложения?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно понять, где собирается приложение, где хранятся artifacts, как задаются environment variables, кто отвечает за
+release, как работает rollback, какие checks обязательны и как мониторятся ошибки. Без этих ответов deployment остается
+ручной и рискованной процедурой.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно понять, где собирается приложение, где хранятся artifacts, как задаются environment variables, кто отвечает за
+release, как работает rollback, какие checks обязательны и как мониторятся ошибки. Без этих ответов deployment остается
+ручной и рискованной процедурой.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-является-артефактом-frontend-build">Что является артефактом frontend build?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Обычно это index.html, hashed JavaScript/CSS chunks, images, fonts и manifests. SSR дополнительно создает server bundle.
+Artifact должен быть immutable и одинаково проходить stage и production.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Обычно это <code>index.html</code>, hashed JavaScript/CSS chunks, images, fonts и manifests. SSR дополнительно создает server
+bundle. Artifact должен быть immutable и одинаково проходить stage и production.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-dev-server-отличается-от-production-hosting">Чем dev server отличается от production hosting?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Dev server дает watch, source maps и HMR, но не рассчитан на security, compression, caching и нагрузку. Production
+hosting раздает готовые artifacts через web server/CDN. Проверка только через dev server недостаточна.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Dev server дает watch, source maps и HMR, но не рассчитан на security, compression, caching и нагрузку. Production
+hosting раздает готовые artifacts через web server/CDN. Проверка только через dev server недостаточна.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-где-обычно-хранят-production-frontend-assets">Где обычно хранят production frontend assets?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В object storage, CDN origin, web server image или managed hosting. Static assets удобно хранить отдельно от backend.
+Доступ должен поддерживать HTTPS, correct MIME types и cache headers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В object storage, CDN origin, web server image или managed hosting. Static assets удобно хранить отдельно от backend.
+Доступ должен поддерживать HTTPS, correct MIME types и cache headers.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cdn">Что такое CDN?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CDN кеширует и отдает content с edge servers ближе к пользователю. Он снижает latency и нагрузку на origin. Нужно
+управлять cache keys, invalidation, compression и security headers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CDN кеширует и отдает content с edge servers ближе к пользователю. Он снижает latency и нагрузку на origin. Нужно
+управлять cache keys, invalidation, compression и security headers.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-cdn-меняет-путь-от-браузера-до-сервера">Как CDN меняет путь от браузера до сервера?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Браузер обычно идет не напрямую на origin server, а на ближайший edge node CDN. Edge может отдать cached response,
+сделать TLS termination, применить redirects/security headers/compression или проксировать request дальше на origin.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Браузер обычно идет не напрямую на origin server, а на ближайший edge node CDN. Edge может отдать cached response,
+сделать TLS termination, применить redirects/security headers/compression или проксировать request дальше на origin.</p>
+<p>Для frontend это меняет диагностику: низкий TTFB может означать cache hit на edge, высокий TTFB — cache miss, долгий
+origin fetch или проблему географии. Важно смотреть response headers вроде <code>Cache-Control</code>, <code>Age</code>, <code>Via</code>, <code>X-Cache</code> и
+trace id.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-load-balancing">Что такое load balancing?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Load balancing распределяет запросы между несколькими instance приложения или сервиса. Он повышает доступность,
+позволяет переживать рост нагрузки и выводить instance из rotation при проблемах.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Load balancing распределяет запросы между несколькими instance приложения или сервиса. Он повышает доступность,
+позволяет переживать рост нагрузки и выводить instance из rotation при проблемах.</p>
+<p>Frontend-разработчику важно понимать последствия: запросы могут попадать на разные backend instance, поэтому нельзя
+полагаться на локальную память одного сервера. Для UI это влияет на sticky sessions, WebSocket-подключения, retry и
+диагностику ошибок по trace id.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-load-balancer-влияет-на-frontend">Как load balancer влияет на frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Load balancer может отправлять соседние API-запросы на разные backend instances. Поэтому frontend не должен полагаться
+на состояние в памяти одного сервера, а backend должен хранить session/data в общем хранилище или использовать
+осознанные sticky sessions.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Load balancer может отправлять соседние API-запросы на разные backend instances. Поэтому frontend не должен полагаться
+на состояние в памяти одного сервера, а backend должен хранить session/data в общем хранилище или использовать
+осознанные sticky sessions.</p>
+<p>Практические эффекты: WebSocket может требовать sticky routing, retries могут попасть на другой instance, часть ошибок
+видна только на одном pod/server. Для расследования нужны request id, release version, region и понятные error headers.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cache-invalidation">Что такое cache invalidation?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Cache invalidation — правила, по которым кеш перестает считать данные актуальными. Это может быть TTL, revalidation
+через ETag, purge в CDN, versioned URL или явное обновление application cache после mutation.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Cache invalidation — правила, по которым кеш перестает считать данные актуальными. Это может быть TTL, revalidation
+через <code>ETag</code>, purge в CDN, versioned URL или явное обновление application cache после mutation.</p>
+<p>Во frontend важно понимать, какой слой кеша отвечает за данные: browser HTTP cache, Service Worker, CDN, клиентский
+state manager или backend. Иначе можно исправить данные на сервере, но продолжать показывать stale UI из другого кеша.</p>
+<p>Для deployment особенно важно разделять <code>index.html</code> и hashed assets: HTML обычно кешируют осторожно, а JS, CSS и media
+с content hash можно кешировать дольше. Иначе браузер или CDN могут смешать старый HTML с новыми chunks или наоборот.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-queue-или-message-broker-на-базовом-уровне">Что такое queue или message broker на базовом уровне?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Queue хранит сообщения или задачи до обработки consumer-ом. Message broker помогает передавать события между сервисами,
+выравнивать пики нагрузки и повторять обработку при временных сбоях.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Queue хранит сообщения или задачи до обработки consumer-ом. Message broker помогает передавать события между сервисами,
+выравнивать пики нагрузки и повторять обработку при временных сбоях.</p>
+<p>Для frontend это важно в сценариях, где пользователь отправил действие, а результат появится позже: генерация отчета,
+импорт файла, отправка email, обработка платежа. UI должен показывать pending state, polling или push-обновления,
+обрабатывать retry и не обещать мгновенный результат там, где система асинхронна.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-retry-timeout-и-backoff">Что такое retry, timeout и backoff?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Timeout ограничивает время ожидания операции. Retry повторяет запрос после временной ошибки. Backoff увеличивает паузу
+между повторами, чтобы не усилить нагрузку на уже проблемный сервис.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Timeout ограничивает время ожидания операции. Retry повторяет запрос после временной ошибки. Backoff увеличивает паузу
+между повторами, чтобы не усилить нагрузку на уже проблемный сервис.</p>
+<p>Во frontend retry уместен для безопасных idempotent operations, например чтения данных. Для mutation-запросов нужно быть
+осторожнее: повторная отправка формы может создать дубль, если backend не поддерживает idempotency key.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> idempotencyKey</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> crypto.</span><span style="color:#B392F0">randomUUID</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/api/orders'</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#E1E4E8">  method: </span><span style="color:#9ECBFF">'POST'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  headers: {</span><span style="color:#9ECBFF">'Idempotency-Key'</span><span style="color:#E1E4E8">: idempotencyKey},</span></span>
+<span class="line"><span style="color:#E1E4E8">  body: </span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">(orderDraft),</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-idempotency-и-почему-это-важно-для-frontend-forms">Что такое idempotency и почему это важно для frontend forms?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Idempotency означает, что повтор той же операции не меняет результат сверх первого успешного выполнения. Для форм это
+критично при double click, retry после timeout, восстановлении сети и повторной отправке вкладкой.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Idempotency означает, что повтор той же операции не меняет результат сверх первого успешного выполнения. Для форм это
+критично при double click, retry после timeout, восстановлении сети и повторной отправке вкладкой.</p>
+<p>UI помогает блокировкой submit, loading state и защитой от повторного клика, но настоящую гарантию должен давать backend
+через idempotency key или уникальные constraints. Frontend не может надежно отличить “запрос не дошел” от “запрос дошел,
+но ответ потерялся”.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cap-theorem-на-базовом-уровне">Что такое CAP theorem на базовом уровне?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CAP theorem говорит, что при network partition распределенная система выбирает компромисс между consistency и
+availability. Это не значит, что всегда выбирают только две буквы из трех; важно понимать поведение системы во время
+сбоев сети.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CAP theorem говорит, что при network partition распределенная система выбирает компромисс между consistency и
+availability. Это не значит, что всегда выбирают только две буквы из трех; важно понимать поведение системы во время
+сбоев сети.</p>
+<p>Frontend-разработчику это полезно для UX: данные могут быть временно stale, операция может быть принята асинхронно, а
+разные пользователи могут некоторое время видеть разные состояния. UI должен явно показывать pending, conflict, refresh
+и eventual update, а не притворяться, что распределенность не существует.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-sharding">Что такое sharding?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Sharding делит данные на части по ключу, например по tenant, user id или региону. Это помогает масштабировать хранение и
+нагрузку, но усложняет запросы, миграции, балансировку и операции между shard-ами.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Sharding делит данные на части по ключу, например по tenant, user id или региону. Это помогает масштабировать хранение и
+нагрузку, но усложняет запросы, миграции, балансировку и операции между shard-ами.</p>
+<p>Для frontend sharding обычно невидим, но его последствия проявляются в API constraints: нельзя быстро получить
+глобальную сортировку по всем данным, некоторые отчеты становятся асинхронными, а cross-tenant операции требуют особой
+архитектуры.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-eventual-consistency">Что такое eventual consistency?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Eventual consistency означает, что система не обещает мгновенно одинаковое состояние во всех местах, но при отсутствии
+новых изменений со временем сходится к согласованному результату.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Eventual consistency означает, что система не обещает мгновенно одинаковое состояние во всех местах, но при отсутствии
+новых изменений со временем сходится к согласованному результату.</p>
+<p>Во frontend это влияет на optimistic updates, кеши, списки уведомлений, статусы заказов и read-after-write. Хороший UI
+показывает “сохраняем”, “обновляем”, “данные появятся позже”, умеет откатить optimistic update и не делает жестких
+предположений о мгновенной синхронности.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-indexhtml-и-hashed-assets-кешируют-по-разному">Почему <code>index.html</code> и hashed assets кешируют по-разному?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Content-hashed assets не меняются под тем же URL, поэтому их безопасно кешировать долго: Cache-Control: public,
+max-age=31536000, immutable. Новый release создает новые filenames, а старые assets можно держать до окончания активных
+сессий.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Content-hashed assets не меняются под тем же URL, поэтому их безопасно кешировать долго:
+<code>Cache-Control: public, max-age=31536000, immutable</code>. Новый release создает новые filenames, а старые assets можно
+держать до окончания активных сессий.</p>
+<p><code>index.html</code> содержит ссылки на chunks текущего release и должен быстро переключаться на новую версию. Его обычно
+кешируют с коротким TTL или revalidation (<code>no-cache</code>), иначе пользователь может получить старый HTML со ссылками на уже
+удаленные assets.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cache-busting">Что такое cache busting?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это изменение URL ресурса при изменении content, чтобы кеш не вернул старую версию. Наиболее надежный способ — content
+hash в filename. Query string поддерживается не всеми cache policies одинаково.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это изменение URL ресурса при изменении content, чтобы кеш не вернул старую версию. Наиболее надежный способ — content
+hash в filename. Query string поддерживается не всеми cache policies одинаково.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-hash-в-имени-файла-помогает-кешированию">Как hash в имени файла помогает кешированию?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Одинаковый content получает стабильный URL, измененный — новый URL. Старый и новый releases могут временно существовать
+вместе. Это позволяет долго кешировать chunks без ручной invalidation.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Одинаковый content получает стабильный URL, измененный — новый URL. Старый и новый releases могут временно существовать
+вместе. Это позволяет долго кешировать chunks без ручной invalidation.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-environment-variables-попадают-во-frontend">Как environment variables попадают во frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>При build-time configuration bundler заменяет значения и они становятся частью публичного JavaScript. Static app не
+читает environment server после загрузки. Секреты во frontend передавать нельзя.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>При build-time configuration bundler заменяет значения и они становятся частью публичного JavaScript. Static app не
+читает environment server после загрузки. Секреты во frontend передавать нельзя.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-runtime-config-иногда-лучше-build-time-config">Почему runtime config иногда лучше build-time config?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Один artifact можно продвигать между окружениями, меняя небольшой config JSON при старте или запросе. Это упрощает
+rollback и снижает число сборок. Нужно обработать загрузку, schema validation и cache config.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Один artifact можно продвигать между окружениями, меняя небольшой config JSON при старте или запросе. Это упрощает
+rollback и снижает число сборок. Нужно обработать загрузку, schema validation и cache config.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-откатить-frontend-релиз">Как откатить frontend-релиз?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Вернуть предыдущий immutable artifact или переключить pointer/route на него. Старые hashed assets сохраняют до истечения
+активных сессий и cache TTL. Rollback проверяют как часть release process.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Вернуть предыдущий immutable artifact или переключить pointer/route на него. Старые hashed assets сохраняют до истечения
+активных сессий и cache TTL. Rollback проверяют как часть release process.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-метрики-важно-смотреть-после-деплоя-frontend">Какие метрики важно смотреть после деплоя frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>JavaScript errors, failed asset/API requests, Core Web Vitals, conversion и ключевые user flows. Метрики сравнивают по
+release version и сегментам. Нужны alerts и быстрый способ отключить проблемную функцию.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>JavaScript errors, failed asset/API requests, Core Web Vitals, conversion и ключевые user flows. Метрики сравнивают по
+release version и сегментам. Нужны alerts и быстрый способ отключить проблемную функцию.</p>
+</div></div>
+</details>
+<h3 id="feature-toggles">Feature toggles</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-feature-toggle">Что такое feature toggle?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Feature toggle, или feature flag, — механизм включения и выключения функциональности без нового деплоя. Код уже может
+находиться в production, но пользователи увидят фичу только после включения флага.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Feature toggle, или feature flag, — механизм включения и выключения функциональности без нового деплоя. Код уже может
+находиться в production, но пользователи увидят фичу только после включения флага.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-kill-switch">Что такое kill switch?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Kill switch — ops flag для быстрого отключения проблемной функциональности в production без нового деплоя. Например, им
+можно вернуть старый checkout при росте ошибок оплаты. Переключение и fallback следует проверить заранее.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Kill switch — ops flag для быстрого отключения проблемной функциональности в production без нового деплоя. Например, им
+можно вернуть старый checkout при росте ошибок оплаты. Переключение и fallback следует проверить заранее.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-deploy-отличается-от-release">Чем deploy отличается от release?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Deploy — доставка кода в окружение, release — предоставление функциональности пользователям. Feature toggles разделяют
+эти этапы: код можно задеплоить заранее, проверить и включить позднее.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Deploy — доставка кода в окружение, release — предоставление функциональности пользователям. Feature toggles разделяют
+эти этапы: код можно задеплоить заранее, проверить и включить позднее.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-нужны-feature-toggles-во-frontend">Зачем нужны feature toggles во frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Они позволяют постепенно выкатывать изменения, проводить A/B-тесты, давать доступ отдельным группам и быстро отключать
+проблемный UI. Это уменьшает риск релиза, но требует контроля жизненного цикла флагов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Они позволяют постепенно выкатывать изменения, проводить A/B-тесты, давать доступ отдельным группам и быстро отключать
+проблемный UI. Это уменьшает риск релиза, но требует контроля жизненного цикла флагов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-бывают-типы-feature-toggles">Какие бывают типы feature toggles?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>У типов разные владельцы и срок жизни: например, release flag обычно удаляют, а permission rule может быть постоянной.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Release toggles временно скрывают незавершенную или постепенно выкатываемую фичу.</li>
+<li>Experiment toggles распределяют варианты A/B-теста.</li>
+<li>Ops toggles позволяют оперативно отключить функциональность.</li>
+<li>Permission toggles отражают доступ по роли, правам или тарифу.</li>
+<li>Environment toggles задают различия между dev, stage и production.</li>
+</ul>
+<p>У типов разные владельцы и срок жизни: например, release flag обычно удаляют, а permission rule может быть постоянной.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-feature-toggle-отличается-от-permission-check">Чем feature toggle отличается от permission check?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Feature toggle управляет выпуском или экспериментом, а permission check — правами конкретного пользователя. Условия
+могут выглядеть похоже, но имеют разные причины изменения, владельцев и требования к безопасности.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Feature toggle управляет выпуском или экспериментом, а permission check — правами конкретного пользователя. Условия
+могут выглядеть похоже, но имеют разные причины изменения, владельцев и требования к безопасности.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-feature-toggle-отличается-от-environment-config">Чем feature toggle отличается от environment config?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Environment config обычно фиксирован для dev, stage или production. Feature toggle может меняться во время работы и
+зависеть от пользователя, роли, процента аудитории или варианта эксперимента.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Environment config обычно фиксирован для dev, stage или production. Feature toggle может меняться во время работы и
+зависеть от пользователя, роли, процента аудитории или варианта эксперимента.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-лучше-build-time-flag-или-runtime-flag">Что лучше: build-time flag или runtime flag?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Build-time flag встраивается в bundle и требует новой сборки и деплоя для изменения. Runtime flag загружается при
+запуске или обновляется во время работы. Для оперативного production rollout обычно нужен runtime flag, а build-time
+подходит для постоянных различий сборок и dead-code elimination.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Build-time flag встраивается в bundle и требует новой сборки и деплоя для изменения. Runtime flag загружается при
+запуске или обновляется во время работы. Для оперативного production rollout обычно нужен runtime flag, а build-time
+подходит для постоянных различий сборок и dead-code elimination.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-где-хранить-feature-flags-config">Где хранить feature flags config?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Флаги можно хранить в backend/config service, remote config, CMS, admin panel или feature-management service. Для
+production предпочтителен централизованный источник с audit log, валидацией, контролем доступа и возможностью изменить
+runtime-конфигурацию без нового frontend build.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Флаги можно хранить в backend/config service, remote config, CMS, admin panel или feature-management service. Для
+production предпочтителен централизованный источник с audit log, валидацией, контролем доступа и возможностью изменить
+runtime-конфигурацию без нового frontend build.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-риски-есть-у-feature-toggles">Какие риски есть у feature toggles?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужны владелец, срок удаления, audit log, безопасное значение по умолчанию и наблюдаемость по варианту флага.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Старые флаги забывают удалить.</li>
+<li>Условия усложняют код и увеличивают число сценариев.</li>
+<li>Разные пользователи видят разное поведение, что затрудняет диагностику.</li>
+<li>Сырую фичу можно включить ошибочно.</li>
+<li>Frontend flag ошибочно принимают за security boundary.</li>
+</ul>
+<p>Нужны владелец, срок удаления, audit log, безопасное значение по умолчанию и наблюдаемость по варианту флага.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-frontend-feature-toggle-не-заменяет-backend-authorization">Почему frontend feature toggle не заменяет backend authorization?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Frontend-код и сетевые запросы можно изучить и изменить. Флаг может скрыть UI, но backend обязан независимо проверять
+права на данные и операции. Иначе пользователь сможет обойти ограничение прямым API-запросом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Frontend-код и сетевые запросы можно изучить и изменить. Флаг может скрыть UI, но backend обязан независимо проверять
+права на данные и операции. Иначе пользователь сможет обойти ограничение прямым API-запросом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-тестировать-feature-toggles">Как тестировать feature toggles?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Минимально тестируют включенный и выключенный флаг. Для критичной фичи также проверяют безопасный default, ошибку и
+задержку загрузки config, права доступа, постепенный rollout и rollback. Тесты должны явно задавать набор флагов, чтобы
+не зависеть от внешнего сервиса.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Минимально тестируют включенный и выключенный флаг. Для критичной фичи также проверяют безопасный default, ошибку и
+задержку загрузки config, права доступа, постепенный rollout и rollback. Тесты должны явно задавать набор флагов, чтобы
+не зависеть от внешнего сервиса.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-feature-toggle-нужно-удалить">Когда feature toggle нужно удалить?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Release toggle удаляют после стабильного выката на всю аудиторию вместе с устаревшей веткой кода и тестами для нее.
+Полезно заранее назначить владельца и дату удаления, иначе флаги превращаются в постоянный технический долг.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Release toggle удаляют после стабильного выката на всю аудиторию вместе с устаревшей веткой кода и тестами для нее.
+Полезно заранее назначить владельца и дату удаления, иначе флаги превращаются в постоянный технический долг.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-feature-toggles-помогают-с-микрофронтендами">Как feature toggles помогают с микрофронтендами?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Host может скрыть вход в фичу, не загружать сломанный remote и показать fallback UI. Runtime flag позволяет сделать это
+без срочного деплоя host-приложения, если решение о загрузке принимается до импорта remote.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Host может скрыть вход в фичу, не загружать сломанный remote и показать fallback UI. Runtime flag позволяет сделать это
+без срочного деплоя host-приложения, если решение о загрузке принимается до импорта remote.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-может-пойти-не-так-при-загрузке-feature-flags">Что может пойти не так при загрузке feature flags?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Config service может быть недоступен или ответить поздно; разные части приложения могут получить разные версии; UI может
+сначала показать одну ветку, а затем другую. Нужны timeout, кеширование, согласованный snapshot конфигурации, schema
+validation и явные fallback-значения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Config service может быть недоступен или ответить поздно; разные части приложения могут получить разные версии; UI может
+сначала показать одну ветку, а затем другую. Нужны timeout, кеширование, согласованный snapshot конфигурации, schema
+validation и явные fallback-значения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-показывать-пока-feature-flags-загружаются-или-если-config-недоступен">Что показывать, пока feature flags загружаются или если config недоступен?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Выбор зависит от риска. Для некритичной UI-фичи подойдет безопасное default value. Для оплаты, прав доступа и других
+критичных сценариев используют loading state или conservative fallback: новая функциональность остается выключенной,
+пока конфигурация не подтверждена.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Выбор зависит от риска. Для некритичной UI-фичи подойдет безопасное default value. Для оплаты, прав доступа и других
+критичных сценариев используют loading state или conservative fallback: новая функциональность остается выключенной,
+пока конфигурация не подтверждена.</p>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

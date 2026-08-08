@@ -1,0 +1,653 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Операционные системы, процессы, потоки, память, файловая система, сеть и терминал"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Операционные системы"><meta property="og:description" content="Операционные системы, процессы, потоки, память, файловая система, сеть и терминал"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/operating-systems/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/operating-systems/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/operating-systems"><title>Операционные системы</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.BrYpE28v.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/operating-systems" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Операционные системы"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="операционные-системы">Операционные системы</h2>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-программа">Что такое программа?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Программа - это набор инструкций и данных, описывающих, что должен сделать компьютер. В исходном коде программа понятна
+разработчику, а для выполнения она должна быть интерпретирована, скомпилирована или запущена внутри runtime.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Программа - это <strong>пассивное описание вычисления</strong>: исходный код, байткод, исполняемый файл, конфигурация и связанные
+ресурсы. Пока программа не запущена, операционная система не выделяет ей отдельное время CPU и рабочую память процесса.</p>
+<p>Способ выполнения зависит от технологии:</p>
+<ul>
+<li>нативный бинарный файл содержит машинный код для конкретной архитектуры;</li>
+<li>JavaScript загружается и выполняется движком, который может интерпретировать и JIT-компилировать код;</li>
+<li>Java или .NET обычно используют байткод и runtime;</li>
+<li>TypeScript сначала преобразуется в JavaScript, который затем выполняет JS-движок.</li>
+</ul>
+<p>Например, <code>main.ts</code> сам по себе является исходным текстом. После сборки появляется JavaScript bundle, но работающим
+приложением он становится только после загрузки браузером или запуска Node.js.</p>
+<p>Важно различать программу и ее выполнение: один и тот же Chrome, Node.js script или CLI можно запустить несколько раз.
+Каждый запуск создаст отдельный процесс или набор процессов со своим состоянием.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-программа-отличается-от-процесса">Чем программа отличается от процесса?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Программа - это пассивное описание: файлы на диске, исходный код или исполняемый файл. Процесс - это уже запущенный
+экземпляр программы в операционной системе.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Программа описывает, <strong>какой код можно выполнить</strong>, а процесс представляет <strong>конкретное выполнение этого кода сейчас</strong>.
+Один файл программы может породить несколько независимых процессов.</p>
+<p>У процесса обычно есть:</p>
+<ul>
+<li>PID;</li>
+<li>виртуальное адресное пространство;</li>
+<li>код, heap и stacks потоков;</li>
+<li>открытые файлы и sockets;</li>
+<li>переменные окружения и аргументы запуска;</li>
+<li>текущая директория;</li>
+<li>пользователь, права и ограничения ресурсов;</li>
+<li>состояние выполнения, которое отслеживает scheduler.</li>
+</ul>
+<p>Например, если открыть два независимых процесса браузера или дважды запустить <code>node server.js</code>, код программы может быть
+одинаковым, но память, открытые соединения и текущие запросы будут разными.</p>
+<p>Изоляция процессов повышает устойчивость: ошибка одного процесса обычно не дает ему напрямую изменить память другого.
+Обратная сторона - обмен между процессами требует IPC: pipes, sockets, shared memory или других механизмов ОС.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-происходит-когда-пользователь-запускает-программу">Что происходит, когда пользователь запускает программу?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Операционная система находит исполняемый файл или runtime, создает процесс, выделяет ему память, передает аргументы и
+переменные окружения, подключает стандартные потоки ввода/вывода и передает управление начальной точке программы.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Точная последовательность зависит от ОС и формата программы, но упрощенно запуск выглядит так:</p>
+<ol>
+<li>Shell, файловый менеджер или другая программа просит ОС запустить файл.</li>
+<li>ОС проверяет путь, формат файла и права доступа.</li>
+<li>Создается процесс с PID и виртуальным адресным пространством.</li>
+<li>Loader отображает в память код, данные и необходимые shared libraries.</li>
+<li>Процесс получает аргументы, environment variables, working directory и стандартные потоки.</li>
+<li>Создается основной поток, его registers и stack.</li>
+<li>Scheduler допускает поток к CPU, и выполнение начинается с entry point.</li>
+</ol>
+<p>В Unix-подобных системах shell часто создает дочерний процесс и вызывает семейство <code>exec</code>, а Windows предоставляет
+<code>CreateProcess</code>. Детали разные, но смысл одинаков: ОС превращает пассивный файл в управляемое выполнение с ресурсами.</p>
+<p>После старта программа обращается к файлам, сети, таймерам и устройствам через runtime и системные вызовы. Даже простой
+<code>console.log()</code> в итоге приводит к записи в стандартный output, которой управляет ОС.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-операционная-система">Что такое операционная система?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Операционная система - это слой между программами и аппаратным обеспечением. Она управляет процессами, памятью, файлами,
+устройствами ввода/вывода, сетью, пользователями и правами доступа.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Операционная система одновременно является <strong>менеджером ресурсов</strong> и <strong>набором абстракций</strong> над аппаратным обеспечением.</p>
+<p>Как менеджер ресурсов она решает:</p>
+<ul>
+<li>какой поток и когда получит CPU;</li>
+<li>какие страницы памяти принадлежат процессу;</li>
+<li>кто может открыть файл или порт;</li>
+<li>как разделить устройства между программами;</li>
+<li>как изолировать пользователей и процессы.</li>
+</ul>
+<p>Как слой абстракций ОС дает программам более удобные сущности:</p>
+<ul>
+<li>процесс вместо ручного управления CPU;</li>
+<li>файл вместо работы с блоками накопителя;</li>
+<li>socket вместо прямого формирования сетевых сигналов;</li>
+<li>virtual memory вместо физических адресов RAM;</li>
+<li>window, input events и device APIs поверх конкретного железа.</li>
+</ul>
+<p>ОС включает не только kernel. В систему также входят drivers, системные службы, библиотеки, shell и пользовательские
+утилиты. Например, Linux технически является ядром, а привычная Linux-система дополнена user-space инструментами и
+дистрибутивом.</p>
+<p>Для frontend-разработчика ОС проявляется через файловые watchers, лимиты открытых файлов, процессы dev server,
+переменные окружения, сертификаты, DNS, sockets и поведение браузера.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-ядро-операционной-системы">Что такое ядро операционной системы?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Ядро - центральная часть операционной системы, которая управляет самыми низкоуровневыми ресурсами: CPU, памятью,
+процессами, драйверами, файловой системой и сетевым вводом/выводом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Kernel работает с повышенными привилегиями и контролирует ресурсы, которым нельзя безопасно доверить обычным
+приложениям.</p>
+<p>К основным задачам ядра относятся:</p>
+<ul>
+<li>планирование потоков на CPU;</li>
+<li>создание и завершение процессов;</li>
+<li>virtual memory и защита адресных пространств;</li>
+<li>обработка interrupts;</li>
+<li>работа с device drivers;</li>
+<li>файловые системы;</li>
+<li>network stack;</li>
+<li>проверка прав доступа и системных ограничений.</li>
+</ul>
+<p>Пользовательская программа не читает диск и не управляет сетевой картой напрямую. Она вызывает API runtime или системной
+библиотеки, а те переходят к system call, например <code>open</code>, <code>read</code>, <code>write</code>, <code>mmap</code> или <code>socket</code>. Kernel проверяет
+запрос, выполняет привилегированную операцию и возвращает результат.</p>
+<p>Ошибка в kernel или driver опаснее ошибки обычного приложения, потому что kernel имеет доступ ко всей системе. Поэтому
+минимизация кода с высокими привилегиями и четкая граница user/kernel space важны для безопасности и устойчивости.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-kernel-space-отличается-от-user-space">Чем kernel space отличается от user space?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Kernel space - область, где работает ядро ОС и код с максимальными правами. User space - область, где работают обычные
+пользовательские программы.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Kernel space и user space разделены уровнями привилегий CPU и механизмами virtual memory.</p>
+<p>Код в <strong>kernel space</strong> может управлять page tables, drivers, interrupts и памятью разных процессов. Код в <strong>user space</strong>
+обычно видит только собственное виртуальное адресное пространство и не может выполнить привилегированную инструкцию
+напрямую.</p>
+<p>Когда приложению нужен защищенный ресурс, оно делает system call:</p>
+<ol>
+<li>CPU переключается в привилегированный режим.</li>
+<li>Kernel проверяет параметры и права.</li>
+<li>Операция выполняется или отклоняется.</li>
+<li>Управление возвращается в user space.</li>
+</ol>
+<p>Это разделение ограничивает последствия ошибок. Если вкладка браузера падает, обычно завершается ее процесс, а не вся
+ОС. Если же критическая ошибка происходит в kernel driver, возможен crash всей системы.</p>
+<p>Переход между режимами не бесплатен, но обычно проблема производительности не в одном system call, а в огромном числе
+мелких операций. Поэтому I/O часто буферизуют и объединяют в batches.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-поток-выполнения">Что такое поток выполнения?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Поток выполнения - это последовательность инструкций внутри процесса, которую планировщик ОС может выполнять на CPU.
+Процесс может иметь один или несколько потоков.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Thread - минимальная единица выполнения, которую обычно планирует ОС. Каждый поток имеет собственные:</p>
+<ul>
+<li>instruction pointer;</li>
+<li>registers;</li>
+<li>stack;</li>
+<li>состояние scheduler.</li>
+</ul>
+<p>При этом потоки одного процесса обычно разделяют code, heap, открытые файлы и sockets. Благодаря общей памяти обмен
+данными дешевле, чем между процессами, но требуется синхронизация.</p>
+<p>Например, browser process может использовать отдельные потоки для UI, I/O и служебной работы, а renderer process - main
+thread и дополнительные worker threads. JavaScript-код страницы обычно выполняется на main thread, но Web Worker дает
+отдельный execution context, который может работать параллельно на другом ядре.</p>
+<p>Если два потока изменяют общие данные без координации, появляется data race. Для защиты используют mutexes, atomics,
+message passing или проектируют систему так, чтобы mutable state не разделялся.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-процесс-отличается-от-потока">Чем процесс отличается от потока?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Процесс - изолированный экземпляр программы со своей памятью и ресурсами. Поток - линия выполнения внутри процесса.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Главное различие - <strong>изоляция ресурсов</strong>.</p>
+<p>Процесс обычно имеет отдельное виртуальное адресное пространство. Чтобы два процесса обменялись данными, нужен IPC.
+Потоки одного процесса видят общий heap и многие общие ресурсы, но имеют собственные stacks и registers.</p>
+<p>Практические trade-offs:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Свойство</th><th>Процессы</th><th>Потоки</th></tr></thead><tbody><tr><td>Изоляция</td><td>Выше</td><td>Ниже</td></tr><tr><td>Обмен данными</td><td>Через IPC</td><td>Через общую память</td></tr><tr><td>Стоимость создания и переключения</td><td>Обычно выше</td><td>Обычно ниже</td></tr><tr><td>Последствие crash</td><td>Чаще локализовано</td><td>Может повредить весь процесс</td></tr><tr><td>Риск data races</td><td>Ниже между процессами</td><td>Выше при shared state</td></tr></tbody></table>
+<p>Браузеры используют multi-process архитектуру, чтобы изолировать вкладки, сайты и привилегированные компоненты. Внутри
+каждого процесса при этом могут работать несколько потоков.</p>
+<p>Выбор зависит не только от скорости. Для недоверенного кода или сильной изоляции процесс может быть правильнее, даже
+если он тяжелее. Для тесно связанной вычислительной работы могут подойти threads или workers.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-параллельность-и-конкурентность">Что такое параллельность и конкурентность?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Конкурентность означает, что несколько задач продвигаются во времени независимо: одна ждет сеть, другая обрабатывает
+ввод, третья готовится к выполнению. Параллельность означает, что несколько задач действительно выполняются одновременно
+на разных ядрах CPU.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><strong>Concurrency</strong> описывает организацию нескольких незавершенных задач. Система переключается между ними или продолжает
+одну, пока другая ждет I/O.</p>
+<p><strong>Parallelism</strong> означает физическое одновременное выполнение как минимум двух операций, например на разных CPU cores.</p>
+<p>Однопоточный JavaScript может быть конкурентным:</p>
+<ol>
+<li>код начинает <code>fetch</code>;</li>
+<li>запрос обрабатывается сетевой подсистемой;</li>
+<li>main thread продолжает другую работу;</li>
+<li>после ответа callback или Promise continuation попадает в очередь.</li>
+</ol>
+<p>Но JavaScript callbacks в одном event loop не выполняются параллельно друг другу. Для CPU-параллелизма в браузере нужны
+Web Workers, а в Node.js - worker threads или процессы.</p>
+<p>Важно не говорить, что <code>async/await</code> автоматически создает новый поток. Он упрощает управление асинхронным ожиданием, но
+CPU-bound цикл по-прежнему блокирует текущий поток.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cpu-bound-и-io-bound-задачи">Что такое CPU-bound и I/O-bound задачи?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CPU-bound задача упирается в вычисления процессора: парсинг большого объема данных, сжатие, криптография, сложная
+агрегация. I/O-bound задача больше ждет внешний ресурс: диск, сеть, базу данных или файловую систему.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>У CPU-bound и I/O-bound задач разные bottlenecks, поэтому им нужны разные оптимизации.</p>
+<p><strong>CPU-bound</strong>:</p>
+<ul>
+<li>CPU долго занят вычислением;</li>
+<li>ускоряется улучшением алгоритма, уменьшением данных, SIMD или параллелизмом;</li>
+<li>асинхронная обертка сама по себе не сокращает вычисления.</li>
+</ul>
+<p>Frontend-примеры: тяжелая сортировка, декодирование данных, image processing, сложный synchronous parser.</p>
+<p><strong>I/O-bound</strong>:</p>
+<ul>
+<li>большая часть времени уходит на ожидание сети, диска или базы данных;</li>
+<li>помогает concurrency, caching, batching, streaming и сокращение round trips;</li>
+<li>дополнительные CPU cores могут почти не изменить latency одного запроса.</li>
+</ul>
+<p>Например, десять HTTP-запросов можно выполнять конкурентно, если backend допускает это. Но запуск десяти тяжелых
+вычислений на одном main thread не сделает их параллельными и может ухудшить responsiveness.</p>
+<p>Сначала нужно измерить, где тратится время. Медленный пользовательский сценарий часто смешивает оба типа: сеть
+доставляет большой JSON, после чего main thread долго его парсит и рендерит.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-терминал">Что такое терминал?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Терминал - это интерфейс для ввода команд и просмотра текстового вывода программ. В современных системах чаще всего это
+приложение-эмулятор терминала: Terminal, iTerm, Windows Terminal или встроенный терминал IDE.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Исторически terminal был физическим устройством с клавиатурой и экраном, подключенным к вычислительной машине. Сегодня
+terminal emulator - приложение, которое воспроизводит текстовый интерфейс терминала.</p>
+<p>Он отвечает за:</p>
+<ul>
+<li>отображение символов, colors и cursor;</li>
+<li>передачу нажатий клавиш;</li>
+<li>размер текстовой области;</li>
+<li>обработку control sequences;</li>
+<li>связь с shell или другой консольной программой через pseudo-terminal.</li>
+</ul>
+<p>Сам terminal обычно не решает, что означает <code>cd</code>, <code>npm</code> или pipe. Он передает ввод запущенной программе и отображает ее
+output. Обычно этой программой является shell, но в terminal можно запустить REPL, editor или другую TUI-программу.</p>
+<p>Поэтому закрытие окна terminal может завершить связанные процессы, но это зависит от того, привязаны ли они к terminal,
+запущены ли через background manager, <code>nohup</code>, <code>tmux</code>, system service или IDE.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-terminal-отличается-от-shell">Чем terminal отличается от shell?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Terminal отвечает за окно, ввод, вывод и отображение текста. Shell - это программа, которая читает команду, разбирает
+аргументы, ищет исполняемые файлы, запускает процессы и связывает их ввод/вывод.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Terminal предоставляет <strong>канал взаимодействия</strong>, а shell предоставляет <strong>язык команд и управление процессами</strong>.</p>
+<p>Shell:</p>
+<ul>
+<li>разбирает quoting, variables и wildcard expansion;</li>
+<li>выполняет built-in команды вроде <code>cd</code>;</li>
+<li>ищет программы по <code>PATH</code>;</li>
+<li>создает pipelines;</li>
+<li>настраивает redirections;</li>
+<li>запускает foreground и background jobs;</li>
+<li>возвращает exit code.</li>
+</ul>
+<p>Например, при команде:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cat</span><span style="color:#9ECBFF"> app.log</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> ERROR</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> errors.log</span></span></code></pre></figure>
+<p>terminal передает строку shell. Shell создает процессы <code>cat</code> и <code>grep</code>, соединяет <code>stdout</code> первого со <code>stdin</code> второго и
+перенаправляет результат в файл. Terminal только отображает ввод и то, что не было перенаправлено.</p>
+<p>Примеры shell: <code>bash</code>, <code>zsh</code>, <code>fish</code>, PowerShell. Их syntax и built-ins отличаются, поэтому команда для Bash не обязана
+работать в PowerShell, даже если используется то же приложение terminal.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-stdin-stdout-и-stderr">Что такое stdin, stdout и stderr?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>stdin</code> - стандартный ввод процесса, <code>stdout</code> - обычный результат, <code>stderr</code> - ошибки и диагностика. Shell может
+соединять и перенаправлять эти потоки.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>При запуске консольный процесс обычно получает три стандартных потока:</p>
+<ul>
+<li><code>stdin</code> с file descriptor <code>0</code>;</li>
+<li><code>stdout</code> с file descriptor <code>1</code>;</li>
+<li><code>stderr</code> с file descriptor <code>2</code>.</li>
+</ul>
+<p>По умолчанию они могут быть связаны с terminal, но shell умеет заменить источник или назначение:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">node</span><span style="color:#9ECBFF"> build.mjs</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF"> input.json</span></span>
+<span class="line"><span style="color:#B392F0">node</span><span style="color:#9ECBFF"> build.mjs</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> result.txt</span></span>
+<span class="line"><span style="color:#B392F0">node</span><span style="color:#9ECBFF"> build.mjs</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF"> errors.txt</span></span>
+<span class="line"><span style="color:#B392F0">node</span><span style="color:#9ECBFF"> build.mjs</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> all.txt</span><span style="color:#F97583"> 2>&#x26;1</span></span>
+<span class="line"><span style="color:#B392F0">cat</span><span style="color:#9ECBFF"> app.log</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> ERROR</span></span></code></pre></figure>
+<p>Разделение <code>stdout</code> и <code>stderr</code> важно для автоматизации. CLI может писать machine-readable результат в <code>stdout</code>, а
+progress и диагностику - в <code>stderr</code>, не повреждая данные pipeline.</p>
+<p>Stream не обязательно является файлом на диске. Он может быть terminal, pipe, socket или специальное устройство. Запись
+может буферизоваться, поэтому момент вызова logging API и момент появления текста не всегда совпадают.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-переменные-окружения">Что такое переменные окружения?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Переменные окружения - это пары ключ-значение, которые ОС или shell передают процессу при запуске. Они часто
+используются для конфигурации: режим окружения, адрес API, токены, порты и feature flags.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Environment variables являются частью окружения процесса. Обычно дочерний процесс получает <strong>копию</strong> набора переменных
+родителя при запуске.</p>
+<p>Пример:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#E1E4E8">API_URL</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">https://api.example.com</span><span style="color:#E1E4E8"> NODE_ENV</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">production</span><span style="color:#B392F0"> node</span><span style="color:#9ECBFF"> server.mjs</span></span></code></pre></figure>
+<p>Процесс читает значения через API runtime, например <code>process.env</code> в Node.js. Если после запуска изменить переменную в
+другом окне shell, работающий процесс обычно не получит обновление автоматически.</p>
+<p>Важные ограничения:</p>
+<ul>
+<li>значения передаются как strings;</li>
+<li>наличие переменной нужно валидировать при старте;</li>
+<li>environment не является безопасным secret storage сам по себе;</li>
+<li>переменные frontend build часто подставляются в bundle во время сборки и становятся видны пользователю;</li>
+<li>runtime-конфигурация браузерного приложения требует отдельного механизма, например config endpoint или файла.</li>
+</ul>
+<p>Хорошая практика - преобразовать сырые variables в типизированный config один раз при старте и завершить процесс с
+понятной ошибкой, если обязательное значение отсутствует.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-exit-code">Что такое exit code?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Exit code - числовой код завершения процесса. Обычно <code>0</code> означает успех, а ненулевое значение - ошибку или другое
+неуспешное состояние.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Когда процесс завершается, ОС сохраняет его status, который может прочитать родительский процесс или shell. По
+соглашению <code>0</code> означает успешное выполнение, а ненулевые значения обозначают разные причины неуспеха.</p>
+<p>Shell использует status для управления командами:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> test</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> test</span><span style="color:#F97583"> ||</span><span style="color:#79B8FF"> echo</span><span style="color:#9ECBFF"> "Tests failed"</span></span></code></pre></figure>
+<p>В первом случае build запускается только после <code>0</code>, во втором правая команда выполняется после ошибки. CI/CD работает по
+тому же принципу: job считается failed, если команда вернула ненулевой status.</p>
+<p>CLI полезно выбирать стабильные codes и писать объяснение в <code>stderr</code>. При завершении из-за signal отображаемое значение
+может кодироваться особым образом и отличаться между shell и ОС, поэтому не стоит считать любое конкретное ненулевое
+число универсальным без документации инструмента.</p>
+<p>В Node.js можно задать <code>process.exitCode</code>, чтобы event loop завершился естественно и buffered output успел записаться,
+вместо немедленного <code>process.exit()</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-порт">Что такое порт?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Порт - числовой идентификатор transport endpoint внутри хоста. IP-адрес помогает найти сетевой интерфейс, а порт -
+программу или службу, которой предназначены данные.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>TCP и UDP используют номера портов от <code>0</code> до <code>65535</code>, чтобы несколько сетевых программ могли работать на одном
+IP-адресе. TCP port и UDP port являются разными пространствами: процесс может использовать один номер для TCP, а
+другой - для UDP.</p>
+<p>Server обычно bind-ится к известному порту, например <code>443</code>. Client при исходящем соединении получает временный ephemeral
+port. TCP-соединение различается набором:</p>
+<p><code>protocol + source IP + source port + destination IP + destination port</code></p>
+<p>Поэтому тысячи clients могут одновременно обращаться к одному server port: у соединений различаются source endpoints.</p>
+<p>В URL порт указывают после двоеточия: <code>http://localhost:3000</code>. Если порт не указан, схема задает default, например <code>80</code>
+для HTTP и <code>443</code> для HTTPS.</p>
+<p>Порт не является физическим разъемом и не гарантирует конкретный protocol приложения. На <code>3000</code> может работать HTTP
+server, но это определяется программой, а не самим числом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-значит-программа-слушает-порт">Что значит "программа слушает порт"?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это значит, что программа привязала socket к адресу и порту и готова принимать входящие соединения или datagrams.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Для TCP server последовательность обычно включает:</p>
+<ol>
+<li>создать socket;</li>
+<li>выполнить <code>bind</code> к local address и port;</li>
+<li>перевести socket в состояние <code>listen</code>;</li>
+<li>принимать соединения через <code>accept</code>;</li>
+<li>читать и писать данные через socket каждого соединения.</li>
+</ol>
+<p>Для UDP постоянного соединения может не быть: программа bind-ится к порту и получает отдельные datagrams.</p>
+<p>Адрес binding важен:</p>
+<ul>
+<li><code>127.0.0.1:3000</code> доступен только через loopback;</li>
+<li><code>0.0.0.0:3000</code> означает все подходящие IPv4 interfaces;</li>
+<li>конкретный LAN IP ограничивает один interface.</li>
+</ul>
+<p>Например, dev server, слушающий только localhost, откроется на ноутбуке разработчика, но обычно не будет доступен с
+телефона в той же сети. Чтобы открыть доступ, нужно изменить binding и учесть firewall.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-порт-может-быть-занят">Почему порт может быть занят?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Другой socket уже может быть привязан к несовместимому сочетанию protocol, address и port. Тогда новый server получает
+ошибку вроде <code>EADDRINUSE</code>.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>ОС не позволяет двум listening sockets без специальных условий одновременно владеть одним и тем же endpoint. Например,
+если процесс слушает <code>0.0.0.0:3000</code>, он занимает порт на всех IPv4 interfaces и может конфликтовать с binding к
+<code>127.0.0.1:3000</code>.</p>
+<p>Причины:</p>
+<ul>
+<li>старый dev server продолжает работать;</li>
+<li>IDE или terminal оставили background process;</li>
+<li>другой инструмент использует тот же default port;</li>
+<li>предыдущие соединения еще находятся в переходном TCP state;</li>
+<li>настройки контейнера публикуют host port.</li>
+</ul>
+<p>Диагностика зависит от ОС, например:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">lsof</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> :3000</span></span></code></pre></figure>
+<p>После определения процесса можно корректно остановить его или выбрать другой порт. Не следует без проверки завершать
+случайные системные процессы.</p>
+<p>Опции вроде <code>SO_REUSEADDR</code> влияют на повторное использование адреса, но не означают, что любые два servers безопасно
+разделят один endpoint. Семантика зависит от ОС и socket options.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-localhost">Что такое localhost?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>localhost</code> - имя текущего хоста, которое обычно разрешается в loopback-адрес <code>127.0.0.1</code> для IPv4 или <code>::1</code> для IPv6.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Loopback interface позволяет сетевым программам на одном компьютере общаться через обычный network stack без отправки
+пакетов во внешнюю сеть.</p>
+<p>Когда браузер открывает <code>http://localhost:3000</code>, он соединяется с process на той же network namespace, который слушает
+подходящий address и port.</p>
+<p>Важно различать:</p>
+<ul>
+<li><code>localhost</code> - host name;</li>
+<li><code>127.0.0.1</code> и <code>::1</code> - loopback IP addresses;</li>
+<li><code>0.0.0.0</code> - не адрес для обращения из браузера, а специальный bind address “все IPv4 interfaces”.</li>
+</ul>
+<p>В container или virtual machine <code>localhost</code> относится к самой изолированной среде, а не автоматически к host OS.
+Например, <code>localhost</code> внутри Docker container указывает на container. Для доступа к host или соседнему service нужен
+отдельный address или network name.</p>
+<p>Также возможна разница IPv4/IPv6: server, слушающий только <code>127.0.0.1</code>, не всегда примет соединение на <code>::1</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-сервер">Что такое сервер?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Сервером называют роль, программу или машину, которая принимает запросы или соединения и предоставляет данные либо
+другой ресурс.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Термин server используется на нескольких уровнях:</p>
+<ul>
+<li><strong>роль</strong> в конкретном взаимодействии;</li>
+<li><strong>server process</strong>, например Node.js HTTP server;</li>
+<li><strong>host или virtual machine</strong>, на которой работают server processes;</li>
+<li><strong>hardware</strong>, предназначенное для серверной нагрузки.</li>
+</ul>
+<p>Server обычно слушает endpoint, принимает запрос, выполняет обработку и возвращает response. Он может одновременно
+обслуживать много clients через event loop, threads, processes или их комбинацию.</p>
+<p>Ноутбук разработчика становится server для браузера, когда на нем работает Angular, Vite или Astro dev server. При этом
+тот же dev server может выступать client, когда запрашивает данные у backend.</p>
+<p>Server не обязан быть удаленным и не обязан работать по HTTP. Файловый server, database, DNS server и WebSocket server
+предоставляют разные protocols и ресурсы.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-клиент">Что такое клиент?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Клиент - сторона, которая инициирует взаимодействие с server. Им может быть браузер, мобильное приложение, CLI или
+другой service.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Client знает или находит endpoint server, устанавливает необходимое соединение и отправляет request либо команду.</p>
+<p>Для открытия HTTPS-страницы браузер упрощенно:</p>
+<ol>
+<li>разрешает domain через DNS;</li>
+<li>устанавливает TCP или QUIC connection;</li>
+<li>выполняет TLS handshake;</li>
+<li>отправляет HTTP request;</li>
+<li>получает response и обрабатывает данные.</li>
+</ol>
+<p>Роли относительны. Browser является client для web server. Backend может быть server для browser и одновременно client
+для database, payment API или другого service.</p>
+<p>Client также отвечает за собственные concerns: timeouts, retries, cancellation, validation response и обработку ошибок.
+Безусловные retries опасны для non-idempotent операций, поэтому поведение зависит от protocol и semantics запроса.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-ip-адрес">Что такое IP-адрес?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>IP-адрес идентифицирует network interface в IP-сети и используется routing для доставки packets между узлами.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>IP address является логическим адресом network layer. Router анализирует destination address и выбирает, куда переслать
+packet дальше.</p>
+<p>Основные версии:</p>
+<ul>
+<li>IPv4, например <code>192.168.1.10</code>;</li>
+<li>IPv6, например <code>2001:db8::10</code>.</li>
+</ul>
+<p>Адрес может быть public или private, static или dynamic. За NAT несколько устройств private network могут выходить во
+внешнюю сеть через один public address.</p>
+<p>IP не всегда однозначно идентифицирует физическое устройство или пользователя:</p>
+<ul>
+<li>у устройства несколько interfaces и addresses;</li>
+<li>address может измениться;</li>
+<li>proxy, VPN и NAT скрывают исходный address;</li>
+<li>один server address может вести к load balancer;</li>
+<li>domain может разрешаться в несколько addresses.</li>
+</ul>
+<p>IP отвечает за доставку между network endpoints, а transport port помогает выбрать приложение внутри host. Domain name
+является удобным именем и разрешается в address через DNS.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-dns">Что такое DNS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>DNS - распределенная система имен, которая сопоставляет domain names с IP-адресами и другими records.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Когда приложению нужен <code>example.com</code>, resolver сначала проверяет доступные caches. Если ответа нет, запрос проходит
+через recursive DNS resolver, который при необходимости обращается к иерархии DNS-серверов.</p>
+<p>Частые record types:</p>
+<ul>
+<li><code>A</code> - IPv4 address;</li>
+<li><code>AAAA</code> - IPv6 address;</li>
+<li><code>CNAME</code> - alias;</li>
+<li><code>MX</code> - mail servers;</li>
+<li><code>TXT</code> - текстовые данные и verification;</li>
+<li><code>NS</code> - authoritative name servers.</li>
+</ul>
+<p>Ответ имеет TTL, поэтому изменения DNS распространяются не мгновенно: разные resolvers могут хранить старое значение до
+истечения cache.</p>
+<p>DNS только помогает найти сетевой адрес и другие records. Он не устанавливает HTTP connection и не выполняет redirect
+страницы. После resolution client еще должен соединиться с нужным endpoint и выполнить protocol приложения.</p>
+<p>Для frontend-разработки DNS важен при настройке domains, CDN, certificates, CORS и диагностике ситуации, когда domain
+уже изменен, но часть users видит старый address.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-socket">Что такое socket?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Socket - программная абстракция network endpoint. Через socket process отправляет и получает bytes или datagrams.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Socket является объектом ОС, через который приложение работает с network stack. Он связан с protocol, local endpoint и,
+для установленного соединения, remote endpoint.</p>
+<p>Для TCP listening socket принимает новые connections. После <code>accept</code> ОС создает отдельный connected socket, через
+который server обменивается ordered byte stream с конкретным client.</p>
+<p>UDP socket отправляет и принимает отдельные datagrams без обязательного постоянного connection. UDP не гарантирует
+delivery, order или отсутствие duplicates на уровне protocol.</p>
+<p>Socket API лежит ниже HTTP и WebSocket. <strong>WebSocket</strong> - application protocol с handshake и frames, который обычно
+работает поверх TCP socket. Эти понятия нельзя использовать как синонимы.</p>
+<p>Приложение должно учитывать partial reads/writes, buffering, timeouts, closed connections и resource cleanup. То, что
+<code>write</code> принял данные в local buffer, не всегда означает, что remote application уже их обработало.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-npm-run-dev-запускает-сервер">Почему `npm run dev` запускает сервер?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>npm run dev</code> выполняет script <code>dev</code> из <code>package.json</code>. Обычно этот script запускает dev server framework или build
+tool.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>npm</code> не имеет встроенного универсального dev server. Он находит запись:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "dev"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"vite"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>и запускает указанную command в shell. На время script <code>npm</code> добавляет <code>node_modules/.bin</code> в <code>PATH</code>, поэтому локально
+установленный <code>vite</code>, <code>astro</code> или другой binary доступен без полного пути.</p>
+<p>Dev server является обычным process. Обычно он:</p>
+<ul>
+<li>bind-ится к port;</li>
+<li>отдает HTML, JavaScript и assets;</li>
+<li>наблюдает за files;</li>
+<li>запускает incremental rebuild;</li>
+<li>сообщает browser об изменениях через WebSocket;</li>
+<li>выполняет HMR или reload;</li>
+<li>иногда proxy requests к backend.</li>
+</ul>
+<p>Это development tooling, а не production server по умолчанию. Production flow обычно сначала создает optimized build, а
+затем размещает static files на CDN/web server или запускает специально настроенный application server.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-закрытие-вкладки-браузера-не-всегда-останавливает-dev-server">Почему закрытие вкладки браузера не всегда останавливает dev server?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Вкладка браузера и dev server - разные процессы. Вкладка является client, а server продолжает работать, пока не завершен
+его process.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Browser tab только подключается к dev server по HTTP и, возможно, WebSocket. При закрытии вкладки ее connections
+закрываются, но server process остается запущенным в terminal, IDE, container или background session.</p>
+<p>Чтобы остановить foreground process в terminal, обычно отправляют <code>SIGINT</code> через <code>Ctrl+C</code>. IDE может иметь отдельную
+кнопку stop. Если process был запущен через <code>&#x26;</code>, <code>nohup</code>, <code>tmux</code>, process manager или service manager, закрытие terminal
+также может его не завершить.</p>
+<p>Это объясняет частую ошибку <code>EADDRINUSE</code>: старый server все еще слушает port, хотя вкладка браузера уже закрыта.</p>
+<p>Server может заметить disconnect конкретного client и освободить связанные ресурсы, но отсутствие clients не означает,
+что process обязан завершиться. Он продолжает watch files и ждать новые connections.</p>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

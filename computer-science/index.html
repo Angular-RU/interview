@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Устройство компьютера, процессор, память, машинные инструкции и базовые инженерные принципы"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Архитектура компьютера"><meta property="og:description" content="Устройство компьютера, процессор, память, машинные инструкции и базовые инженерные принципы"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/computer-science/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/computer-science/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/computer-science"><title>Архитектура компьютера</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/computer-science" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Архитектура компьютера"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="архитектура-компьютера">Архитектура компьютера</h2>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-принцип-фон-неймана-фоннеймановская-архитектура">Что такое принцип фон Неймана (фоннеймановская архитектура)?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Программа и данные хранятся в общей памяти, а процессор читает и выполняет инструкции последовательно, если управление
+не изменено переходом. Классическая модель включает память, устройство управления, арифметико-логическое устройство и
+ввод/вывод.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Архитектура фон Неймана описывает компьютер как систему, в которой <strong>инструкции программы и обрабатываемые данные лежат
+в одной адресуемой памяти</strong>. Процессор получает из нее очередную инструкцию, декодирует ее, выполняет и переходит к
+следующей, если сама инструкция не изменила поток управления.</p>
+<p>Этот процесс обычно объясняют циклом <strong>fetch — decode — execute</strong>:</p>
+<ol>
+<li><strong>Fetch</strong> — устройство управления читает инструкцию по адресу из счетчика команд.</li>
+<li><strong>Decode</strong> — процессор определяет операцию и необходимые операнды.</li>
+<li><strong>Execute</strong> — ALU или другой исполнительный блок выполняет операцию.</li>
+<li><strong>Store</strong> — результат сохраняется в регистр или память, после чего обновляется счетчик команд.</li>
+</ol>
+<p><strong>Главные принципы</strong>:</p>
+<ul>
+<li>единое хранилище для программ и данных;</li>
+<li>однородность памяти: ячейки различаются адресами, а не назначением;</li>
+<li>адресуемость: процессор обращается к конкретным ячейкам;</li>
+<li>последовательное программное управление с возможностью переходов.</li>
+</ul>
+<p>Общая память и общий путь к ней создают <strong>бутылочное горлышко фон Неймана</strong>: CPU может выполнять операции быстрее, чем
+память успевает поставлять инструкции и данные. Поэтому современные процессоры используют регистры, несколько уровней
+кеша, предварительную выборку и параллельное выполнение. Внутри процессора кеш инструкций и кеш данных могут быть
+разделены, но на уровне программной модели компьютер все равно часто остается фоннеймановским.</p>
+<p>Например, при выполнении цикла над большим массивом производительность зависит не только от числа арифметических
+операций, но и от того, насколько последовательно программа читает память и попадают ли данные в кеш.</p>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/von-neuman-architecture.C5nYgSwf_Z2oIsr.png" alt="img.png" loading="lazy" decoding="async" width="1448" height="1086"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-из-каких-основных-частей-состоит-компьютер-по-архитектуре-фон-неймана">Из каких основных частей состоит компьютер по архитектуре фон Неймана?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Классическая модель включает память, устройство управления, арифметико-логическое устройство и устройства ввода/вывода.
+Устройство управления и ALU являются ключевыми частями CPU, но современный процессор содержит и другие блоки.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В классической архитектуре фон Неймана выделяют четыре основные части:</p>
+<ul>
+<li><strong>память</strong> хранит инструкции программы и данные;</li>
+<li><strong>устройство управления (CU)</strong> получает и декодирует инструкции, а затем координирует работу остальных блоков;</li>
+<li><strong>арифметико-логическое устройство (ALU)</strong> выполняет арифметические и логические операции;</li>
+<li><strong>устройства ввода и вывода (I/O)</strong> связывают компьютер с диском, сетью, клавиатурой, экраном и другими устройствами.</li>
+</ul>
+<p>CPU объединяет управление и вычисления, RAM хранит активные инструкции и данные, а ввод/вывод связывает программу с
+внешним миром. Упрощенно выполнение команды выглядит так: CU читает инструкцию из памяти, подготавливает операнды,
+направляет их в исполнительный блок и сохраняет результат.</p>
+<p>Строго говоря, <strong>CU + ALU не равны всему CPU</strong>. Это важные части процессора, но современный CPU дополнительно содержит:</p>
+<ul>
+<li><strong>регистры</strong> — самую быструю память для текущих операндов, адресов и результатов;</li>
+<li><strong>кеш L1, L2 и L3</strong> — копии часто используемых данных и инструкций ближе к ядрам;</li>
+<li><strong>FPU и SIMD-блоки</strong> — вычисления с плавающей точкой и обработку нескольких значений одной инструкцией;</li>
+<li><strong>конвейер и предсказатель переходов</strong> — параллельную подготовку этапов инструкций и попытку заранее выбрать нужную
+ветку;</li>
+<li><strong>декодеры, планировщики и reorder buffer</strong> — внутреннее управление выполнением инструкций;</li>
+<li><strong>контроллеры памяти и внутренние шины</strong> — обмен между ядрами, кешами, RAM и периферией.</li>
+</ul>
+<p>Например, выражение <code>total += prices[i]</code> требует не только сложения в ALU: нужно вычислить адрес элемента, получить
+данные из регистра, кеша или RAM, выполнить операцию и сохранить результат. Поэтому скорость программы определяется всей
+иерархией, а не только частотой ALU.</p>
+<p>На интервью полезно сначала назвать учебную модель, а затем уточнить, что реальный CPU значительно сложнее. Это
+показывает, что кандидат понимает границу между полезной абстракцией и физической реализацией.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-frontend-разработчику-полезно-понимать-базовое-устройство-компьютера">Почему frontend-разработчику полезно понимать базовое устройство компьютера?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Frontend-разработчику эта модель помогает понимать CPU-bound задачи, main thread и стоимость доступа к памяти.
+JavaScript-вычисления занимают CPU, объекты расходуют RAM, а сеть и диск работают существенно медленнее регистров и
+кешей. Это объясняет long tasks, лаги интерфейса, memory leaks и пользу Web Workers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Браузер скрывает детали железа, но производительность интерфейса все равно ограничена процессором, памятью и
+вводом/выводом. Базовая модель помогает связать симптомы в DevTools с реальными причинами.</p>
+<p><strong>CPU-bound работа</strong> занимает вычислительные ресурсы:</p>
+<ul>
+<li>сортировка или агрегация большого массива;</li>
+<li><code>JSON.parse()</code> большого ответа;</li>
+<li>синхронное преобразование изображений;</li>
+<li>сложный JavaScript во время рендера;</li>
+<li>style calculation, layout и часть paint pipeline.</li>
+</ul>
+<p>Если такая работа надолго занимает main thread, браузер не может вовремя обработать ввод пользователя и отрисовать
+следующий кадр. Пользователь видит задержку клика, зависший scroll или пропущенную анимацию. Для тяжелых независимых
+вычислений можно использовать Web Worker, но DOM остается доступен только из main thread.</p>
+<p><strong>Память</strong> важна не только из-за утечек. Большие графы объектов увеличивают давление на garbage collector, а частые
+выделения временных объектов могут вызывать заметные паузы. Например, хранение нескольких копий большого API-ответа в
+store, кеше и view model повышает расход RAM без пользовательской пользы.</p>
+<p><strong>I/O-bound работа</strong> чаще ждет сеть, диск или другой внешний ресурс. Здесь помогают HTTP-кеш, дедупликация запросов,
+pagination, streaming, prefetch и правильная отмена устаревших операций, а не перенос кода в Worker.</p>
+<p>Практический порядок оптимизации:</p>
+<ol>
+<li>воспроизвести проблему и записать Performance profile;</li>
+<li>определить, что ограничивает сценарий: CPU, память, сеть, layout или GPU;</li>
+<li>найти самый дорогой участок;</li>
+<li>изменить архитектуру или алгоритм;</li>
+<li>повторить измерение и проверить пользовательскую метрику.</li>
+</ol>
+<p>Например, для таблицы на 100 000 строк правильное решение обычно не в микроправке одной функции. Нужны виртуализация,
+меньше создаваемых DOM-узлов, стабильные ссылки на данные и перенос необязательных вычислений из критического пути.</p>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/frontend-mindset.CYfglJI3_2d74JC.png" alt="img.png" loading="lazy" decoding="async" width="1448" height="1086"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cpu-ram-и-storage">Что такое CPU, RAM и storage?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CPU выполняет машинные инструкции и вычисления. RAM быстро хранит данные работающих процессов, но теряет их после
+выключения питания. Storage, например SSD, хранит файлы долговременно, однако обычно имеет большую задержку доступа.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><strong>CPU</strong> выполняет машинные инструкции. Он читает команды, работает с регистрами и кешами, выполняет арифметические,
+логические и управляющие операции. Несколько ядер позволяют действительно выполнять несколько потоков одновременно, хотя
+конкретное распределение работы определяют операционная система и runtime.</p>
+<p><strong>RAM</strong> — рабочая энергозависимая память. В ней находятся код и данные запущенных процессов: heap JavaScript, DOM,
+буферы, библиотеки и другие активные структуры. RAM значительно больше кеша процессора, но доступ к ней медленнее.</p>
+<p><strong>Storage</strong> — долговременное хранилище: SSD, HDD или флеш-память. На нем лежат файлы приложения, операционная система,
+браузерный профиль и данные между перезапусками. Перед обработкой файл обычно читается со storage в RAM, после чего CPU
+работает с загруженными данными.</p>
+<p>Упрощенная иерархия выглядит так:</p>
+<p><code>регистры -> кеш CPU -> RAM -> SSD/HDD -> сеть</code></p>
+<p>Чем ближе уровень к CPU, тем обычно меньше объем и ниже задержка. Поэтому последовательный доступ к уже загруженным
+данным обычно дешевле случайного чтения большого числа мелких файлов или сетевых ресурсов.</p>
+<p>Frontend-пример:</p>
+<ul>
+<li>JavaScript bundle хранится на сервере и может кешироваться на storage;</li>
+<li>браузер загружает его по сети и помещает необходимые данные в RAM;</li>
+<li>CPU парсит, компилирует и выполняет код;</li>
+<li>созданные объекты остаются в heap, пока доступны приложению или пока их не удалит garbage collector.</li>
+</ul>
+<p>Важно не смешивать физическую память с Web Storage API. <code>localStorage</code> и IndexedDB являются браузерными механизмами
+долговременного хранения, а не прямым доступом JavaScript к RAM или SSD.</p>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/cpu-ram-storage.Ui0TkCw1_ZxaoLE.png" alt="img.png" loading="lazy" decoding="async" width="1448" height="1086"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-оперативная-память-отличается-от-диска">Чем оперативная память отличается от диска?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>RAM быстрее и используется как рабочая память процессов, а диск предназначен для долговременного хранения. Данные с
+диска обычно сначала читаются в RAM, после чего CPU может их обрабатывать.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>RAM и диск различаются назначением, скоростью и временем жизни данных.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Свойство</th><th>RAM</th><th>SSD/HDD</th></tr></thead><tbody><tr><td>Назначение</td><td>Активные данные процессов</td><td>Долговременные файлы</td></tr><tr><td>Сохранение без питания</td><td>Нет</td><td>Да</td></tr><tr><td>Задержка доступа</td><td>Ниже</td><td>Выше</td></tr><tr><td>Типичный объем</td><td>Меньше</td><td>Больше</td></tr><tr><td>Доступ CPU</td><td>Через память и кеши</td><td>После операции ввода/вывода</td></tr></tbody></table>
+<p>Когда программа открывает файл, операционная система обычно читает нужные блоки с диска в RAM. После этого процессор
+работает с данными в памяти. ОС также использует page cache, поэтому повторное чтение файла иногда обслуживается из RAM
+и происходит быстрее.</p>
+<p>Если физической RAM недостаточно, операционная система может выгружать неактивные страницы в swap или page file на диск.
+Это помогает продолжить работу, но из-за более высокой задержки storage система может начать заметно тормозить. Сам по
+себе недостаток RAM не означает, что garbage collector обязательно запустится: GC управляет памятью конкретного runtime,
+а paging управляет операционная система. Эти механизмы связаны давлением на память, но не являются одним и тем же.</p>
+<p>Frontend-пример: загруженное изображение может занимать на диске 2 MB в сжатом JPEG, но после декодирования в RGBA-буфер
+размером 4000 x 3000 пикселей потребовать около 48 MB RAM. Поэтому размер сетевого файла и фактическое потребление
+памяти интерфейсом могут сильно различаться.</p>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/ram-vs-hard.CfUiUi35_Z1btIX2.png" alt="img.png" loading="lazy" decoding="async" width="1672" height="941"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-машинная-инструкция">Что такое машинная инструкция?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Машинная инструкция — элементарная команда из набора команд процессора: загрузить данные, выполнить арифметическую
+операцию, сравнить значения или перейти к другому адресу. Одна строка JavaScript обычно превращается во множество таких
+инструкций.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Машинная инструкция — команда, закодированная в формате, который понимает конкретная архитектура процессора, например
+x86-64 или ARM64. Набор поддерживаемых команд и правила их кодирования называют <strong>ISA — Instruction Set Architecture</strong>.</p>
+<p>Инструкция обычно содержит:</p>
+<ul>
+<li><strong>opcode</strong> — какую операцию выполнить;</li>
+<li><strong>операнды</strong> — регистры, константы или адреса памяти;</li>
+<li>иногда режим адресации и дополнительные флаги.</li>
+</ul>
+<p>Примеры категорий инструкций:</p>
+<ul>
+<li>загрузка и сохранение данных между памятью и регистрами;</li>
+<li>сложение, умножение и побитовые операции;</li>
+<li>сравнение значений;</li>
+<li>условные и безусловные переходы;</li>
+<li>вызов функции и возврат;</li>
+<li>SIMD-операции над несколькими значениями.</li>
+</ul>
+<p>JavaScript не содержит прямых машинных инструкций. Движок браузера сначала парсит исходный код, строит внутреннее
+представление, интерпретирует его и может JIT-компилировать часто выполняемые участки в машинный код. При изменении
+предположений о типах оптимизированный код иногда деоптимизируется.</p>
+<p>Например, выражение:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> total</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> price </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> tax;</span></span></code></pre></figure>
+<p>может потребовать проверить типы значений, загрузить их из памяти, выполнить сложение, обработать представление числа и
+сохранить результат. Точное число инструкций зависит от движка, архитектуры CPU, контекста и примененных оптимизаций,
+поэтому нельзя надежно оценивать производительность по числу строк исходного кода.</p>
+<p>Практический вывод: оптимизировать следует алгоритмы, объем данных и измеренные hot paths, а не пытаться вручную угадать
+машинный код обычного JavaScript.</p>
+<figure class="content-figure image-figure"><img  src="/interview/_astro/machine-command.uop6IU-P_Z1uVp28.png" alt="img.png" loading="lazy" decoding="async" width="1536" height="1024"><figcaption class="content-figure__caption"><span class="content-figure__kind">Иллюстрация</span></figcaption></figure>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

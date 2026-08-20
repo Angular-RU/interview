@@ -1,0 +1,737 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Вопросы и ответы по качеству, тестированию, отчетности и метрикам для Frontend и Node.js backend разработчика"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="QA"><meta property="og:description" content="Вопросы и ответы по качеству, тестированию, отчетности и метрикам для Frontend и Node.js backend разработчика"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/qa/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/qa/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/qa"><title>QA</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/qa" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: QA"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="quality-mindset"></span><span class="sidebar-navigation__marker" data-heading-marker="frontend-qa"></span><span class="sidebar-navigation__marker" data-heading-marker="nodejs-backend-qa"></span><span class="sidebar-navigation__marker" data-heading-marker="allure-reports-and-metrics"></span><span class="sidebar-navigation__marker" data-heading-marker="cicd-and-quality-gates"></span><span class="sidebar-navigation__marker" data-heading-marker="coverage-and-risk"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#quality-mindset" data-heading-link="quality-mindset">Quality mindset</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#frontend-qa" data-heading-link="frontend-qa">Frontend QA</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#nodejs-backend-qa" data-heading-link="nodejs-backend-qa">Node.js backend QA</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#allure-reports-and-metrics" data-heading-link="allure-reports-and-metrics">Allure, reports and metrics</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#cicd-and-quality-gates" data-heading-link="cicd-and-quality-gates">CI/CD and quality gates</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#coverage-and-risk" data-heading-link="coverage-and-risk">Coverage and risk</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="qa">QA</h2>
+<h3 id="quality-mindset">Quality mindset</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-qa-и-чем-qa-отличается-от-тестирования">Что такое QA и чем QA отличается от тестирования?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>QA, или Quality Assurance, — это подход к предотвращению дефектов в процессе разработки. Testing — часть QA, которая
+проверяет уже реализованное поведение. Хороший разработчик думает о качестве раньше тестов: уточняет требования,
+проверяет edge cases, пишет поддерживаемый код, добавляет автоматические проверки и делает поведение диагностируемым.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>QA, или Quality Assurance, — это подход к предотвращению дефектов в процессе разработки. Testing — часть QA, которая
+проверяет уже реализованное поведение. Хороший разработчик думает о качестве раньше тестов: уточняет требования,
+проверяет edge cases, пишет поддерживаемый код, добавляет автоматические проверки и делает поведение диагностируемым.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-qa-отличается-от-qc">Чем QA отличается от QC?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>QA отвечает за процесс и предотвращение проблем: требования, Definition of Done, test strategy, review, CI и quality
+gates. QC, или Quality Control, проверяет результат: ручное тестирование, автотесты, acceptance checks, регрессию и
+дефекты. В современной команде разработчик участвует в обоих направлениях.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>QA отвечает за процесс и предотвращение проблем: требования, Definition of Done, test strategy, review, CI и quality
+gates. QC, или Quality Control, проверяет результат: ручное тестирование, автотесты, acceptance checks, регрессию и
+дефекты. В современной команде разработчик участвует в обоих направлениях.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-уровни-тестирования-должен-понимать-frontend-или-nodejs-backend-разработчик">Какие уровни тестирования должен понимать Frontend или Node.js backend разработчик?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Важно выбирать уровень по риску. Не нужно проверять простой mapper через E2E, а критичный checkout не стоит оставлять
+только на unit-тестах.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Unit tests проверяют маленькую единицу логики.</li>
+<li>Component tests проверяют UI-компонент или небольшой участок интерфейса.</li>
+<li>Integration tests проверяют совместную работу нескольких модулей, DI, HTTP, БД или очередей.</li>
+<li>Contract tests фиксируют совместимость между consumer и provider.</li>
+<li>E2E tests проверяют пользовательский или системный сценарий целиком.</li>
+<li>Visual regression tests ловят неожиданные изменения внешнего вида.</li>
+<li>Load tests проверяют поведение под нагрузкой.</li>
+</ul>
+<p>Важно выбирать уровень по риску. Не нужно проверять простой mapper через E2E, а критичный checkout не стоит оставлять
+только на unit-тестах.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-тестовая-пирамида">Что такое тестовая пирамида?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Тестовая пирамида — принцип, по которому быстрых unit и integration tests должно быть больше, чем дорогих E2E tests.
+Нижние уровни дают быстрый feedback и легко локализуют ошибку. Верхние уровни проверяют реальные пользовательские
+сценарии, но дороже в поддержке и чаще флакают.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Тестовая пирамида — принцип, по которому быстрых unit и integration tests должно быть больше, чем дорогих E2E tests.
+Нижние уровни дают быстрый feedback и легко локализуют ошибку. Верхние уровни проверяют реальные пользовательские
+сценарии, но дороже в поддержке и чаще флакают.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-разработчик-должен-проверить-перед-передачей-задачи-в-qa">Что разработчик должен проверить перед передачей задачи в QA?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Минимум: требования, happy path, основные ошибки, loading/empty states, доступы, валидацию, responsive layout, сетевые
+ошибки, миграции данных и обратную совместимость API. Также важно запустить релевантные unit, integration, E2E, lint,
+typecheck и build. QA не должен быть первым человеком, который открыл новую фичу.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Минимум: требования, happy path, основные ошибки, loading/empty states, доступы, валидацию, responsive layout, сетевые
+ошибки, миграции данных и обратную совместимость API. Также важно запустить релевантные unit, integration, E2E, lint,
+typecheck и build. QA не должен быть первым человеком, который открыл новую фичу.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-definition-of-done-с-точки-зрения-качества">Что такое Definition of Done с точки зрения качества?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Definition of Done описывает, когда задача действительно готова: реализовано ожидаемое поведение, пройдены проверки,
+обновлены тесты, обработаны ошибки, нет регрессий доступности и производительности, добавлена наблюдаемость, если она
+нужна. Для backend также важны контракт API, миграции, безопасность и rollback plan.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Definition of Done описывает, когда задача действительно готова: реализовано ожидаемое поведение, пройдены проверки,
+обновлены тесты, обработаны ошибки, нет регрессий доступности и производительности, добавлена наблюдаемость, если она
+нужна. Для backend также важны контракт API, миграции, безопасность и rollback plan.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выбрать-какие-тесты-писать-для-новой-фичи">Как выбрать, какие тесты писать для новой фичи?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Начинают с риска: что сломает пользователя, деньги, безопасность, данные или релиз. Pure logic удобно покрывать
+unit-тестами. UI behavior — component или integration tests. Контракт frontend и backend — contract или API tests.
+Критичный пользовательский путь — E2E. Нагрузку и отказоустойчивость проверяют отдельными performance tests.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Начинают с риска: что сломает пользователя, деньги, безопасность, данные или релиз. Pure logic удобно покрывать
+unit-тестами. UI behavior — component или integration tests. Контракт frontend и backend — contract или API tests.
+Критичный пользовательский путь — E2E. Нагрузку и отказоустойчивость проверяют отдельными performance tests.</p>
+</div></div>
+</details>
+<h3 id="frontend-qa">Frontend QA</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-инструменты-используют-для-qa-во-frontend">Какие инструменты используют для QA во frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Частый стек:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Частый стек:</p>
+<ul>
+<li>Vitest, Jest, Jasmine, Karma — unit и integration tests;</li>
+<li>Testing Library, Angular Testing Library, React Testing Library — DOM-first проверки поведения;</li>
+<li>TestBed, Component Harnesses — Angular component testing;</li>
+<li>Playwright, Cypress — E2E и browser-level tests;</li>
+<li>Storybook — каталог состояний компонентов;</li>
+<li>Chromatic, Percy, Loki, Playwright screenshots — visual regression;</li>
+<li>MSW — mock server для frontend tests;</li>
+<li>Lighthouse, WebPageTest, Chrome DevTools Performance — performance;</li>
+<li>axe, pa11y, eslint-plugin-jsx-a11y, angular-eslint — accessibility;</li>
+<li>Sentry, LogRocket, OpenReplay — runtime диагностика.</li>
+</ul>
+<p>Инструменты выбирают под проект, но важно понимать задачу каждого слоя.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-лучше-проверять-в-frontend-тестах-реализацию-или-поведение">Что лучше проверять в frontend-тестах: реализацию или поведение?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Обычно проверяют поведение: что пользователь видит, какие действия может выполнить и какой результат получает.
+Внутренние поля, private methods, случайные CSS classes и точная структура DOM делают тесты хрупкими. Реализацию
+проверяют только тогда, когда она сама является публичным контрактом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Обычно проверяют поведение: что пользователь видит, какие действия может выполнить и какой результат получает.
+Внутренние поля, private methods, случайные CSS classes и точная структура DOM делают тесты хрупкими. Реализацию
+проверяют только тогда, когда она сама является публичным контрактом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-тестировать-формы-на-frontend">Как тестировать формы на frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно проверить валидные данные, обязательные поля, ошибки формата, disabled states, server errors, повторную отправку,
+keyboard flow и доступные labels. Для сложной формы полезны component или integration tests, а для критичного сценария
+отправки — один E2E test.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно проверить валидные данные, обязательные поля, ошибки формата, disabled states, server errors, повторную отправку,
+keyboard flow и доступные labels. Для сложной формы полезны component или integration tests, а для критичного сценария
+отправки — один E2E test.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-frontend-команде-нужен-playwright">Когда frontend-команде нужен Playwright?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Playwright нужен для browser-level сценариев: авторизация, checkout, routing, интеграция с backend, загрузка файлов,
+проверка нескольких браузеров, tracing, screenshots и видео падений. Он особенно полезен, когда unit или component tests
+не покрывают реальное поведение браузера и сетевого слоя.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Playwright нужен для browser-level сценариев: авторизация, checkout, routing, интеграция с backend, загрузка файлов,
+проверка нескольких браузеров, tracing, screenshots и видео падений. Он особенно полезен, когда unit или component tests
+не покрывают реальное поведение браузера и сетевого слоя.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-visual-regression-testing">Что такое visual regression testing?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Visual regression testing сравнивает screenshots или snapshots UI между прогонами и ловит неожиданные изменения верстки.
+Он полезен для design systems, компонентных библиотек, сложных страниц и критичных визуальных состояний. Чтобы тесты не
+флакали, фиксируют данные, viewport, шрифты, анимации и состояние окружения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Visual regression testing сравнивает screenshots или snapshots UI между прогонами и ловит неожиданные изменения верстки.
+Он полезен для design systems, компонентных библиотек, сложных страниц и критичных визуальных состояний. Чтобы тесты не
+флакали, фиксируют данные, viewport, шрифты, анимации и состояние окружения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-проверять-accessibility-на-frontend">Как проверять accessibility на frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Автоматически проверяют базовые нарушения через axe, eslint rules, Lighthouse или pa11y. Вручную проверяют keyboard
+navigation, focus order, visible focus, labels, error messages, screen reader flow, contrast и состояние interactive
+elements. Автотесты помогают, но не заменяют ручную проверку ключевых сценариев.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Автоматически проверяют базовые нарушения через axe, eslint rules, Lighthouse или pa11y. Вручную проверяют keyboard
+navigation, focus order, visible focus, labels, error messages, screen reader flow, contrast и состояние interactive
+elements. Автотесты помогают, но не заменяют ручную проверку ключевых сценариев.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-frontend-performance-метрики-стоит-знать">Какие frontend performance-метрики стоит знать?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Ключевые метрики: LCP для скорости основного контента, INP для отзывчивости, CLS для стабильности layout, TTFB для
+ответа сервера, FCP для первого видимого контента и bundle size для стоимости загрузки. Важно смотреть не только lab
+tests, но и real user monitoring, потому что реальные устройства и сети отличаются от CI.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Ключевые метрики: LCP для скорости основного контента, INP для отзывчивости, CLS для стабильности layout, TTFB для
+ответа сервера, FCP для первого видимого контента и bundle size для стоимости загрузки. Важно смотреть не только lab
+tests, но и real user monitoring, потому что реальные устройства и сети отличаются от CI.</p>
+</div></div>
+</details>
+<h3 id="nodejs-backend-qa">Node.js backend QA</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-инструменты-используют-для-qa-в-nodejs-backend">Какие инструменты используют для QA в Node.js backend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Частый стек:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Частый стек:</p>
+<ul>
+<li>Vitest, Jest, Mocha, Node test runner — unit и integration tests;</li>
+<li>Supertest, PactumJS, Frisby — HTTP API tests;</li>
+<li>Testcontainers — тесты с реальными PostgreSQL, Redis, Kafka или RabbitMQ;</li>
+<li>Pact — consumer-driven contract testing;</li>
+<li>OpenAPI validators, Schemathesis, Dredd — проверка API-контрактов;</li>
+<li>k6, Artillery, autocannon, wrk — нагрузочные тесты;</li>
+<li>ESLint, TypeScript strict, Knip, dependency-cruiser — статический анализ;</li>
+<li>Snyk, npm audit, osv-scanner, Trivy — security и dependency checks;</li>
+<li>OpenTelemetry, Prometheus, Grafana, Sentry, Datadog — observability.</li>
+</ul>
+<p>Разработчик должен понимать не только запуск тестов, но и какие риски каждый инструмент закрывает.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-тестировать-rest-api">Как тестировать REST API?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Проверяют status codes, response schema, headers, authorization, validation errors, pagination, sorting, filtering,
+idempotency и backward compatibility. Для handler logic можно использовать integration test с контролируемыми
+dependencies. Для публичного API полезно проверять соответствие OpenAPI spec.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Проверяют status codes, response schema, headers, authorization, validation errors, pagination, sorting, filtering,
+idempotency и backward compatibility. Для handler logic можно использовать integration test с контролируемыми
+dependencies. Для публичного API полезно проверять соответствие OpenAPI spec.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-тестировать-работу-backend-с-базой-данных">Как тестировать работу backend с базой данных?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Чистую domain logic тестируют без БД. Repository, migrations, transactions, constraints и SQL queries лучше проверять на
+реальной тестовой БД через Testcontainers или отдельное test environment. Моки БД быстрее, но хуже ловят ошибки schema,
+transaction isolation и несовместимость запросов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Чистую domain logic тестируют без БД. Repository, migrations, transactions, constraints и SQL queries лучше проверять на
+реальной тестовой БД через Testcontainers или отдельное test environment. Моки БД быстрее, но хуже ловят ошибки schema,
+transaction isolation и несовместимость запросов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-contract-testing">Что такое contract testing?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Contract testing проверяет, что provider API совместим с ожиданиями consumer. Это особенно полезно, когда frontend и
+backend релизятся независимо. Контракт фиксирует method, path, headers, request body, response body и ошибки. Такие
+тесты не заменяют E2E, но уменьшают число поломок на границе сервисов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Contract testing проверяет, что provider API совместим с ожиданиями consumer. Это особенно полезно, когда frontend и
+backend релизятся независимо. Контракт фиксирует method, path, headers, request body, response body и ошибки. Такие
+тесты не заменяют E2E, но уменьшают число поломок на границе сервисов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-тестировать-авторизацию-и-права-доступа">Как тестировать авторизацию и права доступа?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно проверять anonymous user, authenticated user, разные роли, чужие ресурсы, expired tokens, malformed tokens и
+отсутствующие scopes. Важны негативные сценарии: пользователь не должен получить данные другого tenant, выполнить
+запрещенную операцию или обойти проверку через прямой API-запрос.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно проверять anonymous user, authenticated user, разные роли, чужие ресурсы, expired tokens, malformed tokens и
+отсутствующие scopes. Важны негативные сценарии: пользователь не должен получить данные другого tenant, выполнить
+запрещенную операцию или обойти проверку через прямой API-запрос.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-тестировать-очереди-cron-jobs-и-webhooks">Как тестировать очереди, cron jobs и webhooks?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Проверяют idempotency, retry policy, dead-letter queue, порядок обработки, дубликаты, подписи webhook, timeout и
+частичную недоступность зависимостей. Для unit-теста выносят чистую обработку события в функцию. Для integration-теста
+поднимают реальный broker или контролируемый fake.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Проверяют idempotency, retry policy, dead-letter queue, порядок обработки, дубликаты, подписи webhook, timeout и
+частичную недоступность зависимостей. Для unit-теста выносят чистую обработку события в функцию. Для integration-теста
+поднимают реальный broker или контролируемый fake.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-backend-performance-метрики-важны-для-nodejs">Какие backend performance-метрики важны для Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Смотрят latency, p50, p95, p99, throughput, RPS, error rate, saturation, CPU, memory, GC pauses, event loop lag,
+database query duration, queue depth и timeout rate. Среднее время ответа почти всегда недостаточно: p95 и p99 лучше
+показывают, как система ведет себя для медленных пользователей и под нагрузкой.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Смотрят latency, p50, p95, p99, throughput, RPS, error rate, saturation, CPU, memory, GC pauses, event loop lag,
+database query duration, queue depth и timeout rate. Среднее время ответа почти всегда недостаточно: p95 и p99 лучше
+показывают, как система ведет себя для медленных пользователей и под нагрузкой.</p>
+</div></div>
+</details>
+<h3 id="allure-reports-and-metrics">Allure, reports and metrics</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-allure-report">Что такое Allure Report?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Allure Report — open-source инструмент для визуализации результатов автотестов. Он преобразует структурированные данные
+о прогоне в интерактивный HTML-отчет с тестами, шагами, длительностью, ошибками, attachments, labels, историей и
+аналитикой.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Allure Report — open-source инструмент для визуализации результатов автотестов. Он преобразует структурированные данные
+о прогоне в интерактивный HTML-отчет с тестами, шагами, длительностью, ошибками, attachments, labels, историей и
+аналитикой.</p>
+<p>Allure не запускает тесты и не заменяет Playwright, Cypress, Jest, Vitest или другой test runner. Между test runner и
+Allure обычно работает adapter или reporter, который записывает результаты в понятном Allure формате.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-allure-report-работает-от-запуска-тестов-до-готового-отчета">Как Allure Report работает от запуска тестов до готового отчета?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Упрощенный процесс:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Упрощенный процесс:</p>
+<ol>
+<li>Test runner запускает автотесты.</li>
+<li>Allure adapter получает события test runner: начало и завершение тестов, ошибки, steps, labels и attachments.</li>
+<li>Adapter записывает структурированные файлы в каталог <code>allure-results</code>.</li>
+<li>Allure CLI читает результаты и генерирует HTML-отчет, обычно в каталоге <code>allure-report</code>.</li>
+<li>Отчет открывают локально или публикуют как CI artifact либо статический сайт.</li>
+</ol>
+<p>Сбор результатов и генерация HTML-отчета — два отдельных этапа.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-allure-results-отличается-от-allure-report">Чем allure-results отличается от allure-report?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>allure-results содержит исходные данные, созданные adapter во время выполнения тестов: test result files, containers,
+attachments, environment и другие metadata.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>allure-results</code> содержит исходные данные, созданные adapter во время выполнения тестов: test result files, containers,
+attachments, environment и другие metadata.</p>
+<p><code>allure-report</code> — готовый HTML-сайт, сгенерированный из этих результатов. Его можно открыть в браузере, сохранить как
+artifact или опубликовать на web server. Удаленный отчет можно сгенерировать заново, если сохранен <code>allure-results</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-сущности-есть-в-allure">Какие сущности есть в Allure?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Частые сущности:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Частые сущности:</p>
+<ul>
+<li>test case — отдельный тест;</li>
+<li>suite — группа тестов;</li>
+<li>step — шаг внутри теста;</li>
+<li>attachment — screenshot, trace, video, log, request или response;</li>
+<li>label — epic, feature, story, owner, severity, tag;</li>
+<li>status — passed, failed, broken, skipped;</li>
+<li>history — информация о предыдущих запусках.</li>
+</ul>
+<p>Хорошая структура отчета помогает не читать весь CI log ради одной ошибки.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-нужны-steps-в-allure">Зачем нужны steps в Allure?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Steps разбивают тест на понятные действия: открыть страницу, заполнить форму, отправить запрос, проверить результат. Они
+помогают увидеть, на каком этапе произошла ошибка и сколько времени занял каждый этап.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Steps разбивают тест на понятные действия: открыть страницу, заполнить форму, отправить запрос, проверить результат. Они
+помогают увидеть, на каком этапе произошла ошибка и сколько времени занял каждый этап.</p>
+<p>Steps должны описывать бизнес-действия или значимые технические операции. Слишком мелкие steps создают шум, а один step
+на весь тест не помогает локализовать проблему.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-attachments-в-allure-и-что-стоит-прикладывать-к-падению">Что такое attachments в Allure и что стоит прикладывать к падению?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Attachment — файл или данные, связанные с тестом либо step. Для E2E-теста полезно сохранять screenshot, video,
+Playwright trace, browser console logs и network logs. Для API-теста — request, response, headers и server logs. Для
+visual regression — actual, expected и diff images.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Attachment — файл или данные, связанные с тестом либо step. Для E2E-теста полезно сохранять screenshot, video,
+Playwright trace, browser console logs и network logs. Для API-теста — request, response, headers и server logs. Для
+visual regression — actual, expected и diff images.</p>
+<p>Attachments должны помогать расследовать падение без повторного запуска. Нельзя публиковать access tokens, пароли,
+cookies, персональные данные и другие секреты: их нужно удалять или маскировать.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-статус-failed-отличается-от-broken-в-allure">Чем статус failed отличается от broken в Allure?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>failed обычно означает, что assertion не прошел или проверяемое поведение не соответствует ожиданию. broken чаще
+означает ошибку самого теста или инфраструктуры: exception в setup, ошибка fixture, timeout окружения или неподнятый
+backend.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>failed</code> обычно означает, что assertion не прошел или проверяемое поведение не соответствует ожиданию. <code>broken</code> чаще
+означает ошибку самого теста или инфраструктуры: exception в setup, ошибка fixture, timeout окружения или неподнятый
+backend.</p>
+<p>Точное преобразование ошибок в <code>failed</code> и <code>broken</code> зависит от конкретного adapter.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-подключить-allure-к-playwright-cypress-jest-или-vitest">Как подключить Allure к Playwright, Cypress, Jest или Vitest?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Общий принцип одинаковый:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Общий принцип одинаковый:</p>
+<ol>
+<li>Установить совместимый с test runner Allure adapter или reporter.</li>
+<li>Подключить его в конфигурации test runner.</li>
+<li>Указать каталог для результатов.</li>
+<li>Запустить тесты и проверить, что появились result files и attachments.</li>
+<li>Сгенерировать или открыть отчет через Allure CLI.</li>
+<li>В CI сохранить результаты и готовый отчет как artifacts либо опубликовать отчет.</li>
+</ol>
+<p>Конкретные package names и options зависят от test runner и версии интеграции.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-метрики-смотреть-в-allure">Какие метрики смотреть в Allure?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Полезные метрики:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Полезные метрики:</p>
+<ul>
+<li>pass rate, fail rate, skip rate;</li>
+<li>количество failed и broken tests;</li>
+<li>duration всего прогона и отдельных тестов;</li>
+<li>trend по запускам;</li>
+<li>flaky tests и нестабильные suites;</li>
+<li>самые медленные тесты;</li>
+<li>падения по feature, story, owner, severity и tag;</li>
+<li>история конкретного теста.</li>
+</ul>
+<p>Метрики нужны для решений: что чинить первым, где замедление и какие тесты перестали защищать продукт.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужны-labels-epic-feature-story-owner-и-severity">Для чего нужны labels epic, feature, story, owner и severity?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Labels позволяют искать, фильтровать и группировать тесты:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Labels позволяют искать, фильтровать и группировать тесты:</p>
+<ul>
+<li><code>epic</code>, <code>feature</code>, <code>story</code> описывают продуктовую иерархию;</li>
+<li><code>owner</code> показывает ответственную команду или человека;</li>
+<li><code>severity</code> отражает критичность сценария;</li>
+<li><code>tag</code> добавляет классификацию, например <code>smoke</code>, <code>regression</code> или <code>payments</code>.</li>
+</ul>
+<p>Labels полезны, когда они стабильны и связаны с реальной структурой продукта.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-сохранить-history-и-trends-между-ci-запусками">Как сохранить history и trends между CI-запусками?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для trends Allure должен получить history data предыдущего отчета при генерации следующего. Поэтому CI pipeline обычно:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Для trends Allure должен получить history data предыдущего отчета при генерации следующего. Поэтому CI pipeline обычно:</p>
+<ol>
+<li>Загружает history предыдущего отчета или artifact.</li>
+<li>Добавляет эти данные к результатам нового запуска способом, который поддерживает используемая версия Allure.</li>
+<li>Генерирует новый отчет.</li>
+<li>Сохраняет новый отчет и его history для следующего запуска.</li>
+</ol>
+<p>Если CI job всегда начинается с чистого workspace и history не восстанавливается, отчет покажет только текущий запуск.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-allure-связывает-retries-и-историю-одного-теста">Как Allure связывает retries и историю одного теста?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Allure должен стабильно идентифицировать один и тот же test case между попытками и запусками. Обычно идентификатор
+зависит от framework, полного имени теста, параметров и metadata.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Allure должен стабильно идентифицировать один и тот же test case между попытками и запусками. Обычно идентификатор
+зависит от framework, полного имени теста, параметров и metadata.</p>
+<p>Если постоянно менять title, suite или параметры, Allure может воспринимать тест как новый, и история разорвется. Retry
+может быть временным safety net, но не должен маскировать нестабильность теста.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-собрать-единый-allure-report-при-parallel-execution-и-sharding">Как собрать единый Allure Report при parallel execution и sharding?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Каждый worker или CI job генерирует свою часть Allure results. После выполнения shards результаты собирают в один
+каталог, а отчет генерируют один раз из объединенного набора.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Каждый worker или CI job генерирует свою часть Allure results. После выполнения shards результаты собирают в один
+каталог, а отчет генерируют один раз из объединенного набора.</p>
+<p>Обычно отдельный aggregate job скачивает artifacts всех shards, объединяет result files и запускает генератор. Важно не
+потерять attachments и не перезаписать файлы результатами другого worker.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-flaky-test">Что такое flaky test?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Flaky test иногда проходит, а иногда падает без изменения кода. Причины: race conditions, реальные timers, нестабильная
+сеть, shared state, зависимость от порядка тестов, динамические данные, анимации, неявные ожидания и перегруженное CI
+окружение. Flaky tests опасны, потому что команда перестает доверять проверкам.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Flaky test иногда проходит, а иногда падает без изменения кода. Причины: race conditions, реальные timers, нестабильная
+сеть, shared state, зависимость от порядка тестов, динамические данные, анимации, неявные ожидания и перегруженное CI
+окружение. Flaky tests опасны, потому что команда перестает доверять проверкам.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-бороться-с-flaky-tests">Как бороться с flaky tests?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно воспроизвести падение, изучить trace, video, screenshot и logs, затем убрать недетерминизм. Помогают стабильные
+locators, явные ожидания состояния, изоляция данных, независимые тесты, test fixtures, mock network, отключение
+анимаций, контролируемые часы и отказ от произвольных sleep. Retry не заменяет исправление причины.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно воспроизвести падение, изучить trace, video, screenshot и logs, затем убрать недетерминизм. Помогают стабильные
+locators, явные ожидания состояния, изоляция данных, независимые тесты, test fixtures, mock network, отключение
+анимаций, контролируемые часы и отказ от произвольных sleep. Retry не заменяет исправление причины.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-расследовать-падение-теста-по-allure-report">Как расследовать падение теста по Allure Report?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Полезный порядок:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Полезный порядок:</p>
+<ol>
+<li>Проверить status, error message и stack trace.</li>
+<li>Найти последний успешный step.</li>
+<li>Открыть screenshot, trace, video и logs.</li>
+<li>Сравнить environment, параметры и test data.</li>
+<li>Посмотреть retries и историю теста.</li>
+<li>Проверить, падают ли соседние тесты по той же причине.</li>
+<li>Определить класс проблемы: product, test, data, environment или infrastructure.</li>
+</ol>
+<p>Allure собирает признаки в одном месте, но инженер все равно должен проверить гипотезу и локализовать причину.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-артефакты-стоит-сохранять-после-ci-прогона-тестов">Какие артефакты стоит сохранять после CI-прогона тестов?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для unit и integration tests полезны coverage, junit report и Allure results. Для E2E важны screenshots, videos,
+Playwright traces, browser console logs, network logs и server logs. Для performance tests сохраняют summary,
+thresholds, raw metrics и сравнение с baseline. Артефакты должны помогать расследовать проблему без повторного запуска.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Для unit и integration tests полезны coverage, junit report и Allure results. Для E2E важны screenshots, videos,
+Playwright traces, browser console logs, network logs и server logs. Для performance tests сохраняют summary,
+thresholds, raw metrics и сравнение с baseline. Артефакты должны помогать расследовать проблему без повторного запуска.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чего-allure-report-не-заменяет">Чего Allure Report не заменяет?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Allure Report не заменяет:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Allure Report не заменяет:</p>
+<ul>
+<li>test runner и сами автотесты;</li>
+<li>корректные assertions и test design;</li>
+<li>CI/CD pipeline;</li>
+<li>code coverage;</li>
+<li>логи приложения и observability;</li>
+<li>issue tracker и процесс triage;</li>
+<li>test management систему, если команде нужны test plans и manual cases.</li>
+</ul>
+<p>Красивый отчет не исправляет flaky tests, слабые проверки или отсутствие важных сценариев.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-можно-ли-использовать-allure-как-quality-gate">Можно ли использовать Allure как quality gate?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Метрики отчета можно использовать как один из сигналов: количество failed и broken tests, pass rate, критичные сценарии,
+длительность или рост нестабильности. Но merge или release gate должен опираться на надежные machine-readable
+результаты, а не только на HTML-страницу.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Метрики отчета можно использовать как один из сигналов: количество failed и broken tests, pass rate, критичные сценарии,
+длительность или рост нестабильности. Но merge или release gate должен опираться на надежные machine-readable
+результаты, а не только на HTML-страницу.</p>
+<p>Нельзя автоматически блокировать релиз по любой нестабильной метрике без анализа причин: flaky tests и ошибки
+инфраструктуры могут остановить разработку.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-риски-безопасности-есть-при-публикации-allure-report">Какие риски безопасности есть при публикации Allure Report?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Отчет и attachments могут содержать URL, headers, cookies, tokens, персональные данные, содержимое форм, screenshots
+внутренних систем и stack traces. Перед публикацией нужно маскировать секреты, ограничивать доступ и задавать срок
+хранения artifacts.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Отчет и attachments могут содержать URL, headers, cookies, tokens, персональные данные, содержимое форм, screenshots
+внутренних систем и stack traces. Перед публикацией нужно маскировать секреты, ограничивать доступ и задавать срок
+хранения artifacts.</p>
+<p>Особенно внимательно нужно проверять automatic request/response attachments: они часто сохраняют больше данных, чем
+ожидает автор теста.</p>
+</div></div>
+</details>
+<h3 id="cicd-and-quality-gates">CI/CD and quality gates</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-проверки-должны-запускаться-в-ci">Какие проверки должны запускаться в CI?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Обычно запускают format check, lint, typecheck, unit tests, integration tests, build, dependency audit, secret scan,
+coverage, contract tests и E2E для критичных flows. Для frontend также полезны accessibility и visual regression checks.
+Для backend — migrations check, API schema validation и smoke tests.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Обычно запускают format check, lint, typecheck, unit tests, integration tests, build, dependency audit, secret scan,
+coverage, contract tests и E2E для критичных flows. Для frontend также полезны accessibility и visual regression checks.
+Для backend — migrations check, API schema validation и smoke tests.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-quality-gate">Что такое quality gate?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Quality gate — набор условий, без которых изменение нельзя слить или выпустить. Например: нет failed tests, build
+проходит, coverage не падает ниже порога, нет critical vulnerabilities, API contract совместим, p95 latency не хуже
+baseline. Gate должен защищать продукт, а не просто имитировать строгость.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Quality gate — набор условий, без которых изменение нельзя слить или выпустить. Например: нет failed tests, build
+проходит, coverage не падает ниже порога, нет critical vulnerabilities, API contract совместим, p95 latency не хуже
+baseline. Gate должен защищать продукт, а не просто имитировать строгость.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-ускорять-медленный-тестовый-pipeline">Как ускорять медленный тестовый pipeline?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Сначала измеряют, где время: install, build, unit, integration, E2E, browser setup или artifacts. Затем используют
+cache, parallelization, test sharding, affected tests, отдельные suites по риску, быстрые smoke checks и nightly full
+regression. Удалять важные проверки без замены опасно: лучше менять уровень теста или улучшать инфраструктуру.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Сначала измеряют, где время: install, build, unit, integration, E2E, browser setup или artifacts. Затем используют
+cache, parallelization, test sharding, affected tests, отдельные suites по риску, быстрые smoke checks и nightly full
+regression. Удалять важные проверки без замены опасно: лучше менять уровень теста или улучшать инфраструктуру.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делать-если-e2e-тест-падает-только-в-ci">Что делать, если E2E-тест падает только в CI?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно сравнить окружение: viewport, browser version, timezone, locale, CPU, network, test data, feature flags и backend.
+Дальше смотреть trace, screenshot, video, console и network logs. Частые причины — race condition, слишком слабое
+ожидание, тестовые данные, анимации, порядок тестов и недостаточная изоляция state.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно сравнить окружение: viewport, browser version, timezone, locale, CPU, network, test data, feature flags и backend.
+Дальше смотреть trace, screenshot, video, console и network logs. Частые причины — race condition, слишком слабое
+ожидание, тестовые данные, анимации, порядок тестов и недостаточная изоляция state.</p>
+</div></div>
+</details>
+<h3 id="coverage-and-risk">Coverage and risk</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-code-coverage">Что такое code coverage?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Code coverage показывает, какая часть кода была выполнена тестами. Частые метрики: statements, branches, functions и
+lines. Coverage полезен как индикатор непроверенных зон, но не доказывает качество: тест может выполнить строку и не
+проверить важное поведение.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Code coverage показывает, какая часть кода была выполнена тестами. Частые метрики: statements, branches, functions и
+lines. Coverage полезен как индикатор непроверенных зон, но не доказывает качество: тест может выполнить строку и не
+проверить важное поведение.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-100-coverage-не-гарантирует-качество">Почему 100% coverage не гарантирует качество?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Coverage не говорит, были ли правильные assertions, проверены ли edge cases, соответствуют ли тесты требованиям и ловят
+ли они реальные регрессии. Можно получить высокий coverage тестами, которые повторяют реализацию или проверяют только
+happy path. Качество тестов важнее красивого процента.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Coverage не говорит, были ли правильные assertions, проверены ли edge cases, соответствуют ли тесты требованиям и ловят
+ли они реальные регрессии. Можно получить высокий coverage тестами, которые повторяют реализацию или проверяют только
+happy path. Качество тестов важнее красивого процента.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-оценивать-качество-тестового-набора">Как оценивать качество тестового набора?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Смотрят, какие риски покрыты, насколько быстро тесты дают feedback, легко ли понять падение, насколько они стабильны и
+не мешают рефакторингу. Хороший набор ловит важные регрессии, локализует проблему, не завязан на случайные детали
+реализации и поддерживается вместе с продуктовым кодом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Смотрят, какие риски покрыты, насколько быстро тесты дают feedback, легко ли понять падение, насколько они стабильны и
+не мешают рефакторингу. Хороший набор ловит важные регрессии, локализует проблему, не завязан на случайные детали
+реализации и поддерживается вместе с продуктовым кодом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-построить-qa-стратегию-для-новой-фичи">Как построить QA-стратегию для новой фичи?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно разобрать требования, риски, пользователей, данные, интеграции, права доступа, observability и rollback. Затем
+выбрать минимальный набор проверок: unit для логики, integration для границ, contract для API, E2E для критичного пути,
+manual exploratory testing для новых UX-сценариев. После релиза важны мониторинг, error alerts и быстрый feedback loop.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно разобрать требования, риски, пользователей, данные, интеграции, права доступа, observability и rollback. Затем
+выбрать минимальный набор проверок: unit для логики, integration для границ, contract для API, E2E для критичного пути,
+manual exploratory testing для новых UX-сценариев. После релиза важны мониторинг, error alerts и быстрый feedback loop.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-вопросы-задать-кандидату-про-qa-на-практическом-интервью">Какие вопросы задать кандидату про QA на практическом интервью?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Хорошие сценарии:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Хорошие сценарии:</p>
+<ul>
+<li>E2E падает только в CI. Как расследовать?</li>
+<li>После релиза вырос error rate. Какие действия?</li>
+<li>Тесты стали идти в три раза дольше. Что измерять?</li>
+<li>Пользователь видит баг, но локально он не воспроизводится. Что делать?</li>
+<li>Как протестировать авторизацию, upload file, поиск, оплату или webhook?</li>
+<li>Какие проверки поставить в CI для frontend и Node.js backend?</li>
+<li>Какие метрики посмотреть в Allure после нестабильного релиза?</li>
+</ul>
+<p>Ответ должен показывать инженерное мышление: риск, изоляцию причины, артефакты, проверку гипотез и понятный следующий
+шаг.</p>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

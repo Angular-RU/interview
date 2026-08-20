@@ -1,0 +1,1630 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Node.js basics, npm scripts, frontend tooling, HTTP server, networking, observability и рабочее окружение"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Node.js"><meta property="og:description" content="Node.js basics, npm scripts, frontend tooling, HTTP server, networking, observability и рабочее окружение"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/nodejs/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/nodejs/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/nodejs"><title>Node.js</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/nodejs" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Node.js"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="nodejs-basics"></span><span class="sidebar-navigation__marker" data-heading-marker="многопоточность-и-синхронизация"></span><span class="sidebar-navigation__marker" data-heading-marker="общая-память-и-синхронизация"></span><span class="sidebar-navigation__marker" data-heading-marker="npm-и-package-scripts"></span><span class="sidebar-navigation__marker" data-heading-marker="nodejs-для-frontend-tooling"></span><span class="sidebar-navigation__marker" data-heading-marker="http-server-networking-и-curl"></span><span class="sidebar-navigation__marker" data-heading-marker="nodejs-observability-и-rps-monitoring"></span><span class="sidebar-navigation__marker" data-heading-marker="project-tooling-и-рабочее-окружение"></span><span class="sidebar-navigation__marker" data-heading-marker="workflow-и-onboarding"></span><span class="sidebar-navigation__marker" data-heading-marker="frontend-tooling"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#nodejs-basics" data-heading-link="nodejs-basics">Node.js basics</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#многопоточность-и-синхронизация" data-heading-link="многопоточность-и-синхронизация">Многопоточность и синхронизация</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#общая-память-и-синхронизация" data-heading-link="общая-память-и-синхронизация">Общая память и синхронизация</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#npm-и-package-scripts" data-heading-link="npm-и-package-scripts">npm и package scripts</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#nodejs-для-frontend-tooling" data-heading-link="nodejs-для-frontend-tooling">Node.js для frontend tooling</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#http-server-networking-и-curl" data-heading-link="http-server-networking-и-curl">HTTP server, networking и curl</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#nodejs-observability-и-rps-monitoring" data-heading-link="nodejs-observability-и-rps-monitoring">Node.js observability и RPS monitoring</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#project-tooling-и-рабочее-окружение" data-heading-link="project-tooling-и-рабочее-окружение">Project tooling и рабочее окружение</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#workflow-и-onboarding" data-heading-link="workflow-и-onboarding">Workflow и onboarding</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#frontend-tooling" data-heading-link="frontend-tooling">Frontend tooling</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="nodejs">Node.js</h2>
+<h3 id="nodejs-basics">Node.js basics</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-nodejs">Что такое Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Node.js — JavaScript runtime вне браузера, построенный вокруг V8 и системных API. Он используется для servers, CLI,
+build tools и automation. Node предоставляет filesystem, processes и network APIs, которых нет в browser sandbox.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Node.js — JavaScript runtime вне браузера, построенный вокруг V8 и системных API. Он используется для servers, CLI,
+build tools и automation. Node предоставляет filesystem, processes и network APIs, которых нет в browser sandbox.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-es-modules-в-nodejs">Что такое ES Modules в Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это стандартная система import/export, включаемая расширением .mjs или “type”: “module”. Она поддерживает static
+analysis, top-level await и browser-compatible syntax. Resolution и interop с CommonJS имеют отдельные правила.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это стандартная система <code>import</code>/<code>export</code>, включаемая расширением <code>.mjs</code> или <code>"type": "module"</code>. Она поддерживает static
+analysis, top-level await и browser-compatible syntax. Resolution и interop с CommonJS имеют отдельные правила.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-processenv">Что такое <code>process.env</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это объект environment variables текущего процесса. Значения являются строками или undefined, поэтому их нужно
+валидировать и преобразовывать. Секреты server process нельзя автоматически встраивать во frontend bundle.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это объект environment variables текущего процесса. Значения являются строками или <code>undefined</code>, поэтому их нужно
+валидировать и преобразовывать. Секреты server process нельзя автоматически встраивать во frontend bundle.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-child-process">Что такое child process?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это отдельный процесс операционной системы, запущенный из Node через spawn, exec или fork. Он имеет отдельную память и
+может выполнять внешнюю команду. Нужно обрабатывать exit code, stderr, signals и размер output.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это отдельный процесс операционной системы, запущенный из Node через <code>spawn</code>, <code>exec</code> или <code>fork</code>. Он имеет отдельную
+память и может выполнять внешнюю команду. Нужно обрабатывать exit code, stderr, signals и размер output.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-nodejs-отличается-от-браузера">Чем Node.js отличается от браузера?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В Node нет DOM, window и browser security model, но доступны process, filesystem и server sockets. Browser имеет UI, Web
+APIs и origin restrictions. Общий JavaScript syntax не гарантирует совместимость окружений.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В Node нет DOM, <code>window</code> и browser security model, но доступны <code>process</code>, filesystem и server sockets. Browser имеет UI,
+Web APIs и origin restrictions. Общий JavaScript syntax не гарантирует совместимость окружений.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-nodejs-называют-event-driven-runtime">Почему Node.js называют event-driven runtime?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Программа регистрирует handlers, а runtime вызывает их при событиях I/O, timers или завершении задач. Это позволяет
+обслуживать много соединений без отдельного JavaScript thread на каждое. CPU-bound handler все равно блокирует event
+loop.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Программа регистрирует handlers, а runtime вызывает их при событиях I/O, timers или завершении задач. Это позволяет
+обслуживать много соединений без отдельного JavaScript thread на каждое. CPU-bound handler все равно блокирует event
+loop.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-require-отличается-от-import">Чем <code>require</code> отличается от <code>import</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>require() — CommonJS function с синхронной загрузкой и runtime-вызовом. Static import анализируется до выполнения и
+работает в ESM. Dynamic import() асинхронен и доступен в обоих современных контекстах.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>require()</code> — CommonJS function с синхронной загрузкой и runtime-вызовом. Static <code>import</code> анализируется до выполнения и
+работает в ESM. Dynamic <code>import()</code> асинхронен и доступен в обоих современных контекстах.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-v8">Что такое V8?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>V8 — JavaScript engine от Chromium, который парсит, интерпретирует и JIT-компилирует код. Node использует V8 для
+выполнения ECMAScript. Browser APIs и Node APIs находятся вокруг engine, а не внутри языка.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>V8 — JavaScript engine от Chromium, который парсит, интерпретирует и JIT-компилирует код. Node использует V8 для
+выполнения ECMAScript. Browser APIs и Node APIs находятся вокруг engine, а не внутри языка.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-libuv">Что такое libuv?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>libuv — библиотека Node для event loop, async I/O, timers, filesystem и thread pool. Она скрывает различия операционных
+систем. Не все операции выполняются на главном JavaScript thread.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>libuv — библиотека Node для event loop, async I/O, timers, filesystem и thread pool. Она скрывает различия операционных
+систем. Не все операции выполняются на главном JavaScript thread.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-event-loop-в-nodejs">Что такое event loop в Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Event loop проходит фазы timers, pending callbacks, poll, check и close callbacks, обрабатывая готовые задачи.
+Microtasks выполняются между соответствующими этапами. Детали важны при диагностике starvation и порядка callbacks.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Event loop проходит фазы timers, pending callbacks, poll, check и close callbacks, обрабатывая готовые задачи.
+Microtasks выполняются между соответствующими этапами. Детали важны при диагностике starvation и порядка callbacks.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-event-loop-в-nodejs-отличается-от-browser-event-loop">Чем event loop в Node.js отличается от browser event loop?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Оба координируют tasks и microtasks, но источники событий и фазы различаются. Browser привязан к rendering frames и Web
+APIs, Node — к libuv phases и server I/O. Нельзя механически переносить весь порядок callbacks между окружениями.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Оба координируют tasks и microtasks, но источники событий и фазы различаются. Browser привязан к rendering frames и Web
+APIs, Node — к libuv phases и server I/O. Нельзя механически переносить весь порядок callbacks между окружениями.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-commonjs">Что такое CommonJS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CommonJS — историческая module system Node с require() и module.exports. Модули загружаются синхронно и имеют
+собственный wrapper scope. Экосистема постепенно переходит на стандартные ES Modules.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CommonJS — историческая module system Node с <code>require()</code> и <code>module.exports</code>. Модули загружаются синхронно и имеют
+собственный wrapper scope. Экосистема постепенно переходит на стандартные ES Modules.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-dirname-и-почему-его-нет-в-esm">Что такое <code>__dirname</code> и почему его нет в ESM?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В CommonJS это directory текущего module file. ESM использует стандартный import.meta.url, из которого путь получают
+через fileURLToPath. Отсутствие dirname связано с другой module model, а не с невозможностью работать с путями.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В CommonJS это directory текущего module file. ESM использует стандартный <code>import.meta.url</code>, из которого путь получают
+через <code>fileURLToPath</code>. Отсутствие <code>__dirname</code> связано с другой module model, а не с невозможностью работать с путями.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-stream">Что такое stream?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Stream обрабатывает данные частями вместо загрузки всего объема в память. Бывают readable, writable, duplex и transform
+streams. Backpressure предотвращает переполнение медленного consumer.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Stream обрабатывает данные частями вместо загрузки всего объема в память. Бывают readable, writable, duplex и transform
+streams. Backpressure предотвращает переполнение медленного consumer.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-buffer">Что такое Buffer?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Buffer представляет последовательность bytes в Node и используется для файлов, sockets и binary protocols. Encoding
+нужно задавать явно при преобразовании в строку. В browser близкие primitives — ArrayBuffer и typed arrays.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>Buffer</code> представляет последовательность bytes в Node и используется для файлов, sockets и binary protocols. Encoding
+нужно задавать явно при преобразовании в строку. В browser близкие primitives — <code>ArrayBuffer</code> и typed arrays.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-workerthreads">Что такое worker_threads?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Worker threads выполняют JavaScript параллельно внутри одного Node process с отдельными isolates. Они подходят для
+CPU-bound вычислений, а не обычного async I/O. Обмен сообщениями и shared memory добавляют overhead.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Worker threads выполняют JavaScript параллельно внутри одного Node process с отдельными isolates. Они подходят для
+CPU-bound вычислений, а не обычного async I/O. Обмен сообщениями и shared memory добавляют overhead.</p>
+</div></div>
+</details>
+<h3 id="многопоточность-и-синхронизация">Многопоточность и синхронизация</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-однопоточен-ли-nodejs">Однопоточен ли Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>JavaScript-код внутри одного Node.js isolate обычно выполняется в одном потоке с одним event loop. Но сам runtime не
+является полностью однопоточным: V8, libuv, операционная система и thread pool могут выполнять работу в других потоках.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>JavaScript-код внутри одного Node.js isolate обычно выполняется в одном потоке с одним event loop. Но сам runtime не
+является полностью однопоточным: V8, libuv, операционная система и thread pool могут выполнять работу в других потоках.</p>
+<p>Для параллельного выполнения JavaScript-кода Node.js предоставляет <code>worker_threads</code>. Поэтому точнее говорить: основной
+JavaScript-поток однопоточен, но Node.js умеет использовать несколько потоков и процессов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-concurrency-отличается-от-parallelism">Чем concurrency отличается от parallelism?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Concurrency означает, что несколько задач находятся в работе одновременно и переключаются во времени. Например, один
+event loop может ожидать несколько HTTP-запросов, не блокируя выполнение программы.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Concurrency означает, что несколько задач находятся в работе одновременно и переключаются во времени. Например, один
+event loop может ожидать несколько HTTP-запросов, не блокируя выполнение программы.</p>
+<p>Parallelism означает физическое выполнение нескольких задач в один момент времени на разных CPU cores. Для параллельного
+JavaScript-кода в Node.js обычно используют <code>worker_threads</code> или несколько процессов.</p>
+<p>Асинхронность сама по себе не делает CPU-bound код параллельным. Тяжелый синхронный цикл все равно блокирует event loop.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-workerthreads-отличаются-от-childprocess-и-cluster">Чем <code>worker_threads</code> отличаются от <code>child_process</code> и <code>cluster</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для CPU-bound вычислений внутри приложения обычно подходит pool из workerthreads. Для сильной изоляции и масштабирования
+HTTP server по CPU cores часто используют несколько процессов или внешний process manager.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li><code>worker_threads</code> запускают JavaScript параллельно внутри одного процесса. У каждого worker свой V8 isolate и event
+loop, но workers могут обмениваться сообщениями и использовать общую память через <code>SharedArrayBuffer</code>.</li>
+<li><code>child_process</code> запускает отдельный процесс с отдельной памятью. Это полезно для изоляции, запуска внешних программ и
+независимого управления ресурсами.</li>
+<li><code>cluster</code> запускает несколько Node.js processes и помогает распределять входящие соединения одного server port между
+ними.</li>
+</ul>
+<p>Для CPU-bound вычислений внутри приложения обычно подходит pool из <code>worker_threads</code>. Для сильной изоляции и
+масштабирования HTTP server по CPU cores часто используют несколько процессов или внешний process manager.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выполнить-cpu-bound-задачу-в-отдельном-worker-thread">Как выполнить CPU-bound задачу в отдельном Worker Thread?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Основной поток создает Worker, передает входные данные и получает результат через message channel.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Основной поток создает <code>Worker</code>, передает входные данные и получает результат через message channel.</p>
+<p><code>fibonacci-worker.mjs</code>:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> {parentPort, workerData} </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'node:worker_threads'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> fibonacci</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (value </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> value;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#B392F0"> fibonacci</span><span style="color:#E1E4E8">(value </span><span style="color:#F97583">-</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">+</span><span style="color:#B392F0"> fibonacci</span><span style="color:#E1E4E8">(value </span><span style="color:#F97583">-</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">parentPort.</span><span style="color:#B392F0">postMessage</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">fibonacci</span><span style="color:#E1E4E8">(workerData));</span></span></code></pre></figure>
+<p><code>main.mjs</code>:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> {Worker} </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'node:worker_threads'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> runFibonacci</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">  new</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">resolve</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">reject</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> worker</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Worker</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">new</span><span style="color:#B392F0"> URL</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./fibonacci-worker.mjs'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">import</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">meta</span><span style="color:#E1E4E8">.url), {</span></span>
+<span class="line"><span style="color:#E1E4E8">      workerData: value,</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    worker.</span><span style="color:#B392F0">once</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'message'</span><span style="color:#E1E4E8">, resolve);</span></span>
+<span class="line"><span style="color:#E1E4E8">    worker.</span><span style="color:#B392F0">once</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'error'</span><span style="color:#E1E4E8">, reject);</span></span>
+<span class="line"><span style="color:#E1E4E8">    worker.</span><span style="color:#B392F0">once</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'exit'</span><span style="color:#E1E4E8">, (</span><span style="color:#FFAB70">code</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (code </span><span style="color:#F97583">!==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">        reject</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`Worker завершился с кодом ${</span><span style="color:#E1E4E8">code</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">await</span><span style="color:#B392F0"> runFibonacci</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">42</span><span style="color:#E1E4E8">));</span></span></code></pre></figure>
+<p>Создавать новый worker для каждой маленькой задачи дорого. В production обычно используют постоянный worker pool и
+очередь задач.</p>
+</div></div>
+</details>
+<h3 id="общая-память-и-синхронизация">Общая память и синхронизация</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-worker-threads-обмениваются-данными">Как Worker Threads обмениваются данными?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Основные варианты:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Основные варианты:</p>
+<ol>
+<li><code>postMessage()</code> копирует данные по правилам structured clone.</li>
+<li><code>ArrayBuffer</code> можно передать через transfer list без копирования, после чего исходная сторона теряет доступ к buffer.</li>
+<li><code>SharedArrayBuffer</code> доступен нескольким threads одновременно и требует явной синхронизации через <code>Atomics</code>.</li>
+</ol>
+<p>Message passing обычно безопаснее и проще. Shared memory полезна только там, где стоимость копирования действительно
+существенна и команда готова управлять race conditions.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-race-condition-в-nodejs">Что такое race condition в Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Race condition возникает, когда результат зависит от порядка параллельного доступа к общему состоянию. Например,
+операция counter[0] += 1 состоит из чтения, вычисления и записи. Два workers могут прочитать одно значение и потерять
+одно из увеличений.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Race condition возникает, когда результат зависит от порядка параллельного доступа к общему состоянию. Например,
+операция <code>counter[0] += 1</code> состоит из чтения, вычисления и записи. Два workers могут прочитать одно значение и потерять
+одно из увеличений.</p>
+<p>Для счетчика в <code>SharedArrayBuffer</code> нужна атомарная операция:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> buffer</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> SharedArrayBuffer</span><span style="color:#E1E4E8">(Int32Array.</span><span style="color:#79B8FF">BYTES_PER_ELEMENT</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> counter</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Int32Array</span><span style="color:#E1E4E8">(buffer);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Atomics.</span><span style="color:#B392F0">add</span><span style="color:#E1E4E8">(counter, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">);</span></span></code></pre></figure>
+<p>Для обычных async callbacks в одном event loop тоже возможны логические race conditions, если между чтением и записью
+есть <code>await</code>. Но <code>Atomics</code> решает только синхронизацию shared memory между threads, а не любую ошибку конкурентного
+доступа.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-atomics-и-зачем-он-нужен">Что такое <code>Atomics</code> и зачем он нужен?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Atomics предоставляет неделимые операции над integer typed arrays, созданными поверх SharedArrayBuffer. Например:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>Atomics</code> предоставляет неделимые операции над integer typed arrays, созданными поверх <code>SharedArrayBuffer</code>. Например:</p>
+<ul>
+<li><code>Atomics.load()</code> и <code>Atomics.store()</code> читают и записывают значение;</li>
+<li><code>Atomics.add()</code> атомарно изменяет счетчик;</li>
+<li><code>Atomics.compareExchange()</code> реализует compare-and-swap;</li>
+<li><code>Atomics.wait()</code> приостанавливает thread до изменения значения;</li>
+<li><code>Atomics.notify()</code> пробуждает ожидающие threads.</li>
+</ul>
+<p><code>Atomics.wait()</code> блокирует текущий thread, поэтому его не следует использовать в основном Node.js event loop. Обычно
+ожидание выполняют внутри worker thread.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-mutex-отличается-от-semaphore">Чем mutex отличается от semaphore?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Mutex разрешает вход в критическую секцию только одному участнику. Обычно освободить mutex должен тот же участник,
+который его захватил.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Mutex разрешает вход в критическую секцию только одному участнику. Обычно освободить mutex должен тот же участник,
+который его захватил.</p>
+<p>Semaphore хранит счетчик разрешений. Counting semaphore со значением <code>N</code> допускает одновременно до <code>N</code> участников.
+Binary semaphore со значением <code>1</code> похож на mutex, но семантика владения может отличаться.</p>
+<p>Примеры:</p>
+<ul>
+<li>mutex защищает изменение одного общего объекта;</li>
+<li>semaphore ограничивает pool из четырех database connections;</li>
+<li>semaphore ограничивает число одновременно выполняемых HTTP requests;</li>
+<li>semaphore между workers ограничивает доступ к дефицитному shared resource.</li>
+</ul>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-реализовать-асинхронный-semaphore-для-ограничения-promise-задач">Как реализовать асинхронный semaphore для ограничения Promise-задач?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Такой semaphore ограничивает concurrency внутри одного event loop. Он полезен для HTTP requests, файловых операций или
+доступа к connection pool, но не делает CPU-bound JavaScript параллельным.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Такой semaphore ограничивает concurrency внутри одного event loop. Он полезен для HTTP requests, файловых операций или
+доступа к connection pool, но не делает CPU-bound JavaScript параллельным.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Semaphore</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  #available</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  #queue</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  constructor</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">limit</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">Number.</span><span style="color:#B392F0">isInteger</span><span style="color:#E1E4E8">(limit) </span><span style="color:#F97583">||</span><span style="color:#E1E4E8"> limit </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> TypeError</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Semaphore limit must be a positive integer'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.#available </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> limit;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  acquire</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.#available </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.#available </span><span style="color:#F97583">-=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">resolve</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">#createRelease</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">resolve</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.#queue.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(resolve);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> run</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">task</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> release</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">acquire</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> task</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">finally</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">      release</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  #</span><span style="color:#B392F0">createRelease</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    let</span><span style="color:#E1E4E8"> released </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (released) {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">      released </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> next</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.#queue.</span><span style="color:#B392F0">shift</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (next) {</span></span>
+<span class="line"><span style="color:#B392F0">        next</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">#createRelease</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">      } </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.#available </span><span style="color:#F97583">+=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    };</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Использование с максимум двумя одновременными запросами:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> semaphore</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Semaphore</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> urls</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">'https://a.example'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'https://b.example'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'https://c.example'</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> responses</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">all</span><span style="color:#E1E4E8">(urls.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">url</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> semaphore.</span><span style="color:#B392F0">run</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(url))));</span></span></code></pre></figure>
+<p>Освобождение находится в <code>finally</code>, поэтому permit вернется даже при ошибке задачи.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-реализовать-semaphore-между-worker-threads-через-sharedarraybuffer">Как реализовать semaphore между Worker Threads через <code>SharedArrayBuffer</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В общей памяти можно хранить количество доступных permits. Захват выполняется через compare-and-swap, а ожидающие
+workers блокируются через Atomics.wait().</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В общей памяти можно хранить количество доступных permits. Захват выполняется через compare-and-swap, а ожидающие
+workers блокируются через <code>Atomics.wait()</code>.</p>
+<p><code>shared-semaphore.mjs</code>:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#B392F0"> acquire</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">state</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  while</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> permits</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Atomics.</span><span style="color:#B392F0">load</span><span style="color:#E1E4E8">(state, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (permits </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#F97583"> &#x26;&#x26;</span><span style="color:#E1E4E8"> Atomics.</span><span style="color:#B392F0">compareExchange</span><span style="color:#E1E4E8">(state, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, permits, permits </span><span style="color:#F97583">-</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> permits) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    Atomics.</span><span style="color:#B392F0">wait</span><span style="color:#E1E4E8">(state, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#B392F0"> release</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">state</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  Atomics.</span><span style="color:#B392F0">add</span><span style="color:#E1E4E8">(state, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  Atomics.</span><span style="color:#B392F0">notify</span><span style="color:#E1E4E8">(state, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre></figure>
+<p>Основной поток создает shared state и передает его workers:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> {Worker} </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'node:worker_threads'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> permits</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> buffer</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> SharedArrayBuffer</span><span style="color:#E1E4E8">(Int32Array.</span><span style="color:#79B8FF">BYTES_PER_ELEMENT</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> state</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Int32Array</span><span style="color:#E1E4E8">(buffer);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Atomics.</span><span style="color:#B392F0">store</span><span style="color:#E1E4E8">(state, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, permits);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> workers</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Array.</span><span style="color:#B392F0">from</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">  {length: </span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#E1E4E8">  (</span><span style="color:#FFAB70">_</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">id</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">    new</span><span style="color:#B392F0"> Worker</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">new</span><span style="color:#B392F0"> URL</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./worker.mjs'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">import</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">meta</span><span style="color:#E1E4E8">.url), {</span></span>
+<span class="line"><span style="color:#E1E4E8">      workerData: {id, semaphoreBuffer: buffer},</span></span>
+<span class="line"><span style="color:#E1E4E8">    }),</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">await</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">all</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">  workers.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#FFAB70">worker</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">      new</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">resolve</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">reject</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">        worker.</span><span style="color:#B392F0">once</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'exit'</span><span style="color:#E1E4E8">, resolve);</span></span>
+<span class="line"><span style="color:#E1E4E8">        worker.</span><span style="color:#B392F0">once</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'error'</span><span style="color:#E1E4E8">, reject);</span></span>
+<span class="line"><span style="color:#E1E4E8">      }),</span></span>
+<span class="line"><span style="color:#E1E4E8">  ),</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre></figure>
+<p><code>worker.mjs</code>:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> {setTimeout} </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'node:timers/promises'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> {workerData} </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'node:worker_threads'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> {acquire, release} </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './shared-semaphore.mjs'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> state</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Int32Array</span><span style="color:#E1E4E8">(workerData.semaphoreBuffer);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">acquire</span><span style="color:#E1E4E8">(state);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`Worker ${</span><span style="color:#E1E4E8">workerData</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">id</span><span style="color:#9ECBFF">} получил permit`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#B392F0"> setTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">500</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">finally</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  release</span><span style="color:#E1E4E8">(state);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Этот пример учебный. В production нужно дополнительно продумать shutdown, timeout, cancellation, падение worker после
+<code>acquire()</code>, максимальное число permits, fairness и восстановление утраченного permit.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-ошибки-часто-допускают-при-работе-с-многопоточностью-в-nodejs">Какие ошибки часто допускают при работе с многопоточностью в Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>По умолчанию лучше использовать message passing и изолированное состояние. Shared memory и низкоуровневые primitives
+нужны только после измерений и при понятной модели владения ресурсами.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>отправляют обычный async I/O в workers, хотя event loop уже эффективно обрабатывает его;</li>
+<li>создают новый worker для каждой маленькой задачи вместо worker pool;</li>
+<li>копируют большие данные между threads и теряют выигрыш на serialization;</li>
+<li>изменяют <code>SharedArrayBuffer</code> без <code>Atomics</code>;</li>
+<li>вызывают blocking primitives в основном event loop;</li>
+<li>забывают освобождать mutex или semaphore в <code>finally</code>;</li>
+<li>не обрабатывают <code>error</code>, <code>exit</code>, timeout и отмену worker;</li>
+<li>предполагают, что semaphore автоматически гарантирует fairness и отсутствие deadlock.</li>
+</ul>
+<p>По умолчанию лучше использовать message passing и изолированное состояние. Shared memory и низкоуровневые primitives
+нужны только после измерений и при понятной модели владения ресурсами.</p>
+</div></div>
+</details>
+<h3 id="npm-и-package-scripts">npm и package scripts</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-npm-package">Что такое npm package?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это directory или опубликованный artifact с package.json и кодом. Package может быть библиотекой, CLI или приложением.
+Имя и version определяют его identity в registry.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это directory или опубликованный artifact с <code>package.json</code> и кодом. Package может быть библиотекой, CLI или приложением.
+Имя и version определяют его identity в registry.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-packagejson">Что такое <code>package.json</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Manifest проекта описывает metadata, scripts, dependencies, package exports и настройки tools. Он не фиксирует точное
+дерево transitive dependencies. Для этого нужен lock-файл.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Manifest проекта описывает metadata, scripts, dependencies, package exports и настройки tools. Он не фиксирует точное
+дерево transitive dependencies. Для этого нужен lock-файл.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-peerdependencies">Что такое peerDependencies?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Они объявляют, что package ожидает совместимую dependency от host-проекта. Это важно для frameworks и plugins, которым
+нужен общий runtime instance. Например, Angular library обычно указывает Angular как peer dependency.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Они объявляют, что package ожидает совместимую dependency от host-проекта. Это важно для frameworks и plugins, которым
+нужен общий runtime instance. Например, Angular library обычно указывает Angular как peer dependency.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-npm-scripts">Что такое npm scripts?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это именованные shell-команды в поле scripts, запускаемые через npm run. npm добавляет локальные binaries из
+nodemodules/.bin в PATH. Lifecycle scripts могут запускаться автоматически, поэтому dependencies должны быть
+доверенными.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это именованные shell-команды в поле <code>scripts</code>, запускаемые через <code>npm run</code>. npm добавляет локальные binaries из
+<code>node_modules/.bin</code> в <code>PATH</code>. Lifecycle scripts могут запускаться автоматически, поэтому dependencies должны быть
+доверенными.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-semantic-versioning">Что такое semantic versioning?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>SemVer использует major.minor.patch: major для breaking changes, minor для совместимой функциональности, patch для
+совместимых fixes. До 1.0.0 гарантии часто трактуются осторожнее. Versioning полезно только при честном публичном
+контракте.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>SemVer использует <code>major.minor.patch</code>: major для breaking changes, minor для совместимой функциональности, patch для
+совместимых fixes. До <code>1.0.0</code> гарантии часто трактуются осторожнее. Versioning полезно только при честном публичном
+контракте.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-значит-и-exact-version-в-packagejson">Что значит <code>^</code>, <code>~</code> и exact version в package.json?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Exact устанавливает только указанную version. 1.2.3 допускает patch updates, ^1.2.3 — compatible minor и patch до
+следующего major. Фактическую установленную версию фиксирует lock-файл.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Exact устанавливает только указанную version. <code>~1.2.3</code> допускает patch updates, <code>^1.2.3</code> — compatible minor и patch до
+следующего major. Фактическую установленную версию фиксирует lock-файл.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-dependencies-отличаются-от-devdependencies">Чем dependencies отличаются от devDependencies?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>dependencies нужны package во время runtime потребителя, devDependencies — для разработки, тестов и сборки. Для frontend
+application обе группы обычно устанавливаются перед build. Для library правильная классификация влияет на потребителя.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>dependencies</code> нужны package во время runtime потребителя, <code>devDependencies</code> — для разработки, тестов и сборки. Для
+frontend application обе группы обычно устанавливаются перед build. Для library правильная классификация влияет на
+потребителя.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-package-lockjson">Что такое package-lock.json?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Lock-файл фиксирует точные версии и integrity всего установленного dependency tree. Он делает installs воспроизводимыми.
+Ручное редактирование обычно не требуется.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Lock-файл фиксирует точные версии и integrity всего установленного dependency tree. Он делает installs воспроизводимыми.
+Ручное редактирование обычно не требуется.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-lock-файл-важно-коммитить">Почему lock-файл важно коммитить?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CI и разработчики получают одно и то же разрешенное дерево, а изменения dependencies видны в review. Без lock-файла
+compatible ranges могут установить разные transitive versions. Это усложняет debugging и supply-chain audit.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CI и разработчики получают одно и то же разрешенное дерево, а изменения dependencies видны в review. Без lock-файла
+compatible ranges могут установить разные transitive versions. Это усложняет debugging и supply-chain audit.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делает-npm-install">Что делает <code>npm install</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Разрешает dependencies, устанавливает их в nodemodules и обновляет lock-файл при необходимости. Он подходит для
+локальной разработки и добавления packages. Результат может изменить lock при рассинхронизации manifest.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Разрешает dependencies, устанавливает их в <code>node_modules</code> и обновляет lock-файл при необходимости. Он подходит для
+локальной разработки и добавления packages. Результат может изменить lock при рассинхронизации manifest.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делает-npm-ci">Что делает <code>npm ci</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Удаляет существующий nodemodules и устанавливает точно по lock-файлу. Команда завершится ошибкой, если package.json и
+lock не согласованы. Она не переписывает dependency tree.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Удаляет существующий <code>node_modules</code> и устанавливает точно по lock-файлу. Команда завершится ошибкой, если <code>package.json</code>
+и lock не согласованы. Она не переписывает dependency tree.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-npm-ci-лучше-для-ci">Чем <code>npm ci</code> лучше для CI?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Дает чистую, воспроизводимую установку и быстро обнаруживает незакоммиченный lock update. Поведение меньше зависит от
+предыдущего workspace state. Кеш npm downloads можно использовать отдельно от nodemodules.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Дает чистую, воспроизводимую установку и быстро обнаруживает незакоммиченный lock update. Поведение меньше зависит от
+предыдущего workspace state. Кеш npm downloads можно использовать отдельно от <code>node_modules</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-npm-scripts-используются-во-frontend-проектах">Как npm scripts используются во frontend-проектах?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для start, build, test, lint, format, code generation и deployment wrappers. Они дают команде единый interface поверх
+Angular CLI, Vite и других tools. Scripts должны оставаться понятными и composable.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Для <code>start</code>, <code>build</code>, <code>test</code>, <code>lint</code>, <code>format</code>, code generation и deployment wrappers. Они дают команде единый interface
+поверх Angular CLI, Vite и других tools. Scripts должны оставаться понятными и composable.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-task-runner-отличается-от-package-scripts">Чем task runner отличается от package scripts?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Task runner вроде Gulp или Grunt описывает pipeline через отдельный инструмент и плагины. Package scripts запускают
+команды напрямую через npm, pnpm, Yarn или Bun. В современных frontend-проектах многие задачи закрываются framework CLI,
+bundler и package scripts, но legacy-проекты могут все еще использовать task runners для сборки assets или интеграции.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Task runner вроде Gulp или Grunt описывает pipeline через отдельный инструмент и плагины. Package scripts запускают
+команды напрямую через npm, pnpm, Yarn или Bun. В современных frontend-проектах многие задачи закрываются framework CLI,
+bundler и package scripts, но legacy-проекты могут все еще использовать task runners для сборки assets или интеграции.</p>
+</div></div>
+</details>
+<h3 id="nodejs-для-frontend-tooling">Node.js для frontend tooling</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-dev-server">Что такое dev server?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Локальный HTTP server для разработки с module transforms, source maps, watch и hot reload. Он оптимизирован для
+feedback, а не безопасности, кеширования и production traffic. Его нельзя использовать как production hosting.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Локальный HTTP server для разработки с module transforms, source maps, watch и hot reload. Он оптимизирован для
+feedback, а не безопасности, кеширования и production traffic. Его нельзя использовать как production hosting.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-frontend-проекту-нужен-nodejs">Почему frontend-проекту нужен Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Node запускает package manager, compiler, linter, tests, dev server и production build. Результат затем выполняется в
+browser и может не зависеть от Node. SSR-приложение дополнительно использует Node во время runtime.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Node запускает package manager, compiler, linter, tests, dev server и production build. Результат затем выполняется в
+browser и может не зависеть от Node. SSR-приложение дополнительно использует Node во время runtime.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-nodejs-используется-в-angular-cli">Как Node.js используется в Angular CLI?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CLI запускается как Node program, читает workspace config и вызывает builders. TypeScript/Angular compiler, dev server и
+test runner также работают в Node. Поддерживаемая Node version зависит от Angular version.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CLI запускается как Node program, читает workspace config и вызывает builders. TypeScript/Angular compiler, dev server и
+test runner также работают в Node. Поддерживаемая Node version зависит от Angular version.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-nodejs-используется-в-vitewebpackesbuild">Как Node.js используется в Vite/Webpack/esbuild?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Он запускает bundler process, читает файлы, разрешает modules и обслуживает plugins. Vite предоставляет dev server,
+Webpack строит module graph, esbuild выполняет быстрые transforms/bundling. Production output предназначен для browser
+или server target.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Он запускает bundler process, читает файлы, разрешает modules и обслуживает plugins. Vite предоставляет dev server,
+Webpack строит module graph, esbuild выполняет быстрые transforms/bundling. Production output предназначен для browser
+или server target.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-dev-server-отличается-от-production-build">Чем dev server отличается от production build?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Dev server часто преобразует modules по запросу и хранит часть данных в памяти. Production build минифицирует, хеширует,
+оптимизирует и записывает deployable artifacts. Поведение окружения нужно проверять production build.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Dev server часто преобразует modules по запросу и хранит часть данных в памяти. Production build минифицирует, хеширует,
+оптимизирует и записывает deployable artifacts. Поведение окружения нужно проверять production build.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-код-который-работает-в-nodejs-может-не-работать-в-браузере">Почему код, который работает в Node.js, может не работать в браузере?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Browser не предоставляет fs, process, CommonJS resolution и unrestricted sockets. Также действуют CORS, CSP и sandbox.
+Bundler polyfills не следует считать автоматическими или бесплатными.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Browser не предоставляет <code>fs</code>, <code>process</code>, CommonJS resolution и unrestricted sockets. Также действуют CORS, CSP и
+sandbox. Bundler polyfills не следует считать автоматическими или бесплатными.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-код-который-работает-в-браузере-может-не-работать-в-nodejs">Почему код, который работает в браузере, может не работать в Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В Node обычно нет window, document, DOM, layout и browser storage. SSR-код должен изолировать browser-only API.
+Некоторые Web APIs появляются в новых Node versions, но их поддержку нужно проверять.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В Node обычно нет <code>window</code>, <code>document</code>, DOM, layout и browser storage. SSR-код должен изолировать browser-only API.
+Некоторые Web APIs появляются в новых Node versions, но их поддержку нужно проверять.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-scaffolding-tools-полезны-а-когда-вредят">Когда scaffolding tools полезны, а когда вредят?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Scaffolding tools полезны, когда создают повторяемую структуру components, features, libraries или tests по текущим
+командным conventions. Они вредят, если генерируют много непонятного boilerplate или закрепляют устаревшую архитектуру.
+Генератор должен отражать живую codebase, а не исторические привычки.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Scaffolding tools полезны, когда создают повторяемую структуру components, features, libraries или tests по текущим
+командным conventions. Они вредят, если генерируют много непонятного boilerplate или закрепляют устаревшую архитектуру.
+Генератор должен отражать живую codebase, а не исторические привычки.</p>
+</div></div>
+</details>
+<h3 id="http-server-networking-и-curl">HTTP server, networking и curl</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-idempotency">Что такое idempotency?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Операция идемпотентна, если повтор одного и того же запроса имеет тот же ожидаемый итоговый эффект. Это важно для
+retries при сетевой неопределенности. API может использовать idempotency key для безопасного повторения создания
+платежа.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Операция идемпотентна, если повтор одного и того же запроса имеет тот же ожидаемый итоговый эффект. Это важно для
+retries при сетевой неопределенности. API может использовать idempotency key для безопасного повторения создания
+платежа.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-hsts-и-зачем-браузер-проверяет-hsts-list">Что такое HSTS и зачем браузер проверяет HSTS list?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HSTS (HTTP Strict Transport Security) говорит браузеру обращаться к сайту только по HTTPS. Если domain есть в preloaded
+HSTS list или браузер уже получил Strict-Transport-Security, попытка http:// будет локально повышена до https:// до
+сетевого запроса.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HSTS (HTTP Strict Transport Security) говорит браузеру обращаться к сайту только по HTTPS. Если domain есть в preloaded
+HSTS list или браузер уже получил <code>Strict-Transport-Security</code>, попытка <code>http://</code> будет локально повышена до <code>https://</code>
+до сетевого запроса.</p>
+<p>Это защищает от downgrade attack и случайной отправки cookies по незащищенному соединению. Для frontend это важно при
+диагностике “почему HTTP redirect не виден в Network” и при настройке production-доменов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-etag">Что такое <code>ETag</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>ETag — validator версии ресурса. Клиент может отправить If-None-Match, и сервер вернет 304 Not Modified, если ресурс не
+изменился. Это экономит body transfer, но оставляет network round trip, поэтому для content-hashed assets часто выгоднее
+долгий cache lifetime.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>ETag</code> — validator версии ресурса. Клиент может отправить <code>If-None-Match</code>, и сервер вернет <code>304 Not Modified</code>, если
+ресурс не изменился. Это экономит body transfer, но оставляет network round trip, поэтому для content-hashed assets
+часто выгоднее долгий cache lifetime.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-expires">Что такое <code>Expires</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Expires задает абсолютную дату, после которой response считается устаревшим. В современных приложениях чаще предпочитают
+Cache-Control, потому что относительные правила проще и надежнее при разнице часов между системами. Если оба header
+присутствуют, Cache-Control обычно имеет приоритет.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>Expires</code> задает абсолютную дату, после которой response считается устаревшим. В современных приложениях чаще
+предпочитают <code>Cache-Control</code>, потому что относительные правила проще и надежнее при разнице часов между системами. Если
+оба header присутствуют, <code>Cache-Control</code> обычно имеет приоритет.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-из-чего-состоит-http-request">Из чего состоит HTTP request?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Request line содержит method, target и HTTP version, затем идут headers и optional body. URL включает path и query
+params. Host, authorization и content metadata передаются headers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Request line содержит method, target и HTTP version, затем идут headers и optional body. URL включает path и query
+params. Host, authorization и content metadata передаются headers.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-из-чего-состоит-http-response">Из чего состоит HTTP response?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Status line содержит HTTP version и status code, затем идут response headers и optional body. Headers описывают content,
+cache, cookies и transport metadata. Body может содержать JSON, HTML, файл или stream.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Status line содержит HTTP version и status code, затем идут response headers и optional body. Headers описывают content,
+cache, cookies и transport metadata. Body может содержать JSON, HTML, файл или stream.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-options-и-head-отличаются-от-основных-http-methods">Чем <code>OPTIONS</code> и <code>HEAD</code> отличаются от основных HTTP methods?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>OPTIONS запрашивает поддерживаемые возможности ресурса или используется браузером для CORS preflight. HEAD похож на GET,
+но возвращает только headers без body, что полезно для проверки metadata, cache и доступности ресурса. Оба метода важны
+для инфраструктуры, но редко являются основными product actions.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>OPTIONS</code> запрашивает поддерживаемые возможности ресурса или используется браузером для CORS preflight. <code>HEAD</code> похож на
+<code>GET</code>, но возвращает только headers без body, что полезно для проверки metadata, cache и доступности ресурса. Оба метода
+важны для инфраструктуры, но редко являются основными product actions.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-http-methods-обычно-идемпотентны">Какие HTTP methods обычно идемпотентны?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>GET, HEAD, PUT, DELETE и OPTIONS определены как идемпотентные по семантике, PATCH может быть таким по контракту, POST
+обычно нет. Идемпотентность не означает одинаковый response: DELETE повторно может вернуть другой status.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>GET, HEAD, PUT, DELETE и OPTIONS определены как идемпотентные по семантике, PATCH может быть таким по контракту, POST
+обычно нет. Идемпотентность не означает одинаковый response: DELETE повторно может вернуть другой status.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-использовать-curl-для-проверки-http-api">Как использовать curl для проверки HTTP API?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>curl позволяет отправить запрос вне приложения и увидеть, проблема находится в API, сети или frontend-коде.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>curl</code> позволяет отправить запрос вне приложения и увидеть, проблема находится в API, сети или frontend-коде.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#9ECBFF"> https://api.example.com/users</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -X</span><span style="color:#9ECBFF"> POST</span><span style="color:#9ECBFF"> https://api.example.com/users</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -H</span><span style="color:#9ECBFF"> "Content-Type: application/json"</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -d</span><span style="color:#9ECBFF"> '{"name":"Max","role":"frontend"}'</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -X</span><span style="color:#9ECBFF"> PATCH</span><span style="color:#9ECBFF"> https://api.example.com/users/1</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -H</span><span style="color:#9ECBFF"> "Content-Type: application/json"</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -H</span><span style="color:#9ECBFF"> "Authorization: Bearer token"</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -d</span><span style="color:#9ECBFF"> '{"name":"Alex"}'</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-http-отличается-от-https">Чем HTTP отличается от HTTPS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTTPS передает HTTP внутри защищенного TLS-соединения. Оно шифрует трафик, подтверждает подлинность сервера сертификатом
+и защищает данные от незаметного изменения в пути.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTTPS передает HTTP внутри защищенного TLS-соединения. Оно шифрует трафик, подтверждает подлинность сервера сертификатом
+и защищает данные от незаметного изменения в пути.</p>
+<p>HTTPS не исправляет XSS, слабую авторизацию или утечку данных на сервере.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-устроены-tcpip-и-http">Как устроены TCP/IP и HTTP?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Упрощенная модель TCP/IP:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Упрощенная модель TCP/IP:</p>
+<ol>
+<li>Прикладной уровень: HTTP, DNS, WebSocket.</li>
+<li>Транспортный уровень: TCP или UDP.</li>
+<li>Сетевой уровень: IP и маршрутизация пакетов.</li>
+<li>Канальный уровень: передача кадров внутри локальной сети.</li>
+</ol>
+<p>HTTP — протокол прикладного уровня с моделью request/response. Клиент отправляет метод, URL, заголовки и при
+необходимости body; сервер возвращает status code, заголовки и body.</p>
+<p>HTTPS — HTTP поверх защищенного TLS-соединения. TCP обеспечивает надежную упорядоченную доставку для HTTP/1.1 и HTTP/2;
+HTTP/3 использует QUIC поверх UDP.</p>
+<p>TCP устанавливает соединение, гарантирует порядок и повторную доставку потерянных данных. UDP отправляет datagrams без
+таких гарантий, но с меньшими накладными расходами.</p>
+<p>В модели OSI HTTP относится к прикладному уровню, TCP/UDP - к транспортному, IP - к сетевому.</p>
+<p>Для frontend-разработчика важны методы, коды ответа, заголовки, кеширование, cookies, CORS, TLS, сжатие и понимание
+того, что количество и размер запросов влияют на производительность.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-работает-dns-lookup">Как работает DNS lookup?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>DNS lookup преобразует hostname в IP-адрес. Браузер и ОС сначала проверяют свои кеши, затем resolver обращается к
+настроенному DNS-серверу, который может вернуть ответ из кеша или выполнить recursive lookup через DNS hierarchy.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>DNS lookup преобразует hostname в IP-адрес. Браузер и ОС сначала проверяют свои кеши, затем resolver обращается к
+настроенному DNS-серверу, который может вернуть ответ из кеша или выполнить recursive lookup через DNS hierarchy.</p>
+<p>Ответы имеют TTL, поэтому смена IP, CDN или DNS-записей может доходить до пользователей не мгновенно. В DevTools это
+видно как DNS timing, если соединение не было переиспользовано.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-frontend-разработчику-понимать-dns">Зачем frontend-разработчику понимать DNS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>DNS влияет на latency первого запроса к origin, API, CDN, fonts и analytics. Много разных domains увеличивает число DNS
+lookup, TCP/TLS setup и риск частичных сбоев.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>DNS влияет на latency первого запроса к origin, API, CDN, fonts и analytics. Много разных domains увеличивает число DNS
+lookup, TCP/TLS setup и риск частичных сбоев.</p>
+<p>Практически это помогает объяснять медленный first visit, выбирать <code>preconnect</code> только для действительно критичных
+origins, диагностировать проблемы после смены CDN, CNAME или окружения API.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-происходит-перед-отправкой-http-запроса-по-https">Что происходит перед отправкой HTTP-запроса по HTTPS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Браузер открывает или переиспользует соединение с origin. Если нового соединения избежать нельзя, сначала
+устанавливается transport connection, затем выполняется TLS handshake: выбирается версия TLS и cipher suite, проверяется
+certificate chain, согласуются ключи шифрования и имя сервера через SNI.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Браузер открывает или переиспользует соединение с origin. Если нового соединения избежать нельзя, сначала
+устанавливается transport connection, затем выполняется TLS handshake: выбирается версия TLS и cipher suite, проверяется
+certificate chain, согласуются ключи шифрования и имя сервера через SNI.</p>
+<p>Только после успешного TLS handshake отправляется HTTP-запрос. Поэтому медленный HTTPS может быть связан не с API
+handler, а с network latency, certificate проблемами, отсутствием connection reuse или слишком большим числом origins.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-tcp-отличается-от-udp-в-контексте-http">Чем TCP отличается от UDP в контексте HTTP?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>TCP дает надежный упорядоченный byte stream: потерянные данные повторно передаются, а приложение получает их в порядке.
+HTTP/1.1 и HTTP/2 обычно работают поверх TCP.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>TCP дает надежный упорядоченный byte stream: потерянные данные повторно передаются, а приложение получает их в порядке.
+HTTP/1.1 и HTTP/2 обычно работают поверх TCP.</p>
+<p>UDP не гарантирует доставку и порядок datagrams. HTTP/3 использует QUIC поверх UDP, добавляя надежность, шифрование и
+мультиплексирование на своем уровне. Для frontend это проявляется в timing, connection setup и поведении при packet
+loss.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-происходит-если-сетевой-пакет-потерялся">Что происходит, если сетевой пакет потерялся?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для TCP потеря приводит к повторной передаче и увеличению latency; данные выше по стеку будут ждать недостающий кусок. В
+HTTP/2 поверх TCP потеря может задержать несколько streams на одном соединении.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Для TCP потеря приводит к повторной передаче и увеличению latency; данные выше по стеку будут ждать недостающий кусок. В
+HTTP/2 поверх TCP потеря может задержать несколько streams на одном соединении.</p>
+<p>В QUIC/HTTP/3 потеря одного stream меньше блокирует остальные streams, но пользователь все равно видит задержку, timeout
+или retry на уровне приложения. Frontend должен проектировать loading, timeout и idempotent retry с учетом этой
+неопределенности.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выглядит-минимальный-http-request">Как выглядит минимальный HTTP request?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Минимально важны method, request target, HTTP version и Host для HTTP/1.1:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Минимально важны method, request target, HTTP version и <code>Host</code> для HTTP/1.1:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="http"><code><span class="line"><span style="color:#F97583">GET</span><span style="color:#E1E4E8"> /products?limit=10 </span><span style="color:#F97583">HTTP</span><span style="color:#E1E4E8">/</span><span style="color:#79B8FF">1.1</span></span>
+<span class="line"><span style="color:#85E89D">Host</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> example.com</span></span>
+<span class="line"><span style="color:#85E89D">Accept</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> text/html</span></span></code></pre></figure>
+<p>Реальный browser request добавит headers вроде <code>User-Agent</code>, <code>Accept-Encoding</code>, <code>Cookie</code>, <code>Sec-Fetch-*</code>, <code>If-None-Match</code>
+или <code>Origin</code>. В HTTP/2 и HTTP/3 формат передачи другой, но семантика method, path, headers и body сохраняется.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-означают-date-и-age-в-http-headers">Что означают <code>Date</code> и <code>Age</code> в HTTP headers?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Date показывает время формирования response на сервере или proxy. Age показывает, сколько секунд response уже находится
+в cache, например в CDN. Эти headers помогают понять, пришел ли ответ из cache и насколько он свежий.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>Date</code> показывает время формирования response на сервере или proxy. <code>Age</code> показывает, сколько секунд response уже
+находится в cache, например в CDN. Эти headers помогают понять, пришел ли ответ из cache и насколько он свежий.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-раньше-ассеты-разносили-по-нескольким-доменам">Почему раньше ассеты разносили по нескольким доменам?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В HTTP/1.1 браузеры ограничивали число одновременных соединений к одному host, поэтому domain sharding помогал качать
+больше файлов параллельно. Цена — дополнительные DNS lookup, TLS handshakes, cookies и сложность кеширования. В
+современных проектах этот прием чаще вреден.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В HTTP/1.1 браузеры ограничивали число одновременных соединений к одному host, поэтому domain sharding помогал качать
+больше файлов параллельно. Цена — дополнительные DNS lookup, TLS handshakes, cookies и сложность кеширования. В
+современных проектах этот прием чаще вреден.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-domain-prefetch">Что такое domain prefetch?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Domain prefetch заранее выполняет DNS lookup для origin, который скоро может понадобиться. Это может сократить задержку
+первого запроса к стороннему домену, но лишние hints расходуют ресурсы и могут раскрывать будущие переходы. Для более
+критичных ресурсов иногда уместнее preconnect.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Domain prefetch заранее выполняет DNS lookup для origin, который скоро может понадобиться. Это может сократить задержку
+первого запроса к стороннему домену, но лишние hints расходуют ресурсы и могут раскрывать будущие переходы. Для более
+критичных ресурсов иногда уместнее <code>preconnect</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-происходит-если-html-ссылается-на-ресурсы-с-других-доменов">Что происходит, если HTML ссылается на ресурсы с других доменов?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для каждого нового origin браузеру могут понадобиться отдельные DNS lookup, connection setup и TLS handshake. CSS,
+scripts, images, fonts и API-запросы также подчиняются mixed content, CORS, CORP/CORB, CSP и cookie rules.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Для каждого нового origin браузеру могут понадобиться отдельные DNS lookup, connection setup и TLS handshake. CSS,
+scripts, images, fonts и API-запросы также подчиняются mixed content, CORS, CORP/CORB, CSP и cookie rules.</p>
+<p>Практические проблемы: медленные third-party scripts задерживают render, fonts могут блокировать текст, API может упасть
+из-за CORS, а cookies не отправятся без правильных <code>SameSite</code>, <code>Secure</code> и credentials settings.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делает-сервер-после-получения-http-request">Что делает сервер после получения HTTP request?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Server или edge layer принимает request, разбирает method, path, headers и body, применяет routing, authentication,
+authorization, validation, business logic и обращение к данным. Затем формирует status code, response headers и body.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Server или edge layer принимает request, разбирает method, path, headers и body, применяет routing, authentication,
+authorization, validation, business logic и обращение к данным. Затем формирует status code, response headers и body.</p>
+<p>До application code запрос могут обработать CDN, reverse proxy, WAF, cache или load balancer. Поэтому frontend
+диагностика должна смотреть status, headers, timing, trace id и то, на каком слое возникла ошибка.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-из-чего-состоят-http-запрос-и-ответ">Из чего состоят HTTP-запрос и ответ?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Запрос содержит method, URL, headers и необязательный body. Ответ содержит status code, headers и необязательный body.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Запрос содержит method, URL, headers и необязательный body. Ответ содержит status code, headers и необязательный body.</p>
+<p>Частые headers: <code>Content-Type</code>, <code>Accept</code>, <code>Authorization</code>, <code>Cache-Control</code>, <code>ETag</code>, <code>Cookie</code>, <code>Set-Cookie</code>, <code>Origin</code>.
+Формат body описывает <code>Content-Type</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-websocket-отличается-от-sse">Чем WebSocket отличается от SSE?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>WebSocket предоставляет постоянный двусторонний канал и подходит для чатов, multiplayer и совместного редактирования.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>WebSocket предоставляет постоянный двусторонний канал и подходит для чатов, multiplayer и совместного редактирования.</p>
+<p>SSE передает события только от сервера к клиенту поверх HTTP, автоматически переподключается и проще для уведомлений,
+прогресса и live feed. SSE передает текстовые события и имеет browser-specific ограничения соединений.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-выбрать-polling-sse-или-websocket">Когда выбрать polling, SSE или WebSocket?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Учитывают инфраструктуру, reconnect, authentication, масштабирование, mobile network и реальную частоту событий.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Polling прост и подходит для редких обновлений, когда задержка допустима.</li>
+<li>SSE выбирают для постоянного потока server-to-client.</li>
+<li>WebSocket нужен для частого двустороннего обмена с низкой задержкой.</li>
+</ul>
+<p>Учитывают инфраструктуру, reconnect, authentication, масштабирование, mobile network и реальную частоту событий.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-long-polling-websocket-и-server-sent-events-отличаются">Чем Long Polling, WebSocket и Server-Sent Events отличаются?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Long Polling держит HTTP-запрос открытым до появления события, затем клиент сразу открывает следующий запрос. SSE дает
+постоянный однонаправленный поток server-to-client поверх HTTP и хорошо подходит для уведомлений. WebSocket открывает
+двусторонний канал с низкой задержкой, но требует отдельного управления reconnect, auth, scaling и проксированием.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Long Polling держит HTTP-запрос открытым до появления события, затем клиент сразу открывает следующий запрос. SSE дает
+постоянный однонаправленный поток server-to-client поверх HTTP и хорошо подходит для уведомлений. WebSocket открывает
+двусторонний канал с низкой задержкой, но требует отдельного управления reconnect, auth, scaling и проксированием.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-304-not-modified-и-как-он-связан-с-кешем">Что такое 304 Not Modified и как он связан с кешем?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>304 Not Modified означает, что cached response в browser HTTP cache еще можно использовать. Браузер отправляет
+conditional request с If-None-Match или If-Modified-Since, а сервер отвечает 304 без полного body.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>304 Not Modified</code> означает, что cached response в browser HTTP cache еще можно использовать. Браузер отправляет
+conditional request с <code>If-None-Match</code> или <code>If-Modified-Since</code>, а сервер отвечает <code>304</code> без полного body.</p>
+<p>Это экономит bandwidth, но не убирает network round trip. Для hashed assets часто лучше долгий
+<code>Cache-Control: immutable</code>, а для <code>index.html</code> — revalidation, чтобы быстрее получать новую версию приложения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-cache-control">Что такое <code>Cache-Control</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Cache-Control задает правила кеширования для browser cache, CDN и промежуточных caches: max-age, s-maxage, no-cache,
+no-store, public, private, immutable. Для hashed assets обычно используют долгий max-age и immutable, а для HTML SPA —
+короткое кеширование или revalidation, чтобы быстрее доставлять новые версии и rollback.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>Cache-Control</code> задает правила кеширования для browser cache, CDN и промежуточных caches: <code>max-age</code>, <code>s-maxage</code>,
+<code>no-cache</code>, <code>no-store</code>, <code>public</code>, <code>private</code>, <code>immutable</code>. Для hashed assets обычно используют долгий <code>max-age</code> и
+<code>immutable</code>, а для HTML SPA — короткое кеширование или revalidation, чтобы быстрее доставлять новые версии и rollback.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужны-if-modified-since-и-if-none-match">Для чего нужны <code>If-Modified-Since</code> и <code>If-None-Match</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это conditional request headers для revalidation. If-Modified-Since сравнивает дату изменения ресурса, а If-None-Match
+сравнивает ETag и обычно точнее. Если ресурс не изменился, сервер отвечает 304 без body, сохраняя bandwidth.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это conditional request headers для revalidation. <code>If-Modified-Since</code> сравнивает дату изменения ресурса, а
+<code>If-None-Match</code> сравнивает <code>ETag</code> и обычно точнее. Если ресурс не изменился, сервер отвечает <code>304</code> без body, сохраняя
+bandwidth.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-transfer-encoding">Что такое <code>Transfer-Encoding</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Transfer-Encoding описывает, как body передается по соединению, например chunked encoding в HTTP/1.1. Chunked response
+позволяет начинать отправку до того, как известен полный размер body. В HTTP/2 и HTTP/3 framing устроен иначе, но
+семантика streaming response остается важной.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>Transfer-Encoding</code> описывает, как body передается по соединению, например chunked encoding в HTTP/1.1. Chunked response
+позволяет начинать отправку до того, как известен полный размер body. В HTTP/2 и HTTP/3 framing устроен иначе, но
+семантика streaming response остается важной.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-http2-и-http3-изменили-подход-к-domain-sharding">Как HTTP/2 и HTTP/3 изменили подход к domain sharding?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTTP/2 добавил multiplexing нескольких streams в одном соединении, а HTTP/3 поверх QUIC уменьшает влияние части
+transport-level задержек. Поэтому много доменов обычно хуже: теряется reuse соединения и усложняется приоритизация.
+Оптимизация сместилась к правильному кешированию, размеру ресурсов и CDN, а не к искусственному дроблению origins.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTTP/2 добавил multiplexing нескольких streams в одном соединении, а HTTP/3 поверх QUIC уменьшает влияние части
+transport-level задержек. Поэтому много доменов обычно хуже: теряется reuse соединения и усложняется приоритизация.
+Оптимизация сместилась к правильному кешированию, размеру ресурсов и CDN, а не к искусственному дроблению origins.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-клиент-серверная-архитектура">Что такое клиент-серверная архитектура?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Клиент отвечает за интерфейс и отправляет запросы, сервер хранит данные, применяет бизнес-правила и возвращает ответы.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Клиент отвечает за интерфейс и отправляет запросы, сервер хранит данные, применяет бизнес-правила и возвращает ответы.</p>
+<p>Граница не является границей доверия: server всегда повторно проверяет authentication, authorization и входные данные,
+даже если frontend уже выполнил validation.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-cdn-cache-отличается-от-browser-cache">Чем CDN cache отличается от browser cache?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Browser cache находится у конкретного пользователя и ускоряет повторные посещения. CDN cache находится ближе к
+пользователям на edge-узлах и снижает latency, трафик до origin и нагрузку на backend.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Browser cache находится у конкретного пользователя и ускоряет повторные посещения. CDN cache находится ближе к
+пользователям на edge-узлах и снижает latency, трафик до origin и нагрузку на backend.</p>
+<p>Для static assets обычно используют content hash и долгий <code>Cache-Control</code>. Для HTML чаще нужен короткий TTL или
+revalidation, чтобы пользователь быстро получил новую версию приложения. Важно понимать cache key: URL, headers, cookies
+и query params могут менять попадание в кеш.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="http"><code><span class="line"><span style="color:#85E89D">Cache-Control</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> public, max-age=31536000, immutable</span></span></code></pre></figure>
+</div></div>
+</details>
+<h3 id="nodejs-observability-и-rps-monitoring">Node.js observability и RPS monitoring</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-rps">Что такое RPS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>RPS, или Requests Per Second, — количество запросов, которое сервер обрабатывает за секунду. Например, 120 RPS означает,
+что сервер в среднем обрабатывает 120 HTTP-запросов в секунду.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>RPS, или Requests Per Second, — количество запросов, которое сервер обрабатывает за секунду. Например, <code>120 RPS</code>
+означает, что сервер в среднем обрабатывает 120 HTTP-запросов в секунду.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-rps-monitor">Что такое RPS monitor?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>RPS monitor измеряет количество запросов за единицу времени. Он помогает увидеть текущую нагрузку, всплески трафика и
+связать их с деградацией производительности или доступности.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>RPS monitor измеряет количество запросов за единицу времени. Он помогает увидеть текущую нагрузку, всплески трафика и
+связать их с деградацией производительности или доступности.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-frontend-разработчику-понимать-rps">Зачем frontend-разработчику понимать RPS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Frontend-разработчик может работать с SSR, BFF, dev server, Node.js tooling и API-интеграциями. RPS помогает оценивать
+нагрузку на SSR, rate limits, кеширование, retry-логику и влияние frontend-кода на backend.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Frontend-разработчик может работать с SSR, BFF, dev server, Node.js tooling и API-интеграциями. RPS помогает оценивать
+нагрузку на SSR, rate limits, кеширование, retry-логику и влияние frontend-кода на backend.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-может-выглядеть-простой-rps-monitor-в-nodejs">Как может выглядеть простой RPS monitor в Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Этот учебный HTTP-сервер считает запросы за последнюю секунду и выводит результат в консоль:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Этот учебный HTTP-сервер считает запросы за последнюю секунду и выводит результат в консоль:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> http </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'node:http'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> requests </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">setInterval</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`RPS: ${</span><span style="color:#E1E4E8">requests</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  requests </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}, </span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> server</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> http.</span><span style="color:#B392F0">createServer</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">request</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">response</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  requests </span><span style="color:#F97583">+=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  response.</span><span style="color:#B392F0">writeHead</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">, {</span><span style="color:#9ECBFF">'Content-Type'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'application/json'</span><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#E1E4E8">  response.</span><span style="color:#B392F0">end</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">({ok: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">}));</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">server.</span><span style="color:#B392F0">listen</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3000</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Server started on http://localhost:3000'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-проверить-rps-monitor-через-curl">Как проверить RPS monitor через curl?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>После запуска сервера можно отправить несколько запросов вручную:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>После запуска сервера можно отправить несколько запросов вручную:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#9ECBFF"> http://localhost:3000</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#9ECBFF"> http://localhost:3000</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#9ECBFF"> http://localhost:3000</span></span></code></pre></figure>
+<p>В следующем секундном интервале сервер выведет количество полученных запросов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-такой-rps-monitor-не-production-ready">Почему такой RPS monitor не production-ready?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Он хранит счетчик только в памяти одного процесса и теряет данные при перезапуске. Несколько процессов или containers
+будут считать RPS независимо. В production метрики агрегируют через Prometheus, OpenTelemetry, APM или другую систему
+observability и визуализируют, например, в Grafana.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Он хранит счетчик только в памяти одного процесса и теряет данные при перезапуске. Несколько процессов или containers
+будут считать RPS независимо. В production метрики агрегируют через Prometheus, OpenTelemetry, APM или другую систему
+observability и визуализируют, например, в Grafana.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-метрики-кроме-rps-важны-для-nodejs-сервера">Какие метрики кроме RPS важны для Node.js сервера?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Метрики полезно связывать между собой: один RPS не объясняет состояние системы.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Latency и p95/p99 response time.</li>
+<li>Error rate и количество ответов 4xx/5xx.</li>
+<li>CPU и memory usage.</li>
+<li>Event loop delay.</li>
+<li>Active connections.</li>
+<li>Throughput.</li>
+</ul>
+<p>Метрики полезно связывать между собой: один RPS не объясняет состояние системы.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-rps-отличается-от-latency">Чем RPS отличается от latency?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>RPS показывает количество обработанных запросов в секунду, а latency — время обработки отдельного запроса. Высокий RPS
+сам по себе не является проблемой, но рост latency и error rate вместе с ним может указывать на перегрузку.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>RPS показывает количество обработанных запросов в секунду, а latency — время обработки отдельного запроса. Высокий RPS
+сам по себе не является проблемой, но рост latency и error rate вместе с ним может указывать на перегрузку.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-p95-и-p99-latency">Что такое p95 и p99 latency?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>p95 — значение, быстрее которого завершились 95% запросов; p99 аналогично описывает 99% запросов. Перцентили лучше
+среднего показывают медленный хвост распределения, хотя для полной картины также нужны размер выборки и временное окно.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>p95</code> — значение, быстрее которого завершились 95% запросов; <code>p99</code> аналогично описывает 99% запросов. Перцентили лучше
+среднего показывают медленный хвост распределения, хотя для полной картины также нужны размер выборки и временное окно.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-event-loop-delay-связан-с-производительностью-nodejs">Как event loop delay связан с производительностью Node.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>JavaScript выполняется в основном потоке Node.js. CPU-bound работа и долгие синхронные операции блокируют event loop,
+из-за чего callbacks и обработчики запросов запускаются позже. Event loop delay измеряет эту задержку и помогает найти
+такие блокировки.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>JavaScript выполняется в основном потоке Node.js. CPU-bound работа и долгие синхронные операции блокируют event loop,
+из-за чего callbacks и обработчики запросов запускаются позже. Event loop delay измеряет эту задержку и помогает найти
+такие блокировки.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-может-увеличить-rps-capacity-nodejs-приложения">Что может увеличить RPS capacity Node.js приложения?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Изменения нужно подтверждать нагрузочными тестами: увеличение RPS не должно ухудшать latency и error rate сверх SLO.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Кеширование и использование reverse proxy или CDN.</li>
+<li>Уменьшение CPU-bound работы в request handler.</li>
+<li>Горизонтальное масштабирование и несколько процессов.</li>
+<li>Оптимизация запросов к базе и connection pooling.</li>
+<li>Уменьшение лишнего logging на горячем пути.</li>
+</ul>
+<p>Изменения нужно подтверждать нагрузочными тестами: увеличение RPS не должно ухудшать latency и error rate сверх SLO.</p>
+</div></div>
+</details>
+<h3 id="project-tooling-и-рабочее-окружение">Project tooling и рабочее окружение</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-packagejson-связан-с-рабочим-окружением">Как <code>package.json</code> связан с рабочим окружением?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>package.json — manifest Node.js-проекта. В рабочем окружении важно понимать, какие scripts запускать, какой package
+manager закреплен в проекте и какой lock-файл должен быть единственным источником воспроизводимой установки.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>package.json</code> — manifest Node.js-проекта. В рабочем окружении важно понимать, какие scripts запускать, какой package
+manager закреплен в проекте и какой lock-файл должен быть единственным источником воспроизводимой установки.</p>
+<p>Подробности про manifest, зависимости, lock-файлы и npm-команды см. в разделе
+<a href="../nodejs/index.md#npm-%D0%B8-package-scripts">npm и package scripts</a>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-frontend-проекту-единый-tooling">Зачем frontend-проекту единый tooling?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Единый tooling снижает расхождения между локальной разработкой, CI и production build. Команда должна понимать, какой
+package manager используется, какие scripts являются основными, как запускать tests, lint, format, build и preview. Это
+ускоряет onboarding и уменьшает проблемы класса works on my machine.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Единый tooling снижает расхождения между локальной разработкой, CI и production build. Команда должна понимать, какой
+package manager используется, какие scripts являются основными, как запускать tests, lint, format, build и preview. Это
+ускоряет onboarding и уменьшает проблемы класса works on my machine.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-отличаются-bun-pnpm-yarn-и-npm">Чем отличаются Bun, pnpm, Yarn и npm?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Все эти инструменты устанавливают зависимости, работают с package.json, запускают scripts и фиксируют результат через
+lock-файл. Отличаются скоростью, моделью nodemodules, строгостью dependency resolution, зрелостью экосистемы и
+дополнительными возможностями.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Все эти инструменты устанавливают зависимости, работают с <code>package.json</code>, запускают scripts и фиксируют результат через
+lock-файл. Отличаются скоростью, моделью <code>node_modules</code>, строгостью dependency resolution, зрелостью экосистемы и
+дополнительными возможностями.</p>
+<ul>
+<li><strong>npm</strong> поставляется вместе с Node.js, использует <code>package-lock.json</code>, хорошо поддерживается большинством инструментов
+и понятен почти всем разработчикам. Плюсы: стандарт де-факто, простая интеграция, минимум сюрпризов. Минусы: обычно
+медленнее pnpm и Bun, а <code>node_modules</code> может занимать больше места.</li>
+<li><strong>pnpm</strong> использует общий content-addressable store и связывает зависимости в <code>node_modules</code> через links. Плюсы:
+быстрая установка, экономия диска, строгая модель зависимостей, удобство для monorepo. Минусы: некоторые старые или
+некорректно написанные packages могут зависеть от плоского <code>node_modules</code> и требовать настройки.</li>
+<li><strong>Yarn</strong> использует <code>yarn.lock</code>, поддерживает workspaces и может работать как с <code>node_modules</code>, так и с Plug’n’Play.
+Плюсы: сильные monorepo-workflows, гибкие политики установки, хороший контроль зависимостей. Минусы: различия между
+Yarn Classic и современным Yarn, а Plug’n’Play может требовать дополнительной настройки IDE, bundler и отдельных
+инструментов.</li>
+<li><strong>Bun</strong> — более широкий toolkit: runtime, package manager, test runner и bundler. Плюсы: очень быстрая установка,
+удобные встроенные инструменты, совместимость с npm registry. Минусы: экосистема и совместимость с отдельными Node.js
+packages, native addons или enterprise tooling могут быть менее предсказуемыми, чем у npm/pnpm/Yarn.</li>
+</ul>
+<p>Практическое правило: в одном проекте выбирают один package manager, фиксируют его через поле <code>packageManager</code>, коммитят
+ровно один lock-файл и используют одинаковую команду в CI. Смешивание <code>package-lock.json</code>, <code>pnpm-lock.yaml</code>, <code>yarn.lock</code>
+и <code>bun.lock</code> делает установку непредсказуемой.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-нужен-package-lockjson">Зачем нужен package-lock.json?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>package-lock.json нужен для воспроизводимой установки npm-зависимостей в локальной разработке и CI.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>package-lock.json</code> нужен для воспроизводимой установки npm-зависимостей в локальной разработке и CI.</p>
+<p>Canonical-ответ: <a href="../nodejs/index.md#npm-%D0%B8-package-scripts">Что такое package-lock.json?</a></p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-npm-install-отличается-от-npm-ci">Чем npm install отличается от npm ci?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В рабочем процессе важно правило: локально чаще используют установку по правилам проекта, а в CI предпочитают
+воспроизводимую установку по lock-файлу.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В рабочем процессе важно правило: локально чаще используют установку по правилам проекта, а в CI предпочитают
+воспроизводимую установку по lock-файлу.</p>
+<p>Подробное сравнение см. в Node.js-разделе: <a href="../nodejs/index.md#npm-%D0%B8-package-scripts">Что делает npm install?</a> и
+<a href="../nodejs/index.md#npm-%D0%B8-package-scripts">Что делает npm ci?</a>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-eslint-stylelint-и-prettier-отличаются">Чем ESLint, Stylelint и Prettier отличаются?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>ESLint анализирует код и находит потенциальные ошибки, небезопасные конструкции и нарушения правил проекта.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>ESLint анализирует код и находит потенциальные ошибки, небезопасные конструкции и нарушения правил проекта.</p>
+<p>Stylelint выполняет похожую проверку для CSS, SCSS и других стилей. Prettier отвечает за форматирование: отступы,
+переносы и кавычки, но не заменяет semantic linting.</p>
+<p>Вместе с EditorConfig эти инструменты автоматизируют механические правила и уменьшают споры в review. Важно запускать их
+локально и в CI, иначе guidelines остаются документом без enforcement.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-вы-поддерживаете-единый-стиль-кода-в-команде">Как вы поддерживаете единый стиль кода в команде?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Команда фиксирует правила в formatter, linting, editor config, pull request checklist и CI. Важно автоматизировать
+механические споры, а в review обсуждать читаемость, архитектуру и поведение. Если правило не проверяется автоматически,
+его стоит описать в локальных соглашениях или пересмотреть.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Команда фиксирует правила в formatter, linting, editor config, pull request checklist и CI. Важно автоматизировать
+механические споры, а в review обсуждать читаемость, архитектуру и поведение. Если правило не проверяется автоматически,
+его стоит описать в локальных соглашениях или пересмотреть.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-linting-tool">Для чего нужен linting tool?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Linting tool находит ошибки и risky patterns до runtime: неиспользуемый код, неправильные imports, нарушение
+accessibility, небезопасные конструкции и несогласованный стиль. Он не заменяет тесты и review, но дает быстрый feedback
+и делает качество менее зависимым от памяти конкретного разработчика.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Linting tool находит ошибки и risky patterns до runtime: неиспользуемый код, неправильные imports, нарушение
+accessibility, небезопасные конструкции и несогласованный стиль. Он не заменяет тесты и review, но дает быстрый feedback
+и делает качество менее зависимым от памяти конкретного разработчика.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-webpack-отличается-от-vite">Чем Webpack отличается от Vite?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Webpack строит dependency graph и создает bundles через loaders и plugins. Он гибкий, но development-сборка крупного
+проекта может быть тяжелой.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Webpack строит dependency graph и создает bundles через loaders и plugins. Он гибкий, но development-сборка крупного
+проекта может быть тяжелой.</p>
+<p>Vite в development использует native ES modules и преобразует файлы по запросу, поэтому обычно быстрее запускается и
+обновляет модули. Production-сборка использует отдельный bundling pipeline. В Angular конкретный инструмент часто скрыт
+за CLI builder.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-код-попадает-в-отдельный-chunk">Как код попадает в отдельный chunk?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Основные сигналы для сборщика:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Основные сигналы для сборщика:</p>
+<ul>
+<li>отдельная entry point;</li>
+<li>динамический <code>import()</code>;</li>
+<li>lazy route;</li>
+<li>Angular <code>@defer</code>;</li>
+<li>правила code splitting в конфигурации сборщика.</li>
+</ul>
+<p>Сборщик анализирует dependency graph и выносит асинхронную или общую часть в отдельный файл. Chunk полезен, если
+уменьшает initial load, но слишком мелкое дробление увеличивает число запросов и служебные расходы.</p>
+</div></div>
+</details>
+<h3 id="workflow-и-onboarding">Workflow и onboarding</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выглядит-обычный-workflow-при-разработке-страницы-или-фичи">Как выглядит обычный workflow при разработке страницы или фичи?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Сначала уточняют цель, состояния UI, acceptance criteria, API-контракт, accessibility и способ проверки. Затем делают
+минимальный инкремент, запускают локальные проверки, добавляют нужные тесты и отправляют маленький pull request. Хороший
+workflow оставляет следы: описание решения, известные ограничения и понятные шаги проверки.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Сначала уточняют цель, состояния UI, acceptance criteria, API-контракт, accessibility и способ проверки. Затем делают
+минимальный инкремент, запускают локальные проверки, добавляют нужные тесты и отправляют маленький pull request. Хороший
+workflow оставляет следы: описание решения, известные ограничения и понятные шаги проверки.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какое-рабочее-окружение-вы-предпочитаете">Какое рабочее окружение вы предпочитаете?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Хороший ответ описывает не любимую IDE как самоцель, а условия продуктивности: быстрый запуск проекта, стабильный
+Node.js version, корректные extensions, formatter on save, debugger, терминал и доступ к DevTools. Важно уметь
+подстроиться под командные стандарты, чтобы локальная среда не расходилась с CI.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Хороший ответ описывает не любимую IDE как самоцель, а условия продуктивности: быстрый запуск проекта, стабильный
+Node.js version, корректные extensions, formatter on save, debugger, терминал и доступ к DevTools. Важно уметь
+подстроиться под командные стандарты, чтобы локальная среда не расходилась с CI.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-вы-делаете-если-проект-использует-tabs-а-вы-привыкли-к-spaces">Что вы делаете, если проект использует tabs, а вы привыкли к spaces?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно следовать проектным настройкам, а не личной привычке. Форматирование должны задавать .editorconfig, Prettier или
+другой formatter, чтобы файлы не менялись случайно из-за IDE. Если правила мешают, их обсуждают отдельно, а не меняют
+попутно в feature pull request.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно следовать проектным настройкам, а не личной привычке. Форматирование должны задавать <code>.editorconfig</code>, Prettier или
+другой formatter, чтобы файлы не менялись случайно из-за IDE. Если правила мешают, их обсуждают отдельно, а не меняют
+попутно в feature pull request.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-зачем-frontend-команде-documentation-guidelines">Зачем frontend-команде documentation guidelines?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Documentation guidelines объясняют, где описаны архитектура, conventions, design system, onboarding, troubleshooting и
+решения по workflow. Без этого знания остаются в головах отдельных людей, а новые разработчики повторяют старые ошибки.
+Практичный подход — обновлять docs вместе с кодом в том же pull request.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Documentation guidelines объясняют, где описаны архитектура, conventions, design system, onboarding, troubleshooting и
+решения по workflow. Без этого знания остаются в головах отдельных людей, а новые разработчики повторяют старые ошибки.
+Практичный подход — обновлять docs вместе с кодом в том же pull request.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-инструменты-должны-быть-описаны-в-onboarding-документации">Какие инструменты должны быть описаны в onboarding документации?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно описать Node.js version, package manager, install command, dev server, build, tests, lint, format, environment
+variables, mock API и troubleshooting. Хорошая onboarding документация позволяет новому разработчику поднять проект без
+долгих личных созвонов и не расходиться с CI.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно описать Node.js version, package manager, install command, dev server, build, tests, lint, format, environment
+variables, mock API и troubleshooting. Хорошая onboarding документация позволяет новому разработчику поднять проект без
+долгих личных созвонов и не расходиться с CI.</p>
+</div></div>
+</details>
+<h3 id="frontend-tooling">Frontend tooling</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-babel-swc-esbuild-и-typescript-compiler-отличаются-в-frontend-toolchain">Чем Babel, SWC, esbuild и TypeScript compiler отличаются в frontend toolchain?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>TypeScript compiler умеет type checking и emit, но в современных frontend-сборках часто разделяют type checking и
+transpile. Babel трансформирует syntax через plugins, SWC и esbuild делают быстрые transforms на native-реализациях.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>TypeScript compiler умеет type checking и emit, но в современных frontend-сборках часто разделяют type checking и
+transpile. Babel трансформирует syntax через plugins, SWC и esbuild делают быстрые transforms на native-реализациях.</p>
+<p>Важно различать:</p>
+<ul>
+<li>transpilation - преобразование syntax;</li>
+<li>type checking - проверка типов;</li>
+<li>bundling - построение graph и output chunks;</li>
+<li>minification - уменьшение output.</li>
+</ul>
+<p>Angular CLI скрывает большую часть деталей, но разработчик должен понимать, где искать проблему: в <code>tsconfig</code>, bundler,
+polyfills, browserslist или plugin pipeline.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "typecheck"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tsc --noEmit"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"vite build"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-объяснить-vite-webpack-и-rollup-на-интервью">Как объяснить Vite, Webpack и Rollup на интервью?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Webpack - универсальный bundler с большим plugin ecosystem и исторически богатой настройкой. Rollup силен для libraries
+и tree shaking ES modules. Vite использует быстрый dev server на native ESM и собирает production через Rollup-пайплайн
+или framework-specific integration.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Webpack - универсальный bundler с большим plugin ecosystem и исторически богатой настройкой. Rollup силен для libraries
+и tree shaking ES modules. Vite использует быстрый dev server на native ESM и собирает production через Rollup-пайплайн
+или framework-specific integration.</p>
+<p>Хороший ответ не сводится к “Vite быстрее”. Нужно объяснить dev server, HMR, module graph, code splitting, CSS/assets
+pipeline, source maps и то, как framework CLI ограничивает или расширяет доступ к настройкам.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  build: {</span></span>
+<span class="line"><span style="color:#E1E4E8">    sourcemap: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    rollupOptions: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      output: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        manualChunks: {</span></span>
+<span class="line"><span style="color:#E1E4E8">          vendor: [</span><span style="color:#9ECBFF">'react'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'react-dom'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#E1E4E8">        },</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre></figure>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

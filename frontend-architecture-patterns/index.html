@@ -1,0 +1,1402 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Организация frontend-кода, границы модулей, архитектурные паттерны и их реализация в React и Angular"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Организация кода"><meta property="og:description" content="Организация frontend-кода, границы модулей, архитектурные паттерны и их реализация в React и Angular"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/frontend-architecture-patterns/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/frontend-architecture-patterns/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/frontend-architecture-patterns"><title>Организация кода</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/frontend-architecture-patterns" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Организация кода"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="границы-и-структура-feature"></span><span class="sidebar-navigation__marker" data-heading-marker="паттерны-ui-композиции"></span><span class="sidebar-navigation__marker" data-heading-marker="слои-и-масштабирование"></span><span class="sidebar-navigation__marker" data-heading-marker="выбор-паттерна"></span><span class="sidebar-navigation__marker" data-heading-marker="полный-каталог-из-исходного-gist"></span><span class="sidebar-navigation__marker" data-heading-marker="связанные-материалы"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#границы-и-структура-feature" data-heading-link="границы-и-структура-feature">Границы и структура feature</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#паттерны-ui-композиции" data-heading-link="паттерны-ui-композиции">Паттерны UI-композиции</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#слои-и-масштабирование" data-heading-link="слои-и-масштабирование">Слои и масштабирование</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#выбор-паттерна" data-heading-link="выбор-паттерна">Выбор паттерна</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#полный-каталог-из-исходного-gist" data-heading-link="полный-каталог-из-исходного-gist">Полный каталог из исходного gist</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#связанные-материалы" data-heading-link="связанные-материалы">Связанные материалы</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="организация-кода">Организация кода</h2>
+<p>Архитектурный паттерн нужен не ради названия. Он фиксирует границы ответственности, направление зависимостей и правила
+изменения приложения. Хороший выбор уменьшает связанность и делает feature проще для разработки, тестирования и
+удаления. Начинать стоит с простого feature-first устройства и усложнять его, только когда это решает наблюдаемую
+проблему команды.</p>
+<h3 id="границы-и-структура-feature">Границы и структура feature</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-feature-first-структура-и-почему-она-обычно-лучше-папок-по-типу-файлов">Что такое feature-first структура и почему она обычно лучше папок по типу файлов?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Feature-first группирует код по пользовательской возможности: orders, profile, checkout. Внутри feature живут его UI,
+маршруты, state, API-клиент и тесты. Папки components, services, models на весь проект кажутся простыми в начале, но со
+временем смешивают несвязанные домены и делают ownership неясным.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Feature-first группирует код по пользовательской возможности: <code>orders</code>, <code>profile</code>, <code>checkout</code>. Внутри feature живут его
+UI, маршруты, state, API-клиент и тесты. Папки <code>components</code>, <code>services</code>, <code>models</code> на весь проект кажутся простыми в
+начале, но со временем смешивают несвязанные домены и делают ownership неясным.</p>
+<p>Общие элементы выносят в <code>shared</code> только после появления нескольких реальных потребителей. Domain-код одной feature не
+должен импортировать внутренности другой feature: для этого нужен небольшой публичный API или явный orchestration слой.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>  features/</span></span>
+<span class="line"><span>    orders/</span></span>
+<span class="line"><span>      api/</span></span>
+<span class="line"><span>      model/</span></span>
+<span class="line"><span>      ui/</span></span>
+<span class="line"><span>      orders.routes.ts</span></span>
+<span class="line"><span>    profile/</span></span>
+<span class="line"><span>  shared/</span></span>
+<span class="line"><span>    ui/</span></span>
+<span class="line"><span>    lib/</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-разделить-presentational-и-container-components">Как разделить presentational и container components?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Presentational component получает данные и callbacks через API, отображает UI и не знает, откуда пришли данные.
+Container связывает route, use case, состояние и presentational UI. Это не жесткое правило: маленький component может
+содержать оба слоя. Разделение окупается, когда UI переиспользуется, загрузка усложняется или component становится
+трудно тестировать.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Presentational component получает данные и callbacks через API, отображает UI и не знает, откуда пришли данные.
+Container связывает route, use case, состояние и presentational UI. Это не жесткое правило: маленький component может
+содержать оба слоя. Разделение окупается, когда UI переиспользуется, загрузка усложняется или component становится
+трудно тестировать.</p>
+<p>В React container обычно использует hook и передает props. В Angular container инжектирует facade или service, а
+presentational component получает <code>input()</code> и отдает событие через <code>output()</code>.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> OrdersPage</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> {</span><span style="color:#79B8FF">orders</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">cancelOrder</span><span style="color:#E1E4E8">} </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useOrders</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#79B8FF">OrdersList</span></span>
+<span class="line"><span style="color:#B392F0">      orders</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{orders}</span></span>
+<span class="line"><span style="color:#B392F0">      onCancel</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{cancelOrder}</span></span>
+<span class="line"><span style="color:#E1E4E8">    /></span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  selector: </span><span style="color:#9ECBFF">'app-orders-list'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  template: </span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">    @for (order of orders(); track order.id) {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;button</span></span>
+<span class="line"><span style="color:#9ECBFF">        type="button"</span></span>
+<span class="line"><span style="color:#9ECBFF">        (click)="cancel.emit(order.id)"</span></span>
+<span class="line"><span style="color:#9ECBFF">      ></span></span>
+<span class="line"><span style="color:#9ECBFF">        {{ order.number }}</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;/button></span></span>
+<span class="line"><span style="color:#9ECBFF">    }</span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> OrdersListComponent</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> orders</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> input.</span><span style="color:#B392F0">required</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Order</span><span style="color:#E1E4E8">>>();</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> cancel</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> output</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">>();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  imports: [OrdersListComponent],</span></span>
+<span class="line"><span style="color:#E1E4E8">  template: </span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;app-orders-list</span></span>
+<span class="line"><span style="color:#9ECBFF">      [orders]="orders()"</span></span>
+<span class="line"><span style="color:#9ECBFF">      (cancel)="ordersFacade.cancel($event)"</span></span>
+<span class="line"><span style="color:#9ECBFF">    /></span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> OrdersPageComponent</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  protected</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> ordersFacade</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> inject</span><span style="color:#E1E4E8">(OrdersFacade);</span></span>
+<span class="line"><span style="color:#F97583">  protected</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> orders</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.ordersFacade.orders;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-означает-правило-dependency-direction">Что означает правило dependency direction?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Зависимости должны идти от внешних деталей к более стабильному коду: UI зависит от application use case, use case
+зависит от domain-контракта, а HTTP-клиент реализует этот контракт. Тогда изменение React component, Angular template
+или REST endpoint не заставляет менять business rule.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Зависимости должны идти от внешних деталей к более стабильному коду: UI зависит от application use case, use case
+зависит от domain-контракта, а HTTP-клиент реализует этот контракт. Тогда изменение React component, Angular template
+или REST endpoint не заставляет менять business rule.</p>
+<p>Практически это означает: не передавать <code>HttpClient</code>, React Query result или <code>ActivatedRoute</code> в domain-функции; DTO не
+делать domain-моделью; не импортировать component из data-access слоя. Не каждой feature нужны все слои, но направление
+зависимостей важно всегда.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-facade-pattern-во-frontend-и-чем-он-отличается-от-state-manager">Что такое facade pattern во frontend и чем он отличается от state manager?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Facade дает UI маленький API предметной области: данные для отображения и операции вроде load(), approve() или retry().
+Она скрывает cache, store, HTTP и детали преобразования DTO. State manager хранит и изменяет состояние; facade может
+использовать state manager, но не обязана.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Facade дает UI маленький API предметной области: данные для отображения и операции вроде <code>load()</code>, <code>approve()</code> или
+<code>retry()</code>. Она скрывает cache, store, HTTP и детали преобразования DTO. State manager хранит и изменяет состояние;
+facade может использовать state manager, но не обязана.</p>
+<p>В React эту роль часто играет custom hook. В Angular это обычно service с readonly signals или Observable API. UI не
+должен вызывать <code>HttpClient</code> или dispatch произвольных actions напрямую.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">({providedIn: </span><span style="color:#9ECBFF">'root'</span><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> OrdersFacade</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> api</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> inject</span><span style="color:#E1E4E8">(OrdersApi);</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> state</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> signal</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">OrdersState</span><span style="color:#E1E4E8">>({orders: [], status: </span><span style="color:#9ECBFF">'idle'</span><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> orders</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> computed</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">state</span><span style="color:#E1E4E8">().orders);</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> isLoading</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> computed</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">state</span><span style="color:#E1E4E8">().status </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'loading'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> load</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">void</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.state.</span><span style="color:#B392F0">update</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">state</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> ({</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">state, status: </span><span style="color:#9ECBFF">'loading'</span><span style="color:#E1E4E8">}));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> orders</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.api.</span><span style="color:#B392F0">getAll</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.state.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">({orders, status: </span><span style="color:#9ECBFF">'ready'</span><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-отделить-dto-от-domain-model">Как отделить DTO от domain model?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>DTO повторяет контракт транспорта и может содержать строки дат, nullable-поля или неудачные названия backend. Domain
+model описывает данные, удобные и безопасные для приложения. Адаптер в data-access слое валидирует и преобразует DTO;
+остальной код не зависит от формы ответа API.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>DTO повторяет контракт транспорта и может содержать строки дат, nullable-поля или неудачные названия backend. Domain
+model описывает данные, удобные и безопасные для приложения. Адаптер в data-access слое валидирует и преобразует DTO;
+остальной код не зависит от формы ответа API.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> OrderDto</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  created_at</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  total_cents</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> Order</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  createdAt</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Date</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  total</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> toOrder</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">dto</span><span style="color:#F97583">:</span><span style="color:#B392F0"> OrderDto</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Order</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> ({</span></span>
+<span class="line"><span style="color:#E1E4E8">  createdAt: </span><span style="color:#F97583">new</span><span style="color:#B392F0"> Date</span><span style="color:#E1E4E8">(dto.created_at),</span></span>
+<span class="line"><span style="color:#E1E4E8">  id: dto.id,</span></span>
+<span class="line"><span style="color:#E1E4E8">  total: dto.total_cents </span><span style="color:#F97583">/</span><span style="color:#79B8FF"> 100</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>И React, и Angular используют такой adapter одинаково: отличие только в том, кто вызывает repository или API service.</p>
+</div></div>
+</details>
+<h3 id="паттерны-ui-композиции">Паттерны UI-композиции</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-выбирать-composition-вместо-множества-boolean-props">Когда выбирать composition вместо множества boolean props?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Если API component разрастается до isCompact, showHeader, hasActions, isEditable и комбинации флагов создают разные
+layouts, лучше передавать части интерфейса как children, slots или отдельные components. Composition делает допустимые
+комбинации видимыми в месте использования и уменьшает число неявных режимов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Если API component разрастается до <code>isCompact</code>, <code>showHeader</code>, <code>hasActions</code>, <code>isEditable</code> и комбинации флагов создают
+разные layouts, лучше передавать части интерфейса как children, slots или отдельные components. Composition делает
+допустимые комбинации видимыми в месте использования и уменьшает число неявных режимов.</p>
+<p>React использует <code>children</code> и compound components. Angular использует content projection (<code>ng-content</code>) и directives для
+маркировки проецируемых частей.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">Dialog</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#79B8FF">Dialog.Title</span><span style="color:#E1E4E8">>Удалить заказ?&#x3C;/</span><span style="color:#79B8FF">Dialog.Title</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#79B8FF">Dialog.Actions</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"button"</span><span style="color:#E1E4E8">>Удалить&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;/</span><span style="color:#79B8FF">Dialog.Actions</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#79B8FF">Dialog</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">app-dialog</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">h2</span><span style="color:#B392F0"> dialog-title</span><span style="color:#E1E4E8">>Удалить заказ?&#x3C;/</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> dialog-actions</span><span style="color:#E1E4E8">>&#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"button"</span><span style="color:#E1E4E8">>Удалить&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">app-dialog</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-custom-hook-в-react-и-какой-его-аналог-в-angular">Что такое custom hook в React и какой его аналог в Angular?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Custom hook повторно использует stateful логику React: например, debounce, загрузку или взаимодействие с браузерным API.
+Он подчиняется rules of hooks и вызывается только из React component или другого hook.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Custom hook повторно использует stateful логику React: например, debounce, загрузку или взаимодействие с браузерным API.
+Он подчиняется rules of hooks и вызывается только из React component или другого hook.</p>
+<p>В Angular логику обычно выносят в service, функцию, использующую <code>inject()</code> в injection context, directive или pipe.
+Выбор определяется lifetime: service может быть root-, route- или component-scoped, тогда как hook живет вместе с
+вызвавшим его component.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#6A737D">// Angular: component-scoped state</span></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> SearchState</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> query</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> signal</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> normalizedQuery</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> computed</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">query</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">trim</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">toLowerCase</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  providers: [SearchState],</span></span>
+<span class="line"><span style="color:#E1E4E8">  template: </span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;input</span></span>
+<span class="line"><span style="color:#9ECBFF">      [value]="state.query()"</span></span>
+<span class="line"><span style="color:#9ECBFF">      (input)="setQuery($event)"</span></span>
+<span class="line"><span style="color:#9ECBFF">    /></span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> SearchComponent</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  protected</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> state</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> inject</span><span style="color:#E1E4E8">(SearchState);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  protected</span><span style="color:#B392F0"> setQuery</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">event</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Event</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> void</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> target</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> event.target;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">(target </span><span style="color:#F97583">instanceof</span><span style="color:#B392F0"> HTMLInputElement</span><span style="color:#E1E4E8">)) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.state.query.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(target.value);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>В production для сложной формы лучше использовать form control; пример показывает именно scoped lifetime состояния.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-нужен-compound-component-pattern">Когда нужен compound component pattern?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Compound components делят один составной виджет на согласованные части: Tabs.List, Tabs.Panel, Select.Option. Родитель
+владеет общим состоянием и accessibility-правилами, а вложенные части получают контекст. Паттерн полезен для
+переиспользуемых UI primitives, но избыточен для одноразовой разметки feature.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Compound components делят один составной виджет на согласованные части: <code>Tabs.List</code>, <code>Tabs.Panel</code>, <code>Select.Option</code>.
+Родитель владеет общим состоянием и accessibility-правилами, а вложенные части получают контекст. Паттерн полезен для
+переиспользуемых UI primitives, но избыточен для одноразовой разметки feature.</p>
+<p>В React связь часто строят через Context. В Angular для этого подходят parent component, <code>contentChildren()</code>, DI по
+element injector и directives. Особенно важно централизованно поддержать клавиатурную навигацию, focus и ARIA, а не
+оставить это каждому consumer.</p>
+</div></div>
+</details>
+<h3 id="слои-и-масштабирование">Слои и масштабирование</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-layered-architecture-и-когда-она-достаточна">Что такое layered architecture и когда она достаточна?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В простой layered architecture UI обращается к application/service слою, тот использует data-access, а domain содержит
+типы и чистые правила. Она достаточно хороша для большинства frontend-приложений, если границы feature понятны и слои не
+обходятся импортами.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В простой layered architecture UI обращается к application/service слою, тот использует data-access, а domain содержит
+типы и чистые правила. Она достаточно хороша для большинства frontend-приложений, если границы feature понятны и слои не
+обходятся импортами.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>orders/</span></span>
+<span class="line"><span>  ui/             # components и templates</span></span>
+<span class="line"><span>  application/    # facade, use cases, orchestration</span></span>
+<span class="line"><span>  domain/         # types, policies, pure functions</span></span>
+<span class="line"><span>  data-access/    # HTTP, cache, DTO adapters</span></span></code></pre></figure>
+<p>Не нужно создавать пустые папки и интерфейсы для каждого маленького component. Слой появляется, когда в нем появляется
+самостоятельная ответственность.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-clean-architecture-во-frontend-и-какой-ее-trade-off">Что такое clean architecture во frontend и какой ее trade-off?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Clean architecture отделяет domain и use cases от фреймворка, UI и инфраструктуры. Например, use case placeOrder зависит
+от OrdersRepository, а Angular service или React API client реализует его через HTTP. Это упрощает тесты и замену
+интеграций, когда правила действительно сложны и долгоживущи.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Clean architecture отделяет domain и use cases от фреймворка, UI и инфраструктуры. Например, use case <code>placeOrder</code>
+зависит от <code>OrdersRepository</code>, а Angular service или React API client реализует его через HTTP. Это упрощает тесты и
+замену интеграций, когда правила действительно сложны и долгоживущи.</p>
+<p>Trade-off — дополнительные interfaces, adapters и переходы между моделями. Для CRUD-экрана с небольшой логикой это может
+скрыть простое действие за несколькими файлами. Правильный подход: оставить pure business rules независимыми, но вводить
+полный набор портов и adapters только при реальной выгоде.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-организовать-server-state-и-client-state-в-react-и-angular">Как организовать server state и client state в React и Angular?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Server state принадлежит backend и требует cache, invalidation, retry и работы со stale-данными. В React для него часто
+используют TanStack Query; локальный UI state оставляют в useState, reducer или небольшом store. В Angular server state
+можно держать в service с resource или RxJS/query layer, а локальный UI state — в signal() рядом с component.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Server state принадлежит backend и требует cache, invalidation, retry и работы со stale-данными. В React для него часто
+используют TanStack Query; локальный UI state оставляют в <code>useState</code>, reducer или небольшом store. В Angular server
+state можно держать в service с <code>resource</code> или RxJS/query layer, а локальный UI state — в <code>signal()</code> рядом с component.</p>
+<p>Не смешивайте эти роли в одном глобальном store без причины. Фильтр, который должен переживать ссылку, принадлежит URL;
+черновик формы — form layer; данные заказа — cache/repository; открытая панель — локальному UI.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-оправданы-micro-frontends">Когда оправданы micro frontends?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Micro frontends оправданы при независимых командах, релизных циклах и доменах, когда организационная граница важнее
+стоимости интеграции. Они не являются способом автоматически разделить большой monolith: добавляют versioning,
+наблюдаемость, design system, routing, shared auth, performance budget и контракт между host и remote.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Micro frontends оправданы при независимых командах, релизных циклах и доменах, когда организационная граница важнее
+стоимости интеграции. Они не являются способом автоматически разделить большой monolith: добавляют versioning,
+наблюдаемость, design system, routing, shared auth, performance budget и контракт между host и remote.</p>
+<p>Angular и React можно объединить через host, Web Components, Module Federation или другой runtime/build-time механизм.
+Но данные лучше передавать через узкий versioned contract, а не через общий mutable global store. Если команды выпускают
+продукт вместе, обычно дешевле остаться в modular monolith с feature boundaries.</p>
+<p>Основные варианты интеграции из исходного материала:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Вариант</th><th>Пример</th><th>Главный trade-off</th></tr></thead><tbody><tr><td>Build time</td><td>versioned NPM package <code>@company/header</code></td><td>простой runtime, но общий release cycle</td></tr><tr><td>Runtime</td><td>Module Federation remote</td><td>независимый deploy, но versioning и runtime failures</td></tr><tr><td>Server side</td><td>ESI/server composition</td><td>мало client orchestration, но сложнее infrastructure</td></tr><tr><td>Iframe</td><td>isolated legacy widget</td><td>сильная изоляция, но сложные UX, routing и communication</td></tr></tbody></table>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#FDAEB7;font-style:italic">esi:include</span><span style="color:#B392F0"> src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"https://header.example.com/header"</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">iframe</span></span>
+<span class="line"><span style="color:#B392F0">  src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"https://legacy.example.com/widget"</span></span>
+<span class="line"><span style="color:#B392F0">  title</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"Legacy widget"</span></span>
+<span class="line"><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">iframe</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+</div></div>
+</details>
+<h3 id="выбор-паттерна">Выбор паттерна</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-аргументировать-архитектурный-выбор-на-интервью">Как аргументировать архитектурный выбор на интервью?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Начните с контекста: размер команды, число feature, сложность domain-правил, независимость релизов, требования к SSR,
+кешу и тестированию. Затем назовите простое решение и критерии роста.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Начните с контекста: размер команды, число feature, сложность domain-правил, независимость релизов, требования к SSR,
+кешу и тестированию. Затем назовите простое решение и критерии роста.</p>
+<p>Например: «Для нового Angular feature я начну с route-level feature folder, presentational components и facade service с
+signals. DTO останутся в data-access. Если появятся сложные async streams, добавлю RxJS; если нескольким командам
+понадобятся единые transitions, selectors и DevTools, рассмотрю NgRx. Для React аналогично: feature folder, custom hook
+как facade и query layer для server state, без глобального store до появления shared client state».</p>
+<p>Такой ответ показывает, что паттерн выбран под ограничения, а не скопирован из другого проекта.</p>
+</div></div>
+</details>
+<h3 id="полный-каталог-из-исходного-gist">Полный каталог из исходного gist</h3>
+<p>Ниже собраны все оставшиеся паттерны и примеры из исходного материала. Примеры на React дополнены реализацией или
+практическим эквивалентом для Angular.</p>
+<h4 id="component-based-architecture">Component-Based Architecture</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-atomic-design">Что такое Atomic Design?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Atomic Design делит design system на atoms (Button, Input), molecules (SearchField), organisms (Header), templates и
+pages. Паттерн удобен для общего языка дизайнеров и разработчиков, но категории не должны влиять на domain boundaries:
+ProductCard может быть organism в design system и одновременно частью feature catalog.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Atomic Design делит design system на atoms (<code>Button</code>, <code>Input</code>), molecules (<code>SearchField</code>), organisms (<code>Header</code>),
+templates и pages. Паттерн удобен для общего языка дизайнеров и разработчиков, но категории не должны влиять на domain
+boundaries: <code>ProductCard</code> может быть organism в design system и одновременно частью feature <code>catalog</code>.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>shared/ui/</span></span>
+<span class="line"><span>  button/            # atom</span></span>
+<span class="line"><span>  search-field/      # molecule</span></span>
+<span class="line"><span>  header/            # organism</span></span>
+<span class="line"><span>features/catalog/</span></span>
+<span class="line"><span>  product-page/      # page с реальными данными</span></span></code></pre></figure>
+<p>В React и Angular иерархия одинакова. В Angular atoms обычно являются components, directives или pipes; templates и
+pages часто соответствуют routed components.</p>
+</div></div>
+</details>
+<h4 id="state-management-patterns">State Management Patterns</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-устроены-flux-и-redux">Как устроены Flux и Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Flux задает однонаправленный цикл: пользовательское событие создает action, dispatcher передает его store, store
+вычисляет новое состояние, view отображает результат. Redux сводит идею к одному store, readonly state и чистым
+reducers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Flux задает однонаправленный цикл: пользовательское событие создает action, dispatcher передает его store, store
+вычисляет новое состояние, view отображает результат. Redux сводит идею к одному store, readonly state и чистым
+reducers.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> CounterAction</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'increment'</span><span style="color:#E1E4E8">} </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'decrement'</span><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> counterReducer</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">state</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">action</span><span style="color:#F97583">:</span><span style="color:#B392F0"> CounterAction</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  switch</span><span style="color:#E1E4E8"> (action.type) {</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'increment'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> state </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'decrement'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> state </span><span style="color:#F97583">-</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>React обычно подключает Redux Toolkit через <code>useSelector()</code> и <code>useDispatch()</code>. В Angular тот же поток дает NgRx:
+component выбирает данные selector-ом и отправляет event через <code>store.dispatch()</code>. Для небольшого feature достаточно
+service с readonly signal и явными methods.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">({providedIn: </span><span style="color:#9ECBFF">'root'</span><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> CounterStore</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> countState</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> signal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> count</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.countState.</span><span style="color:#B392F0">asReadonly</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  increment</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> void</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.countState.</span><span style="color:#B392F0">update</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">count</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> count </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-react-context-hooks-отличается-от-angular-di-signals">Чем React Context + Hooks отличается от Angular DI + signals?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В React provider передает значение через component tree, а custom hook инкапсулирует чтение context и проверку наличия
+provider. В Angular эту задачу решают DI hierarchy и service. Provider на component или route дает scoped instance, а
+providedIn: ‘root’ — application-wide instance.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>В React provider передает значение через component tree, а custom hook инкапсулирует чтение context и проверку наличия
+provider. В Angular эту задачу решают DI hierarchy и service. Provider на component или route дает scoped instance, а
+<code>providedIn: 'root'</code> — application-wide instance.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> ThemeContext</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> createContext</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ThemeContextValue</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">>(</span><span style="color:#79B8FF">null</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> ThemeProvider</span><span style="color:#E1E4E8">({</span><span style="color:#FFAB70">children</span><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#B392F0"> PropsWithChildren</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">theme</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setTheme</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Theme</span><span style="color:#E1E4E8">>(</span><span style="color:#9ECBFF">'light'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#B392F0"> toggle</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#B392F0"> setTheme</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">value</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (value </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'light'</span><span style="color:#F97583"> ?</span><span style="color:#9ECBFF"> 'dark'</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> 'light'</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#79B8FF">ThemeContext</span><span style="color:#B392F0"> value</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{theme, toggle}}>{children}&#x3C;/</span><span style="color:#79B8FF">ThemeContext</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> ThemeState</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> themeState</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> signal</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#9ECBFF">'light'</span><span style="color:#F97583"> |</span><span style="color:#9ECBFF"> 'dark'</span><span style="color:#E1E4E8">>(</span><span style="color:#9ECBFF">'light'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> theme</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.themeState.</span><span style="color:#B392F0">asReadonly</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  toggle</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> void</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.themeState.</span><span style="color:#B392F0">update</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">theme</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (theme </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'light'</span><span style="color:#F97583"> ?</span><span style="color:#9ECBFF"> 'dark'</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> 'light'</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> appRoutes</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Routes</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#E1E4E8">    path: </span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    providers: [ThemeState],</span></span>
+<span class="line"><span style="color:#B392F0">    loadComponent</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">await</span><span style="color:#F97583"> import</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./shell'</span><span style="color:#E1E4E8">)).Shell,</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span></code></pre></figure>
+<p>Context удобен для редко меняющихся cross-cutting values. Часто меняющийся server state лучше отдавать query/cache
+layer, чтобы не провоцировать широкие rerenders.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-реализовать-state-machine-без-набора-противоречивых-flags">Как реализовать state machine без набора противоречивых flags?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Состояние описывают discriminated union, а переходы — явной функцией. XState полезен для nested и parallel states,
+guards, actors и визуализации; для небольшого flow достаточно TypeScript reducer.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Состояние описывают discriminated union, а переходы — явной функцией. XState полезен для nested и parallel states,
+guards, actors и визуализации; для небольшого flow достаточно TypeScript reducer.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> FetchState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> status</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'idle'</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> status</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'loading'</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> status</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'success'</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> data</span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> status</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'error'</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> message</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> FetchEvent</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'fetch'</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'resolve'</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> data</span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'reject'</span><span style="color:#E1E4E8">; </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> message</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">};</span></span></code></pre></figure>
+<p>Такая модель одинаково используется в React reducer и Angular signal store и не позволяет одновременно получить
+<code>isLoading: true</code> и <code>hasError: true</code>.</p>
+</div></div>
+</details>
+<h4 id="design-patterns">Design Patterns</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-observer-pattern-проявляется-в-react-и-angular">Как Observer pattern проявляется в React и Angular?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Observer подписывает потребителей на изменения source. DOM events, RxJS Observable, store subscriptions и signals —
+разные реализации этой идеи. Вручную писать mutable массив observers обычно не нужно: важны teardown и lifetime.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Observer подписывает потребителей на изменения source. DOM events, RxJS Observable, store subscriptions и signals —
+разные реализации этой идеи. Вручную писать mutable массив observers обычно не нужно: важны teardown и lifetime.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> searchResults$</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> queryControl.valueChanges.</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#B392F0">  debounceTime</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">250</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#B392F0">  distinctUntilChanged</span><span style="color:#E1E4E8">(),</span></span>
+<span class="line"><span style="color:#B392F0">  switchMap</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">query</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> searchApi.</span><span style="color:#B392F0">search</span><span style="color:#E1E4E8">(query)),</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre></figure>
+<p>В Angular template может читать поток через <code>async</code> pipe или signal через <code>toSignal()</code>. В React внешние stores безопасно
+подключаются через <code>useSyncExternalStore()</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-нужен-factory-pattern">Когда нужен Factory pattern?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Factory централизует выбор реализации по type или configuration. В React это может быть mapping типа поля на component;
+в Angular — mapping на dynamic component type или DI factory provider. Большой switch стоит заменить registry, если
+варианты добавляют независимые модули.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Factory централизует выбор реализации по type или configuration. В React это может быть mapping типа поля на component;
+в Angular — mapping на dynamic component type или DI factory provider. Большой <code>switch</code> стоит заменить registry, если
+варианты добавляют независимые модули.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> FieldKind</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'email'</span><span style="color:#F97583"> |</span><span style="color:#9ECBFF"> 'password'</span><span style="color:#F97583"> |</span><span style="color:#9ECBFF"> 'select'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> fieldByKind</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  email: EmailField,</span></span>
+<span class="line"><span style="color:#E1E4E8">  password: PasswordField,</span></span>
+<span class="line"><span style="color:#E1E4E8">  select: SelectField,</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">satisfies</span><span style="color:#B392F0"> Record</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">FieldKind</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Type</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">unknown</span><span style="color:#E1E4E8">>>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getFieldComponent</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">kind</span><span style="color:#F97583">:</span><span style="color:#B392F0"> FieldKind</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Type</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">unknown</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> fieldByKind[kind];</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-singleton-лучше-получать-через-dependency-injection">Почему Singleton лучше получать через dependency injection?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Ручной getInstance() создает скрытый global state и усложняет тесты. В React singleton module допустим для stateless API
+client, но зависимости проще передавать через provider. В Angular lifecycle singleton-а контролирует injector.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Ручной <code>getInstance()</code> создает скрытый global state и усложняет тесты. В React singleton module допустим для stateless
+API client, но зависимости проще передавать через provider. В Angular lifecycle singleton-а контролирует injector.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">({providedIn: </span><span style="color:#9ECBFF">'root'</span><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> ApiClient</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> http</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> inject</span><span style="color:#E1E4E8">(HttpClient);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  getUsers</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Observable</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">User</span><span style="color:#E1E4E8">>> {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.http.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">User</span><span style="color:#E1E4E8">>>(</span><span style="color:#9ECBFF">'/api/users'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p><code>providedIn: 'root'</code> создает один instance в root environment injector. Route или component provider намеренно создает
+отдельный scoped instance, поэтому «singleton» всегда относится к конкретному injector.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-дает-module-pattern-в-современном-typescript">Что дает Module pattern в современном TypeScript?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Исторически IIFE скрывал mutable variables в closure и возвращал public API. ES modules дают encapsulation напрямую:
+неэкспортированные значения остаются private для файла.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Исторически IIFE скрывал mutable variables в closure и возвращал public API. ES modules дают encapsulation напрямую:
+неэкспортированные значения остаются private для файла.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> result </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> history</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">[] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> add</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">value</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  result </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> value;</span></span>
+<span class="line"><span style="color:#E1E4E8">  history.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`add ${</span><span style="color:#E1E4E8">value</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> result;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getHistory</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#B392F0"> ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> [</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">history];</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Для user-specific или test-specific state module singleton опасен. В Angular такое состояние лучше держать в service с
+подходящим provider scope, в React — в component/provider state.</p>
+</div></div>
+</details>
+<h4 id="architectural-styles">Architectural Styles</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-mvc-и-mvvm-полезны-для-понимания-современного-frontend">Чем MVC и MVVM полезны для понимания современного frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>MVC отделяет Model, View и Controller. MVVM добавляет ViewModel — подготовленное для binding состояние и команды view.
+Современные React и Angular приложения редко реализуют эти паттерны буквально, но идея границ остается полезной.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>MVC отделяет Model, View и Controller. MVVM добавляет ViewModel — подготовленное для binding состояние и команды view.
+Современные React и Angular приложения редко реализуют эти паттерны буквально, но идея границ остается полезной.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> UserViewModel</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> displayName</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> canEdit</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> boolean</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> toUserViewModel</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">user</span><span style="color:#F97583">:</span><span style="color:#B392F0"> User</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">permissions</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Permissions</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> UserViewModel</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> ({</span></span>
+<span class="line"><span style="color:#E1E4E8">  displayName: user.name.</span><span style="color:#B392F0">toUpperCase</span><span style="color:#E1E4E8">(),</span></span>
+<span class="line"><span style="color:#E1E4E8">  canEdit: permissions.</span><span style="color:#B392F0">includes</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'user:edit'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>В React hook часто играет роль Controller/ViewModel. В Angular facade с <code>computed()</code> готовит view state, а template
+остается View. Two-way binding не делает Angular «чистым MVVM»: архитектуру определяют границы, а не синтаксис binding.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-jamstack">Что такое Jamstack?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Jamstack отделяет заранее сгенерированный markup от динамических API и раздает static assets через CDN. Подходит для
+контентных сайтов, документации и marketing pages; authenticated dashboard обычно требует CSR или hybrid rendering.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Jamstack отделяет заранее сгенерированный markup от динамических API и раздает static assets через CDN. Подходит для
+контентных сайтов, документации и marketing pages; authenticated dashboard обычно требует CSR или hybrid rendering.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>content + templates = static HTML at build time</span></span>
+<span class="line"><span>static HTML = CDN</span></span>
+<span class="line"><span>interactive actions = APIs or serverless functions</span></span></code></pre></figure>
+<p>Примеры: Astro с content API, Next.js с CMS. Angular поддерживает аналогичный вариант через prerendering и route-based
+render modes.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-islands-architecture">Что такое Islands Architecture?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Страница в основном состоит из static HTML, а независимые интерактивные islands гидратируются отдельно. В Astro это
+выражают directives client:load, client:idle и client:visible.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Страница в основном состоит из static HTML, а независимые интерактивные islands гидратируются отдельно. В Astro это
+выражают directives <code>client:load</code>, <code>client:idle</code> и <code>client:visible</code>.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">Article</span><span style="color:#B392F0"> content</span><span style="color:#E1E4E8">={post} /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">SearchBar</span><span style="color:#B392F0"> client:load</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">Newsletter</span><span style="color:#B392F0"> client:visible</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">Comments</span><span style="color:#B392F0"> client:idle</span><span style="color:#E1E4E8"> /></span></span></code></pre></figure>
+<p>Angular не является islands framework, но incremental hydration и <code>@defer</code> решают похожую задачу при SSR: тяжелый блок
+можно загрузить и гидратировать по viewport или interaction trigger.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">@defer (on viewport) {</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">app-comments</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">} @placeholder {</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">app-comments-skeleton</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-работает-module-federation">Как работает Module Federation?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Host загружает exposed modules независимо развернутого remote в build time или runtime. Shared dependencies требуют
+совместимых версий; singleton: true снижает риск двух runtime framework, но не заменяет контракт версий.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Host загружает exposed modules независимо развернутого remote в build time или runtime. Shared dependencies требуют
+совместимых версий; <code>singleton: true</code> снижает риск двух runtime framework, но не заменяет контракт версий.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">new</span><span style="color:#B392F0"> ModuleFederationPlugin</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  name: </span><span style="color:#9ECBFF">'catalog'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  filename: </span><span style="color:#9ECBFF">'remoteEntry.js'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  exposes: {</span><span style="color:#9ECBFF">'./ProductCard'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'./src/product-card'</span><span style="color:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#E1E4E8">  shared: {react: {singleton: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">}, </span><span style="color:#9ECBFF">'react-dom'</span><span style="color:#E1E4E8">: {singleton: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">}},</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>Для Angular remote экспортирует routes или standalone component, а host подключает их через federation tooling. Shared
+state remote-модулем создает сильную runtime coupling; предпочтительнее versioned events или API contracts.</p>
+</div></div>
+</details>
+<h4 id="application-models">Application Models</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-spa-отличается-от-mpa">Чем SPA отличается от MPA?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>SPA загружает application shell и переключает routes на клиенте; последующая навигация быстрая, но initial bundle,
+JavaScript availability и client state становятся критичными. MPA получает новый HTML document для каждого перехода; она
+проще, надежнее без JavaScript и естественно индексируется, но теряет in-memory state между страницами.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>SPA загружает application shell и переключает routes на клиенте; последующая навигация быстрая, но initial bundle,
+JavaScript availability и client state становятся критичными. MPA получает новый HTML document для каждого перехода; она
+проще, надежнее без JavaScript и естественно индексируется, но теряет in-memory state между страницами.</p>
+<p>React Router и Angular Router строят SPA. Next.js, Astro и Angular SSR могут сочетать server navigation, hydration и
+client navigation, поэтому реальный продукт часто является hybrid, а не чистой SPA или MPA.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-из-чего-состоит-pwa">Из чего состоит PWA?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>PWA использует Web App Manifest для installability и service worker для offline cache, update и background behavior.
+Cache strategy выбирают по типу ресурса; бездумный cache-first для API может показывать устаревшие данные.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>PWA использует Web App Manifest для installability и service worker для offline cache, update и background behavior.
+Cache strategy выбирают по типу ресурса; бездумный cache-first для API может показывать устаревшие данные.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">self.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'fetch'</span><span style="color:#E1E4E8">, (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> request</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> event.request;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  event.</span><span style="color:#B392F0">respondWith</span><span style="color:#E1E4E8">(caches.</span><span style="color:#B392F0">match</span><span style="color:#E1E4E8">(request).</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">cached</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> cached </span><span style="color:#F97583">??</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(request)));</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>В Angular базовый service worker добавляет <code>ng add @angular/pwa</code>; правила assets и data groups задаются в
+<code>ngsw-config.json</code>. React не содержит PWA layer, его настраивает build framework или Workbox.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-бывают-hybrid-applications">Какие бывают hybrid applications?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Capacitor помещает web app в native shell и дает bridge к Camera, Filesystem и другим platform APIs. Ionic добавляет
+mobile-oriented UI components. React Native использует JavaScript/TypeScript, но рендерит native views, а не DOM.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Capacitor помещает web app в native shell и дает bridge к Camera, Filesystem и другим platform APIs. Ionic добавляет
+mobile-oriented UI components. React Native использует JavaScript/TypeScript, но рендерит native views, а не DOM.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> photo</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> Camera.</span><span style="color:#B392F0">getPhoto</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  allowEditing: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  quality: </span><span style="color:#79B8FF">90</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  resultType: CameraResultType.Uri,</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>Angular приложения часто используют Ionic + Capacitor. Контракт platform service лучше абстрагировать через DI, чтобы
+browser tests могли подставить fake implementation.</p>
+</div></div>
+</details>
+<h4 id="rendering-strategies">Rendering Strategies</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выбирать-между-csr-ssr-и-ssg">Как выбирать между CSR, SSR и SSG?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CSR рендерит после загрузки JavaScript и подходит authenticated applications с высокой интерактивностью. SSR создает
+HTML на каждый initial request и подходит динамическим индексируемым страницам. SSG генерирует HTML на build time и
+лучше всего работает для стабильного контента.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CSR рендерит после загрузки JavaScript и подходит authenticated applications с высокой интерактивностью. SSR создает
+HTML на каждый initial request и подходит динамическим индексируемым страницам. SSG генерирует HTML на build time и
+лучше всего работает для стабильного контента.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> serverRoutes</span><span style="color:#F97583">:</span><span style="color:#B392F0"> ServerRoute</span><span style="color:#E1E4E8">[] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#E1E4E8">  {path: </span><span style="color:#9ECBFF">'dashboard'</span><span style="color:#E1E4E8">, renderMode: RenderMode.Client},</span></span>
+<span class="line"><span style="color:#E1E4E8">  {path: </span><span style="color:#9ECBFF">'products/:id'</span><span style="color:#E1E4E8">, renderMode: RenderMode.Server},</span></span>
+<span class="line"><span style="color:#E1E4E8">  {path: </span><span style="color:#9ECBFF">'about'</span><span style="color:#E1E4E8">, renderMode: RenderMode.Prerender},</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span></code></pre></figure>
+<p>React выбирает эти режимы через framework вроде Next.js. Angular SSR поддерживает route-level CSR, SSR и prerendering;
+после SSR hydration делает HTML интерактивным.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-isr-и-какой-аналог-есть-вне-nextjs">Что такое ISR и какой аналог есть вне Next.js?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>ISR сохраняет производительность static page, но периодически или по событию регенерирует ее. Во время regeneration
+пользователь может получить предыдущую версию, поэтому система допускает окно stale content.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>ISR сохраняет производительность static page, но периодически или по событию регенерирует ее. Во время regeneration
+пользователь может получить предыдущую версию, поэтому система допускает окно stale content.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> revalidate</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 60</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> ProductPage</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> product</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getProduct</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#B392F0">Product</span><span style="color:#B392F0"> product</span><span style="color:#E1E4E8">={</span><span style="color:#FFAB70">product</span><span style="color:#E1E4E8">} />;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Это не универсальная browser capability, а функция hosting/framework cache. В Angular похожую семантику строят через
+prerender + deployment rebuild/webhook, CDN stale-while-revalidate или server cache вокруг SSR.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-react-server-components-отличаются-от-angular-ssr">Чем React Server Components отличаются от Angular SSR?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>RSC остаются server-only и не добавляют свой code в client bundle; client components нужны для state, events и browser
+APIs. Angular SSR обычно выполняет те же components на server для initial HTML, а затем гидратирует их на client.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>RSC остаются server-only и не добавляют свой code в client bundle; client components нужны для state, events и browser
+APIs. Angular SSR обычно выполняет те же components на server для initial HTML, а затем гидратирует их на client.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> BlogPost</span><span style="color:#E1E4E8">({</span><span style="color:#FFAB70">id</span><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">}) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> post</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> db.posts.</span><span style="color:#B392F0">findById</span><span style="color:#E1E4E8">(id);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">article</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">>{post.title}&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#79B8FF">LikeButton</span><span style="color:#B392F0"> postId</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{id} /></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">article</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Для Angular ближайшие инструменты — server routes, SSR/prerender, incremental hydration и <code>@defer</code>, но это не эквивалент
+RSC protocol один к одному.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-edge-rendering">Что такое Edge Rendering?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Edge function выполняет SSR или personalization в CDN location рядом с пользователем. Это уменьшает network latency, но
+runtime часто ограничивает Node.js APIs, execution time и package size.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Edge function выполняет SSR или personalization в CDN location рядом с пользователем. Это уменьшает network latency, но
+runtime часто ограничивает Node.js APIs, execution time и package size.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> handler</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">request</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Request</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Response</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> city</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> URL</span><span style="color:#E1E4E8">(request.url).searchParams.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'city'</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">??</span><span style="color:#9ECBFF"> 'Moscow'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> weather</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetch</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`https://api.example.com/weather?city=${</span><span style="color:#B392F0">encodeURIComponent</span><span style="color:#9ECBFF">(</span><span style="color:#E1E4E8">city</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> Response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> weather.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>React и Angular приложение может вызывать edge BFF одинаково. Возможность рендерить сам framework на edge зависит от
+adapter и hosting provider, поэтому этот runtime нужно проверять отдельно.</p>
+</div></div>
+</details>
+<h4 id="service-patterns">Service Patterns</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-нужен-backend-for-frontend">Когда нужен Backend for Frontend?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>BFF агрегирует backend services и возвращает DTO, оптимизированный под конкретный UI. Например, web dashboard одним
+запросом получает user, последние orders и recommendations, а mobile BFF возвращает более компактную модель.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>BFF агрегирует backend services и возвращает DTO, оптимизированный под конкретный UI. Например, web dashboard одним
+запросом получает user, последние orders и recommendations, а mobile BFF возвращает более компактную модель.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">app.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/api/dashboard'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">request</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">response</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> userId</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> request.auth.userId;</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">user</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">orders</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">suggestions</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">all</span><span style="color:#E1E4E8">([</span></span>
+<span class="line"><span style="color:#E1E4E8">    userService.</span><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(userId),</span></span>
+<span class="line"><span style="color:#E1E4E8">    orderService.</span><span style="color:#B392F0">getOrders</span><span style="color:#E1E4E8">(userId),</span></span>
+<span class="line"><span style="color:#E1E4E8">    recommendationService.</span><span style="color:#B392F0">getForUser</span><span style="color:#E1E4E8">(userId),</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">({user, recentOrders: orders.</span><span style="color:#B392F0">slice</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">), suggestions});</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>BFF уменьшает waterfalls и скрывает topology microservices, но дублирование web/mobile BFF нужно контролировать. Для
+React и Angular его контракт одинаков; frontend data-access adapter преобразует BFF DTO в domain model.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-graphql-gateway-отличается-от-api-gateway">Чем GraphQL Gateway отличается от API Gateway?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>GraphQL Gateway дает typed schema и позволяет client выбрать поля. Resolvers агрегируют data sources, но требуют защиты
+от дорогих queries, DataLoader против N+1 и отдельной cache strategy. API Gateway маршрутизирует REST/gRPC/ WebSocket,
+централизует auth, rate limits, observability и иногда response aggregation.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>GraphQL Gateway дает typed schema и позволяет client выбрать поля. Resolvers агрегируют data sources, но требуют защиты
+от дорогих queries, DataLoader против N+1 и отдельной cache strategy. API Gateway маршрутизирует REST/gRPC/ WebSocket,
+централизует auth, rate limits, observability и иногда response aggregation.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="graphql"><code><span class="line"><span style="color:#F97583">query</span><span style="color:#B392F0"> GetUser</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">$id</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">ID</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#FFAB70">  user</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#E1E4E8">: </span><span style="color:#FFAB70">$id</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#FFAB70">    name</span></span>
+<span class="line"><span style="color:#FFAB70">    posts</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">      title</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">app.</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/api/users'</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">createProxyMiddleware</span><span style="color:#E1E4E8">({target: </span><span style="color:#9ECBFF">'http://user-service:3001'</span><span style="color:#E1E4E8">}));</span></span>
+<span class="line"><span style="color:#E1E4E8">app.</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/api/products'</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">createProxyMiddleware</span><span style="color:#E1E4E8">({target: </span><span style="color:#9ECBFF">'http://product-service:3002'</span><span style="color:#E1E4E8">}));</span></span></code></pre></figure>
+<p>GraphQL client может использовать Apollo, urql или generated SDK. Angular получает SDK через DI service, React — через
+provider/hook; schema types лучше генерировать, а не дублировать вручную.</p>
+</div></div>
+</details>
+<h4 id="performance-patterns">Performance Patterns</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-реализовать-code-splitting">Как реализовать code splitting?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Route-based splitting выносит feature в отдельный chunk. Component-based splitting откладывает тяжелый editor, chart или
+dialog до момента использования.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Route-based splitting выносит feature в отдельный chunk. Component-based splitting откладывает тяжелый editor, chart или
+dialog до момента использования.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> Dashboard</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> lazy</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#F97583"> import</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./dashboard'</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> App</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#79B8FF">Suspense</span><span style="color:#B392F0"> fallback</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{&#x3C;</span><span style="color:#79B8FF">Spinner</span><span style="color:#E1E4E8"> />}></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#79B8FF">Dashboard</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#79B8FF">Suspense</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> routes</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Routes</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#E1E4E8">    path: </span><span style="color:#9ECBFF">'dashboard'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">    loadComponent</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">await</span><span style="color:#F97583"> import</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./dashboard/dashboard'</span><span style="color:#E1E4E8">)).Dashboard,</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span></code></pre></figure>
+<p>В Angular для части template используют <code>@defer</code>; для routes — <code>loadComponent</code> или <code>loadChildren</code>. Chunk boundary стоит
+ставить по feature и реальной стоимости, иначе множество мелких requests ухудшит загрузку.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-lazy-loading-ресурсов-отличается-от-code-splitting">Чем lazy loading ресурсов отличается от code splitting?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Code splitting создает chunks, lazy loading определяет момент их загрузки. Изображения лениво загружаются нативным
+loading=“lazy”, scripts используют defer или async, а произвольный resource можно связать с Intersection Observer.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Code splitting создает chunks, lazy loading определяет момент их загрузки. Изображения лениво загружаются нативным
+<code>loading="lazy"</code>, scripts используют <code>defer</code> или <code>async</code>, а произвольный resource можно связать с Intersection Observer.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">img</span></span>
+<span class="line"><span style="color:#B392F0">  src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"product.webp"</span></span>
+<span class="line"><span style="color:#B392F0">  loading</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"lazy"</span></span>
+<span class="line"><span style="color:#B392F0">  width</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"640"</span></span>
+<span class="line"><span style="color:#B392F0">  height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"480"</span></span>
+<span class="line"><span style="color:#B392F0">  alt</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"Товар"</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span></span>
+<span class="line"><span style="color:#B392F0">  src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"analytics.js"</span></span>
+<span class="line"><span style="color:#B392F0">  defer</span></span>
+<span class="line"><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">@defer (on viewport; prefetch on idle) {</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">app-recommendations</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">} @placeholder {</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">app-recommendations-skeleton</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Размеры изображения задают явно, чтобы lazy loading не создавал layout shift.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-memoization-улучшает-производительность">Когда memoization улучшает производительность?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Memoization полезна для измеримо дорогого pure calculation или стабильного selector. В React используют useMemo,
+useCallback и memo; React Compiler может оптимизировать часть случаев автоматически. В Angular computed() лениво
+кеширует значение до изменения зависимых signals, а pure pipe кеширует последний набор arguments.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Memoization полезна для измеримо дорогого pure calculation или стабильного selector. В React используют <code>useMemo</code>,
+<code>useCallback</code> и <code>memo</code>; React Compiler может оптимизировать часть случаев автоматически. В Angular <code>computed()</code> лениво
+кеширует значение до изменения зависимых signals, а pure pipe кеширует последний набор arguments.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> filtered</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> useMemo</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">  () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> products.</span><span style="color:#B392F0">filter</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">product</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> categories.</span><span style="color:#B392F0">includes</span><span style="color:#E1E4E8">(product.category)),</span></span>
+<span class="line"><span style="color:#E1E4E8">  [products, categories],</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">readonly filteredProducts </span><span style="color:#F97583">=</span><span style="color:#B392F0"> computed</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> categories</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">selectedCategories</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">products</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">filter</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">product</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> categories.</span><span style="color:#B392F0">includes</span><span style="color:#E1E4E8">(product.category));</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>Memoization имеет стоимость сравнения, cache и усложнения dependencies. Применять ее ко всем значениям заранее не нужно.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-работает-virtualization-больших-списков">Как работает virtualization больших списков?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Virtualization оставляет в DOM только видимое окно элементов и небольшой overscan. React использует react-window или
+React Virtuoso; Angular — CDK virtual scrolling. Fixed item height проще и дешевле variable-height measurement.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Virtualization оставляет в DOM только видимое окно элементов и небольшой overscan. React использует react-window или
+React Virtuoso; Angular — CDK virtual scrolling. Fixed item height проще и дешевле variable-height measurement.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">FixedSizeList</span></span>
+<span class="line"><span style="color:#B392F0">  height</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">600</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">  itemCount</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{items.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">  itemSize</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">  width</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"100%"</span></span>
+<span class="line"><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  {({</span><span style="color:#FFAB70">index</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">style</span><span style="color:#E1E4E8">}) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> style</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{style}>{items[index].name}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>}</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#79B8FF">FixedSizeList</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">cdk-virtual-scroll-viewport</span></span>
+<span class="line"><span style="color:#B392F0">  itemSize</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"50"</span></span>
+<span class="line"><span style="color:#B392F0">  class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"viewport"</span></span>
+<span class="line"><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> *cdkVirtualFor</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"let item of items; trackBy: trackById"</span><span style="color:#E1E4E8">>{{ item.name }}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">cdk-virtual-scroll-viewport</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>Паттерн нужен для таблиц, feeds, chat history и file trees с тысячами строк. Для десятков элементов стоимость библиотеки
+обычно выше пользы.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-бывают-prefetch-и-preload">Какие бывают prefetch и preload?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>dns-prefetch заранее резолвит host, preconnect устанавливает DNS/TCP/TLS, prefetch получает вероятный будущий resource с
+низким priority, а preload сообщает о critical resource текущей страницы.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>dns-prefetch</code> заранее резолвит host, <code>preconnect</code> устанавливает DNS/TCP/TLS, <code>prefetch</code> получает вероятный будущий
+resource с низким priority, а <code>preload</code> сообщает о critical resource текущей страницы.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">link</span></span>
+<span class="line"><span style="color:#B392F0">  rel</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"preconnect"</span></span>
+<span class="line"><span style="color:#B392F0">  href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"https://api.example.com"</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">link</span></span>
+<span class="line"><span style="color:#B392F0">  rel</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"prefetch"</span></span>
+<span class="line"><span style="color:#B392F0">  href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/chunks/dashboard.js"</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">link</span></span>
+<span class="line"><span style="color:#B392F0">  rel</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"preload"</span></span>
+<span class="line"><span style="color:#B392F0">  href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/fonts/inter.woff2"</span></span>
+<span class="line"><span style="color:#B392F0">  as</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"font"</span></span>
+<span class="line"><span style="color:#B392F0">  type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"font/woff2"</span></span>
+<span class="line"><span style="color:#B392F0">  crossorigin</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span></code></pre></figure>
+<p>React Router/framework может prefetch route на hover или viewport. Angular Router поддерживает preloading strategies для
+lazy routes; data можно prefetch через resolver или query cache. Aggressive prefetch конкурирует с critical resources и
+трафиком пользователя.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-progressive-и-incremental-hydration">Что такое progressive и incremental hydration?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Server сначала присылает готовый HTML, затем framework постепенно подключает event handlers и client state. Critical UI
+гидратируется раньше, below-the-fold — при viewport/idle/interaction. React использует streaming и Suspense boundaries;
+Astro — islands; Angular — incremental hydration с hydrate triggers у @defer.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Server сначала присылает готовый HTML, затем framework постепенно подключает event handlers и client state. Critical UI
+гидратируется раньше, below-the-fold — при viewport/idle/interaction. React использует streaming и Suspense boundaries;
+Astro — islands; Angular — incremental hydration с hydrate triggers у <code>@defer</code>.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">@defer (hydrate on viewport) {</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">app-comments</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">} @placeholder {</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">app-comments-skeleton</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Граница должна быть независимой и иметь стабильный server/client output. Иначе hydration mismatch или раннее событие
+пользователя приведет к неожиданному UI.</p>
+</div></div>
+</details>
+<h4 id="code-organization-strategies">Code Organization Strategies</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-выбирать-monorepo">Когда выбирать monorepo?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Monorepo хранит несколько applications и libraries в одном repository. Он полезен для atomic changes, общего design
+system, shared types и единых CI rules. Цена — tooling, dependency graph, access control и необходимость affected cache.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Monorepo хранит несколько applications и libraries в одном repository. Он полезен для atomic changes, общего design
+system, shared types и единых CI rules. Цена — tooling, dependency graph, access control и необходимость affected cache.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>apps/</span></span>
+<span class="line"><span>  web/</span></span>
+<span class="line"><span>  admin/</span></span>
+<span class="line"><span>  docs/</span></span>
+<span class="line"><span>packages/</span></span>
+<span class="line"><span>  ui/</span></span>
+<span class="line"><span>  api-client/</span></span>
+<span class="line"><span>  types/</span></span>
+<span class="line"><span>  tooling/</span></span></code></pre></figure>
+<p>Nx хорошо работает и с Angular, и с React; pnpm workspaces/Turborepo — framework-neutral варианты. Library boundary
+должна отражать ownership и API, а не быть папкой ради папки.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-vertical-slice-отличается-от-feature-based-structure">Чем Vertical Slice отличается от feature-based structure?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Feature-based structure группирует связанный код по domain. Vertical Slice идет дальше: use case содержит все нужные
+presentation, application и data-access части и минимально зависит от соседних slices.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Feature-based structure группирует связанный код по domain. Vertical Slice идет дальше: use case содержит все нужные
+presentation, application и data-access части и минимально зависит от соседних slices.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>features/</span></span>
+<span class="line"><span>  checkout/</span></span>
+<span class="line"><span>    place-order/</span></span>
+<span class="line"><span>      place-order-page.ts</span></span>
+<span class="line"><span>      place-order.facade.ts</span></span>
+<span class="line"><span>      place-order.api.ts</span></span>
+<span class="line"><span>      place-order.spec.ts</span></span>
+<span class="line"><span>    order-history/</span></span>
+<span class="line"><span>  shared/</span></span></code></pre></figure>
+<p>В React <code>.tsx</code> components и hooks живут внутри slice. В Angular routed component, facade/service, resolver и data-access
+могут находиться рядом. Barrel экспортирует только public API feature; deep imports из другой feature запрещают lint
+rules.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-layer-based-architecture-полезна-а-когда-мешает">Когда layer-based architecture полезна, а когда мешает?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Папки presentation, business, data, infrastructure хорошо показывают техническое направление зависимостей и подходят
+небольшому приложению. В большом продукте одна feature оказывается разбросана по всему repository, а изменения
+затрагивают несколько команд.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Папки <code>presentation</code>, <code>business</code>, <code>data</code>, <code>infrastructure</code> хорошо показывают техническое направление зависимостей и
+подходят небольшому приложению. В большом продукте одна feature оказывается разбросана по всему repository, а изменения
+затрагивают несколько команд.</p>
+<p>Компромисс — feature-first сверху и layers внутри крупной feature. Inner domain не импортирует UI или HttpClient;
+data-access реализует ports; presentation зависит от application API.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-shared-state-через-module-federation-опасен">Почему shared state через Module Federation опасен?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Remote store технически можно expose и подключить в нескольких applications, но это связывает release versions,
+framework runtime и state schema. Ошибка загрузки remote блокирует всех consumers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Remote store технически можно expose и подключить в нескольких applications, но это связывает release versions,
+framework runtime и state schema. Ошибка загрузки remote блокирует всех consumers.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">new</span><span style="color:#B392F0"> ModuleFederationPlugin</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  name: </span><span style="color:#9ECBFF">'sharedState'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  exposes: {</span><span style="color:#9ECBFF">'./store'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'./src/store'</span><span style="color:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#E1E4E8">  shared: [</span><span style="color:#9ECBFF">'react'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'redux'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>Для cross-microfrontend communication предпочтительнее URL, backend state, versioned browser events или небольшой host
+contract. Общий store допустим только при едином ownership и синхронном release policy.</p>
+</div></div>
+</details>
+<h4 id="testing-patterns">Testing Patterns</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-testing-trophy">Что такое Testing Trophy?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Testing Trophy делает foundation из static checks, затем использует unit tests для pure logic, больше integration tests
+для взаимодействия частей и немного E2E для критических flows. Проценты не являются правилом: распределение зависит от
+риска.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Testing Trophy делает foundation из static checks, затем использует unit tests для pure logic, больше integration tests
+для взаимодействия частей и немного E2E для критических flows. Проценты не являются правилом: распределение зависит от
+риска.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>          E2E: few critical flows</span></span>
+<span class="line"><span>       Integration: most behavior</span></span>
+<span class="line"><span>          Unit: pure isolated logic</span></span>
+<span class="line"><span>       Static: TypeScript and lint</span></span></code></pre></figure>
+<p>React Testing Library и Angular Testing Library проверяют DOM behavior. Angular <code>TestBed</code> нужен для DI/templates, а
+Playwright — для настоящего routing, browser APIs и integration с backend.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-применять-arrange-act-assert-в-angular-и-react">Как применять Arrange-Act-Assert в Angular и React?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Arrange готовит данные и dependencies, Act выполняет одно значимое действие, Assert проверяет observable result. В
+zoneless Angular после действия нужно дождаться scheduled rendering.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Arrange готовит данные и dependencies, Act выполняет одно значимое действие, Assert проверяет observable result. В
+zoneless Angular после действия нужно дождаться scheduled rendering.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#B392F0">it</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'shows the updated title'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> fixture</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> TestBed.</span><span style="color:#B392F0">createComponent</span><span style="color:#E1E4E8">(ProfileCard);</span></span>
+<span class="line"><span style="color:#E1E4E8">  fixture.componentInstance.title.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Architect'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> fixture.</span><span style="color:#B392F0">whenStable</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  expect</span><span style="color:#E1E4E8">(fixture.nativeElement.</span><span style="color:#B392F0">querySelector</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'h2'</span><span style="color:#E1E4E8">)?.textContent).</span><span style="color:#B392F0">toContain</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Architect'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></figure>
+<p>В React Testing Library Act обычно выполняет <code>userEvent</code>, а Assert ищет accessible role/text. Комментарии AAA не нужны,
+если структура короткого теста очевидна.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-stub-mock-spy-и-fake-отличаются-друг-от-друга">Чем stub, mock, spy и fake отличаются друг от друга?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В Angular fake подставляют через {provide: UsersRepository, useClass: FakeUsersRepository} или InjectionToken. В React
+его передают provider-у/hook dependency. Проверять state/result предпочтительнее, чем каждый внутренний вызов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>Stub возвращает заранее заданное значение.</li>
+<li>Mock записывает interaction и проверяет protocol вызовов.</li>
+<li>Spy оборачивает реальную функцию и наблюдает за ней.</li>
+<li>Fake является упрощенной, но рабочей реализацией, например in-memory repository.</li>
+</ul>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> FakeUsersRepository</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> UsersRepository</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> users</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">User</span><span style="color:#E1E4E8">>();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  save</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">user</span><span style="color:#F97583">:</span><span style="color:#B392F0"> User</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">void</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.users.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(user.id, user);</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">resolve</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  findById</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">User</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> undefined</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">resolve</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.users.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(id));</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>В Angular fake подставляют через <code>{provide: UsersRepository, useClass: FakeUsersRepository}</code> или InjectionToken. В React
+его передают provider-у/hook dependency. Проверять state/result предпочтительнее, чем каждый внутренний вызов.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-page-object-model">Что такое Page Object Model?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Page Object скрывает selectors и повторяемые действия E2E page. Он должен описывать user intent, а не превращаться в
+копию всей DOM structure.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Page Object скрывает selectors и повторяемые действия E2E page. Он должен описывать user intent, а не превращаться в
+копию всей DOM structure.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> LoginPage</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  constructor</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> page</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Page</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> open</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">void</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.page.</span><span style="color:#B392F0">goto</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/login'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> login</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">username</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">password</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">void</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.page.</span><span style="color:#B392F0">getByLabel</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Username'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">fill</span><span style="color:#E1E4E8">(username);</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.page.</span><span style="color:#B392F0">getByLabel</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Password'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">fill</span><span style="color:#E1E4E8">(password);</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.page.</span><span style="color:#B392F0">getByRole</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'button'</span><span style="color:#E1E4E8">, {name: </span><span style="color:#9ECBFF">'Sign in'</span><span style="color:#E1E4E8">}).</span><span style="color:#B392F0">click</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Один Page Object одинаково тестирует React и Angular UI, потому что работает с доступным browser contract, а не с
+framework internals.</p>
+</div></div>
+</details>
+<h4 id="best-practices-and-guidelines">Best Practices and Guidelines</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-применять-solid-во-frontend-без-over-engineering">Как применять SOLID во frontend без over-engineering?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В React зависимость можно передать через props/context, в Angular — через DI. Не следует создавать interface для каждой
+class: abstraction нужна на настоящей границе или при нескольких implementations.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>SRP: component отображает profile, facade загружает user, formatter форматирует данные.</li>
+<li>OCP: новый variant добавляется через mapping или composition без переписывания consumers.</li>
+<li>LSP: API и cache repositories соблюдают одинаковый contract.</li>
+<li>ISP: card получает <code>Pick&#x3C;User, 'id' | 'name'></code>, а не огромный object со всеми полями.</li>
+<li>DIP: use case зависит от repository token/interface, infrastructure предоставляет implementation.</li>
+</ul>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> USERS_REPOSITORY</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InjectionToken</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">UsersRepository</span><span style="color:#E1E4E8">>(</span><span style="color:#9ECBFF">'UsersRepository'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> usersRepositoryProvider</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  provide: </span><span style="color:#79B8FF">USERS_REPOSITORY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  useClass: HttpUsersRepository,</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">satisfies</span><span style="color:#B392F0"> Provider</span><span style="color:#E1E4E8">;</span></span></code></pre></figure>
+<p>В React зависимость можно передать через props/context, в Angular — через DI. Не следует создавать interface для каждой
+class: abstraction нужна на настоящей границе или при нескольких implementations.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-separation-of-concerns-выглядит-на-практике">Как Separation of Concerns выглядит на практике?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Data-access получает DTO, domain pure function сортирует и фильтрует products, application facade координирует loading,
+а component отображает готовый view model.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Data-access получает DTO, domain pure function сортирует и фильтрует products, application facade координирует loading,
+а component отображает готовый view model.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> selectAvailableProducts</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">products</span><span style="color:#F97583">:</span><span style="color:#B392F0"> ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Product</span><span style="color:#E1E4E8">>)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Product</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#E1E4E8">  products.</span><span style="color:#B392F0">filter</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">product</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> product.stock </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">toSorted</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">left</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">right</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> right.price </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> left.price);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> ProductsFacade</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> productsState</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> signal</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Product</span><span style="color:#E1E4E8">>>([]);</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#FFAB70"> availableProducts</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> computed</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#B392F0"> selectAvailableProducts</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">productsState</span><span style="color:#E1E4E8">()));</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>React custom hook может быть application boundary, Angular service/facade — аналогом. Pure transformation остается
+framework-neutral и тестируется без DOM/TestBed.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-где-проходит-граница-dry">Где проходит граница DRY?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>DRY устраняет повторение одного знания, а не похожий syntax. Универсальный useFetch(url) или DataService быстро теряет
+cancellation, validation, cache keys и domain semantics. Абстракция полезна, когда повторился стабильный protocol.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>DRY устраняет повторение одного знания, а не похожий syntax. Универсальный <code>useFetch(url)</code> или <code>DataService&#x3C;T></code> быстро
+теряет cancellation, validation, cache keys и domain semantics. Абстракция полезна, когда повторился стабильный
+protocol.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> loadUser</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> http.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">UserDto</span><span style="color:#E1E4E8">>(</span><span style="color:#9ECBFF">'/api/user'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(toUser));</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> loadProducts</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> http.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ReadonlyArray</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ProductDto</span><span style="color:#E1E4E8">>>(</span><span style="color:#9ECBFF">'/api/products'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(toProducts));</span></span></code></pre></figure>
+<p>Эти функции похожи технически, но имеют разные contracts и invalidation rules. Query client или shared HTTP adapter
+может убрать инфраструктурное повторение, не стирая domain names.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-реализовать-progressive-enhancement">Как реализовать Progressive Enhancement?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Базовый HTML flow работает через browser navigation/form submit, JavaScript добавляет inline validation, optimistic UI и
+submission без reload. Server остается источником проверки данных.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Базовый HTML flow работает через browser navigation/form submit, JavaScript добавляет inline validation, optimistic UI и
+submission без reload. Server остается источником проверки данных.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">form</span></span>
+<span class="line"><span style="color:#B392F0">  action</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/api/contact"</span></span>
+<span class="line"><span style="color:#B392F0">  method</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"post"</span></span>
+<span class="line"><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">label</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    Email</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">input</span></span>
+<span class="line"><span style="color:#B392F0">      name</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span></span>
+<span class="line"><span style="color:#B392F0">      type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span></span>
+<span class="line"><span style="color:#B392F0">      required</span></span>
+<span class="line"><span style="color:#E1E4E8">    /></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;/</span><span style="color:#85E89D">label</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">textarea</span></span>
+<span class="line"><span style="color:#B392F0">    name</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"message"</span></span>
+<span class="line"><span style="color:#B392F0">    required</span></span>
+<span class="line"><span style="color:#E1E4E8">  >&#x3C;/</span><span style="color:#85E89D">textarea</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"submit"</span><span style="color:#E1E4E8">>Отправить&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">form</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>React framework action или Angular submit handler может перехватить форму после hydration. Если продукт является чистой
+authenticated SPA, полноценный no-JS fallback может быть нецелесообразен, но semantic HTML и native behavior остаются
+полезными.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-входит-в-performance-budget">Что входит в performance budget?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Budget задает проверяемые пределы для initial JavaScript/CSS, изображений, LCP, CLS, INP и server latency. Он должен
+проверяться в CI и на real-user monitoring, потому что Lighthouse lab run не отражает всех устройств и сетей.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Budget задает проверяемые пределы для initial JavaScript/CSS, изображений, LCP, CLS, INP и server latency. Он должен
+проверяться в CI и на real-user monitoring, потому что Lighthouse lab run не отражает всех устройств и сетей.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "budgets"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#79B8FF">      "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"initial"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "maximumWarning"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"350kb"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "maximumError"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"500kb"</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+<p>Angular CLI поддерживает budgets в <code>angular.json</code>; React setup зависит от bundler/framework. Lighthouse CI может
+проверять LCP, CLS и total blocking time, а bundle analyzer помогает найти причину превышения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-означает-accessibility-first-для-component-architecture">Что означает Accessibility First для component architecture?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Semantic element, accessible name, keyboard interaction, focus management и visible focus проектируются как часть API
+component. Одного role=“dialog” недостаточно: modal должен управлять initial focus, trap, Escape, background inert и
+возвратом focus.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Semantic element, accessible name, keyboard interaction, focus management и visible focus проектируются как часть API
+component. Одного <code>role="dialog"</code> недостаточно: modal должен управлять initial focus, trap, Escape, background inert и
+возвратом focus.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">dialog</span></span>
+<span class="line"><span style="color:#B392F0">  #dialog</span></span>
+<span class="line"><span style="color:#B392F0">  aria-labelledby</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"dialog-title"</span></span>
+<span class="line"><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">h2</span><span style="color:#B392F0"> id</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"dialog-title"</span><span style="color:#E1E4E8">>Удалить заказ?&#x3C;/</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">button</span></span>
+<span class="line"><span style="color:#B392F0">    type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"button"</span></span>
+<span class="line"><span style="color:#B392F0">    (click)</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"dialog.close()"</span></span>
+<span class="line"><span style="color:#E1E4E8">  ></span></span>
+<span class="line"><span style="color:#E1E4E8">    Отмена</span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">dialog</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+<p>React может использовать native elements или headless accessible library. В Angular для сложных widgets доступны CDK и
+Angular Aria directives, которые реализуют focus и keyboard protocol; перед использованием <code>@angular/aria</code> нужно
+добавить dependency и самостоятельно оформить visual states.</p>
+</div></div>
+</details>
+<h4 id="choosing-the-right-pattern">Choosing the Right Pattern</h4>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выглядит-decision-matrix-из-gist-с-поправкой-на-реальные-ограничения">Как выглядит decision matrix из gist с поправкой на реальные ограничения?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Количество страниц само по себе не требует micro frontends. Главные сигналы — organizational ownership, coupling,
+release cadence, performance profile и domain complexity.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Контекст</th><th>Стартовый выбор</th></tr></thead><tbody><tr><td>Маленький продукт, 1–3 разработчика</td><td>feature folders, local state, CSR или SSG</td></tr><tr><td>Средний продукт, 4–10 разработчиков</td><td>public feature APIs, lazy routes, facade/query layer</td></tr><tr><td>Большой продукт, несколько команд</td><td>monorepo, enforced boundaries, vertical slices; micro frontends только при независимых releases</td></tr><tr><td>Статический индексируемый контент</td><td>SSG/prerender + CDN</td></tr><tr><td>Динамический индексируемый контент</td><td>SSR + cache</td></tr><tr><td>Authenticated dashboard</td><td>CSR/hybrid, code splitting, virtualization для больших grids</td></tr><tr><td>Смешанный сайт</td><td>route-based rendering, islands или incremental hydration</td></tr></tbody></table>
+<p>Количество страниц само по себе не требует micro frontends. Главные сигналы — organizational ownership, coupling,
+release cadence, performance profile и domain complexity.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-комбинации-паттернов-подходят-типовым-продуктам">Какие комбинации паттернов подходят типовым продуктам?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В Angular набор может выглядеть как standalone lazy routes + signals facade + HttpClient/RxJS + SSR/prerender. В React —
+framework routes + hooks/query cache + server/client component boundaries. Паттерны выбирают независимо от бренда
+framework.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<ul>
+<li>E-commerce: component architecture, SSG/SSR для catalog, CSR для checkout, BFF, query cache и feature structure.</li>
+<li>SaaS dashboard: container/presentational, CSR, lazy routes, query layer, virtualization и vertical slices.</li>
+<li>Content platform: SSG, islands/incremental hydration, minimal client state и CDN.</li>
+<li>Enterprise application: monorepo, strict feature boundaries, facade/store; micro frontends только для автономных
+команд.</li>
+<li>Marketing site: Atomic Design/design system, SSG, image optimization, prefetch budget и progressive enhancement.</li>
+</ul>
+<p>В Angular набор может выглядеть как standalone lazy routes + signals facade + HttpClient/RxJS + SSR/prerender. В React —
+framework routes + hooks/query cache + server/client component boundaries. Паттерны выбирают независимо от бренда
+framework.</p>
+</div></div>
+</details>
+<h3 id="связанные-материалы">Связанные материалы</h3>
+<ul>
+<li><a href="../state-management/index.md">State Management</a></li>
+<li><a href="../angular/index.md#%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5%D0%BC">Angular: управление состоянием</a></li>
+<li><a href="../react/index.md#%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%BD%D1%8B%D0%B5-%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B">React: архитектурные вопросы</a></li>
+<li><a href="https://gist.github.com/mosioc/d2f7fd3c7ef2b32a198fa6e693b74faa">Исходный список паттернов</a></li>
+</ul></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

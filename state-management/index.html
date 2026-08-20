@@ -1,0 +1,413 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Client state, server state, URL state, forms, cache, normalization и state managers"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="State Management"><meta property="og:description" content="Client state, server state, URL state, forms, cache, normalization и state managers"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/state-management/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/state-management/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/state-management"><title>State Management</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/state-management" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: State Management"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="типы-состояния"></span><span class="sidebar-navigation__marker" data-heading-marker="redux"></span><span class="sidebar-navigation__marker" data-heading-marker="mobx"></span><span class="sidebar-navigation__marker" data-heading-marker="связь-с-angular-и-react"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#типы-состояния" data-heading-link="типы-состояния">Типы состояния</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#redux" data-heading-link="redux">Redux</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#mobx" data-heading-link="mobx">MobX</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#связь-с-angular-и-react" data-heading-link="связь-с-angular-и-react">Связь с Angular и React</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="state-management">State Management</h2>
+<h3 id="типы-состояния">Типы состояния</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-client-state-отличается-от-server-state">Чем client state отличается от server state?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Client state принадлежит интерфейсу: выбранная вкладка, открытый dropdown, черновик формы, текущий шаг wizard. Его
+источник истины находится в приложении, поэтому UI сам решает lifetime, defaults и правила изменения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Client state принадлежит интерфейсу: выбранная вкладка, открытый dropdown, черновик формы, текущий шаг wizard. Его
+источник истины находится в приложении, поэтому UI сам решает lifetime, defaults и правила изменения.</p>
+<p>Server state приходит из backend: профиль пользователя, список заказов, права доступа, справочники. У него есть внешний
+владелец, latency, ошибки, stale data, refetch, кеширование и конкуренция запросов.</p>
+<p>Ошибочно хранить все server state как обычный client store. Для server state часто важнее query/cache layer:
+invalidation, deduplication, retry, background refresh и optimistic updates. Для client state важнее понятные
+transitions и близость к месту использования.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-url-state-form-state-и-cache-state">Что такое URL state, form state и cache state?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>URL state - состояние, которое должно переживать refresh, copy link и browser navigation: route params, query params,
+filters, pagination, selected tab, search string. Его лучше держать в URL, а не только в store.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>URL state - состояние, которое должно переживать refresh, copy link и browser navigation: route params, query params,
+filters, pagination, selected tab, search string. Его лучше держать в URL, а не только в store.</p>
+<p>Form state - значения, touched/dirty, validation errors, disabled/loading status и submit lifecycle. Для формы обычно
+нужен специализированный form layer, потому что правила валидации и UX важнее глобального доступа.</p>
+<p>Cache state - локальная копия server data с metadata: freshness, loading, error, last updated, inflight request,
+pagination cursor. Cache state должен иметь понятные правила invalidation, иначе UI начинает показывать случайно
+устаревшие данные.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-normalized-state">Что такое normalized state?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Normalized state хранит entities по id и отдельно хранит списки id или связи между entities. Вместо вложенных копий
+одного пользователя в десяти местах есть один users.byId[userId], а экраны собирают нужную форму через selectors.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Normalized state хранит entities по id и отдельно хранит списки id или связи между entities. Вместо вложенных копий
+одного пользователя в десяти местах есть один <code>users.byId[userId]</code>, а экраны собирают нужную форму через selectors.</p>
+<p>Такой подход уменьшает дублирование, упрощает updates и помогает поддерживать consistency. Он особенно полезен для
+сложных доменных данных: users, orders, comments, permissions, products.</p>
+<p>Минус - больше инфраструктуры и selectors. Для простого экрана с одним response object normalization может быть лишней.
+Нормализуют, когда одни и те же entities живут в нескольких views, часто обновляются независимо или участвуют в
+отношениях.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-state-machine-и-когда-смотреть-на-xstate">Что такое state machine и когда смотреть на XState?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>State machine описывает конечный набор состояний и допустимые переходы между ними. Вместо набора boolean flags вроде
+isLoading, isOpen, hasError, isSubmitted модель явно говорит: idle, loading, success, error, confirming, submitted.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>State machine описывает конечный набор состояний и допустимые переходы между ними. Вместо набора boolean flags вроде
+<code>isLoading</code>, <code>isOpen</code>, <code>hasError</code>, <code>isSubmitted</code> модель явно говорит: <code>idle</code>, <code>loading</code>, <code>success</code>, <code>error</code>,
+<code>confirming</code>, <code>submitted</code>.</p>
+<p>XState и похожие библиотеки полезны, когда flow имеет много шагов, guards, retries, параллельные состояния или строгие
+переходы: checkout, onboarding, upload, auth, wizard, сложные модальные сценарии.</p>
+<p>State machine не нужна для каждого dropdown или формы из двух полей. Ее стоимость окупается, когда текущий код уже
+содержит противоречивые flags, неявные переходы и edge cases, которые сложно проверить тестами.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-не-нужен-state-manager">Когда не нужен state manager?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>State manager не нужен автоматически. Часто достаточно локального component state, URL, form layer, query/cache layer
+или простого feature service.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>State manager не нужен автоматически. Часто достаточно локального component state, URL, form layer, query/cache layer
+или простого feature service.</p>
+<p>Признаки, что отдельный manager будет лишним:</p>
+<ul>
+<li>state используется одним component subtree;</li>
+<li>данные полностью принадлежат форме;</li>
+<li>источник истины уже в URL;</li>
+<li>проблема в server cache, а не в client transitions;</li>
+<li>actions будут только повторять setters;</li>
+<li>команда не получает пользы от devtools, event history или единых conventions.</li>
+</ul>
+<p>Хорошее правило: сначала colocated state и явный ownership, потом общий service или cache, и только затем полноценный
+store, если появилась реальная координационная сложность.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выбирать-между-signals-service-rxjs-ngrx-redux-zustand-и-tanstack-query">Как выбирать между signals, service, RxJS, NgRx, Redux, Zustand и TanStack Query?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Выбор начинается не с библиотеки, а с типа состояния и владельца данных.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Выбор начинается не с библиотеки, а с типа состояния и владельца данных.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Задача</th><th>Что обычно подходит</th></tr></thead><tbody><tr><td>Локальный synchronous UI state в Angular</td><td><code>signal()</code>, <code>computed()</code></td></tr><tr><td>Shared feature state в Angular</td><td>service с readonly signals и узкими methods</td></tr><tr><td>Async orchestration, cancellation, WebSocket, debounce</td><td>RxJS service</td></tr><tr><td>Большое Angular-приложение со строгими conventions</td><td>NgRx</td></tr><tr><td>Большое React-приложение со строгими conventions</td><td>Redux Toolkit</td></tr><tr><td>Небольшой shared client state в React</td><td>Zustand</td></tr><tr><td>Server state, cache, refetch, optimistic updates</td><td>TanStack Query или framework-specific query layer</td></tr><tr><td>Явный многошаговый flow с ограниченными переходами</td><td>state machine, например XState</td></tr></tbody></table>
+<p>Signals и Zustand хорошо решают простой client state. RxJS силен там, где важны время и async streams. NgRx и Redux
+Toolkit оправданы, когда нужны event log, devtools, selectors, normalized entities и единый подход большой команды.
+TanStack Query не заменяет client store: она решает server state, cache и синхронизацию с backend.</p>
+<p>На интервью полезно проговорить trade-off: чем сложнее инструмент, тем яснее должна быть проблема, которую он окупает.</p>
+</div></div>
+</details>
+<h3 id="redux">Redux</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-redux">Что такое Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Redux — библиотека управления состоянием с единым store и явными событиями. Новое состояние вычисляется reducers из
+предыдущего состояния и action. Обычно используют Redux Toolkit, который уменьшает boilerplate и безопасно применяет
+immutable updates.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Redux — библиотека управления состоянием с единым store и явными событиями. Новое состояние вычисляется reducers из
+предыдущего состояния и action. Обычно используют Redux Toolkit, который уменьшает boilerplate и безопасно применяет
+immutable updates.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-основные-идеи-redux">Какие основные идеи Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>State хранится централизованно, изменения описываются actions, а reducers вычисляют следующий state предсказуемо.
+Однонаправленный поток облегчает tracing и replay. Side effects выносят за пределы reducers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>State хранится централизованно, изменения описываются actions, а reducers вычисляют следующий state предсказуемо.
+Однонаправленный поток облегчает tracing и replay. Side effects выносят за пределы reducers.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-store">Что такое store?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Store хранит текущее state tree, принимает actions через dispatch и уведомляет subscribers. Он также объединяет reducers
+и middleware. Store не обязан содержать все локальное UI-состояние приложения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Store хранит текущее state tree, принимает actions через <code>dispatch</code> и уведомляет subscribers. Он также объединяет
+reducers и middleware. Store не обязан содержать все локальное UI-состояние приложения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-action">Что такое action?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Action — обычный объект, описывающий произошедшее событие, обычно с полем type и payload. Хорошее имя отражает domain
+event, а не инструкцию изменения каждого поля. Actions должны быть сериализуемыми, если важны DevTools и persistence.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Action — обычный объект, описывающий произошедшее событие, обычно с полем <code>type</code> и payload. Хорошее имя отражает domain
+event, а не инструкцию изменения каждого поля. Actions должны быть сериализуемыми, если важны DevTools и persistence.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-reducer">Что такое reducer?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Reducer — функция (state, action) => nextState. Она обрабатывает известные actions и возвращает прежний state для
+остальных. Reducer не выполняет HTTP, timers и случайные вычисления.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Reducer — функция <code>(state, action) => nextState</code>. Она обрабатывает известные actions и возвращает прежний state для
+остальных. Reducer не выполняет HTTP, timers и случайные вычисления.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> counterReducer</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">state</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {count: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">}, </span><span style="color:#FFAB70">action</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  switch</span><span style="color:#E1E4E8"> (action.type) {</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'increment'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> {</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">state, count: state.count </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    default</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> state;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-reducer-должен-быть-чистой-функцией">Почему reducer должен быть чистой функцией?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Одинаковые входы должны давать одинаковый результат без внешних side effects. Это делает обновления тестируемыми,
+поддерживает replay и time-travel debugging. I/O выполняет middleware или отдельный orchestration layer.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Одинаковые входы должны давать одинаковый результат без внешних side effects. Это делает обновления тестируемыми,
+поддерживает replay и time-travel debugging. I/O выполняет middleware или отдельный orchestration layer.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-immutable-update">Что такое immutable update?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это создание нового объекта для изменившейся ветки вместо мутации существующего state. Ссылочное сравнение позволяет
+быстро определить изменения. Redux Toolkit использует Immer, поэтому внутри reducer можно писать mutation-like syntax с
+immutable результатом.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это создание нового объекта для изменившейся ветки вместо мутации существующего state. Ссылочное сравнение позволяет
+быстро определить изменения. Redux Toolkit использует Immer, поэтому внутри reducer можно писать mutation-like syntax с
+immutable результатом.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-selector">Что такое selector?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Selector читает или вычисляет данные из store. Memoized selector не пересчитывает результат, пока его входные ссылки не
+изменились. Сложную derivation logic лучше держать в selectors, а не компонентах.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Selector читает или вычисляет данные из store. Memoized selector не пересчитывает результат, пока его входные ссылки не
+изменились. Сложную derivation logic лучше держать в selectors, а не компонентах.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-middleware">Что такое middleware?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Middleware перехватывает dispatch между caller и reducer. Оно используется для async flows, logging, analytics и
+обработки ошибок. Middleware не должно скрывать критичную бизнес-логику без наблюдаемых actions.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Middleware перехватывает dispatch между caller и reducer. Оно используется для async flows, logging, analytics и
+обработки ошибок. Middleware не должно скрывать критичную бизнес-логику без наблюдаемых actions.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-side-effects-в-redux">Что такое side effects в Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это HTTP, storage, timers, navigation, случайность и любое взаимодействие вне чистого reducer. Их реализуют thunk, saga,
+observable middleware или listener middleware. Результат обычно возвращается в store новым action.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это HTTP, storage, timers, navigation, случайность и любое взаимодействие вне чистого reducer. Их реализуют thunk, saga,
+observable middleware или listener middleware. Результат обычно возвращается в store новым action.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-плюсы-redux">Какие плюсы Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Явный поток данных, хорошие DevTools, предсказуемые updates, testability и удобная диагностика сложных сценариев.
+Центральный event log полезен большим командам. Экосистема предлагает устойчивые patterns для normalized data.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Явный поток данных, хорошие DevTools, предсказуемые updates, testability и удобная диагностика сложных сценариев.
+Центральный event log полезен большим командам. Экосистема предлагает устойчивые patterns для normalized data.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-минусы-redux">Какие минусы Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Дополнительные actions, reducers, selectors и async conventions увеличивают объем кода и порог входа. Глобальный store
+легко перегрузить локальным state. Плохая granularity вызывает лишние updates и связанность features.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Дополнительные actions, reducers, selectors и async conventions увеличивают объем кода и порог входа. Глобальный store
+легко перегрузить локальным state. Плохая granularity вызывает лишние updates и связанность features.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-redux-оправдан">Когда Redux оправдан?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Когда много удаленных компонентов используют общее сложное состояние, важны audit/debugging и несколько команд меняют
+одни domain entities. Он полезен для долгоживущих async workflows и normalized caches. Решение должно окупать
+инфраструктуру.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Когда много удаленных компонентов используют общее сложное состояние, важны audit/debugging и несколько команд меняют
+одни domain entities. Он полезен для долгоживущих async workflows и normalized caches. Решение должно окупать
+инфраструктуру.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-redux-будет-лишним-усложнением">Когда Redux будет лишним усложнением?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для формы, раскрытия панели или данных одного feature часто достаточно component state или query cache. Если actions
+лишь дублируют простые setters, архитектура не дает пользы. Начинать лучше с colocated state.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Для формы, раскрытия панели или данных одного feature часто достаточно component state или query cache. Если actions
+лишь дублируют простые setters, архитектура не дает пользы. Начинать лучше с colocated state.</p>
+</div></div>
+</details>
+<h3 id="mobx">MobX</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-mobx">Что такое MobX?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>MobX — реактивная библиотека, которая отслеживает чтения observable state и автоматически обновляет зависящие
+computations и views. Код часто выглядит как обычные объекты и методы. Связи формируются динамически во время
+выполнения.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>MobX — реактивная библиотека, которая отслеживает чтения observable state и автоматически обновляет зависящие
+computations и views. Код часто выглядит как обычные объекты и методы. Связи формируются динамически во время
+выполнения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-observable-state">Что такое observable state?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это состояние, чтения и изменения которого отслеживает MobX. Когда observable меняется, зависимые computed values и
+reactions инвалидируются. Изменения обычно группируют в actions.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это состояние, чтения и изменения которого отслеживает MobX. Когда observable меняется, зависимые computed values и
+reactions инвалидируются. Изменения обычно группируют в actions.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-computed-value">Что такое computed value?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Computed — производное значение из observables. MobX кеширует его и пересчитывает при изменении реально прочитанных
+dependencies. Computed должен быть чистым и не выполнять I/O.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Computed — производное значение из observables. MobX кеширует его и пересчитывает при изменении реально прочитанных
+dependencies. Computed должен быть чистым и не выполнять I/O.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-reaction">Что такое reaction?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Reaction запускает side effect при изменении наблюдаемого выражения. Его используют для persistence, analytics или
+интеграции с внешним API. Reaction нужно уничтожать, когда заканчивается lifetime владельца.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Reaction запускает side effect при изменении наблюдаемого выражения. Его используют для persistence, analytics или
+интеграции с внешним API. Reaction нужно уничтожать, когда заканчивается lifetime владельца.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-плюсы-mobx">Какие плюсы MobX?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Меньше boilerplate, естественная объектная модель и точные updates по фактически прочитанным dependencies. Удобен для
+богатых domain models и сложных производных значений. Быстро внедряется в локальные features.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Меньше boilerplate, естественная объектная модель и точные updates по фактически прочитанным dependencies. Удобен для
+богатых domain models и сложных производных значений. Быстро внедряется в локальные features.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-минусы-mobx">Какие минусы MobX?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Динамический dependency graph и скрытая реактивность могут усложнить tracing. Легко создать side effects с неочевидным
+lifecycle или чрезмерно mutable shared model. Нужны соглашения о actions, ownership и disposal.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Динамический dependency graph и скрытая реактивность могут усложнить tracing. Легко создать side effects с неочевидным
+lifecycle или чрезмерно mutable shared model. Нужны соглашения о actions, ownership и disposal.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-mobx-отличается-от-redux">Чем MobX отличается от Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Redux делает события и переходы состояния явными через actions/reducers. MobX больше опирается на observable graph и
+автоматические reactions, поэтому бывает лаконичнее. При неаккуратном дизайне поток изменений сложнее проследить.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Redux делает события и переходы состояния явными через actions/reducers. MobX больше опирается на observable graph и
+автоматические reactions, поэтому бывает лаконичнее. При неаккуратном дизайне поток изменений сложнее проследить.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-mobx-может-быть-удобнее-redux">Когда MobX может быть удобнее Redux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Когда важна лаконичная модель объектов, много computed dependencies и команда принимает runtime-реактивность. Redux
+удобнее, если нужен строгий event log и максимально явный flow. Выбор зависит от требований к debugging и культуре
+команды.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Когда важна лаконичная модель объектов, много computed dependencies и команда принимает runtime-реактивность. Redux
+удобнее, если нужен строгий event log и максимально явный flow. Выбор зависит от требований к debugging и культуре
+команды.</p>
+</div></div>
+</details>
+<h3 id="связь-с-angular-и-react">Связь с Angular и React</h3>
+<p>Этот раздел держит framework-agnostic теорию: Redux, MobX, store, actions, reducers, selectors, side effects и
+immutability. Angular-specific применение вынесено в
+<a href="../angular/index.md#%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5%D0%BC">Управление состоянием в Angular</a>: signals, scoped services, RxJS store
+services, NgRx/NGXS/Akita и facade pattern. React-specific применение раскрыто в
+<a href="../react/index.md#state-management">управлении состоянием React</a>: Context, Redux Toolkit, Zustand, TanStack Query и
+границы между client state и server state.</p></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

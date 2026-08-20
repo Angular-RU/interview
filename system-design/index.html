@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Проектирование frontend-интерфейсов, UX-архитектура, rendering modes и trade-offs"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Проектирование UI"><meta property="og:description" content="Проектирование frontend-интерфейсов, UX-архитектура, rendering modes и trade-offs"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/system-design/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/system-design/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/system-design"><title>Проектирование UI</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/system-design" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Проектирование UI"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="проектирование-ui">Проектирование UI</h2>
+<h3 id="задачи-проектирования-ui">Задачи проектирования UI</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-system-design-вопросы-могут-задать-senior-frontend-разработчику">Какие system design вопросы могут задать senior frontend-разработчику?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Чаще спрашивают не backend-детали, а границы frontend-архитектуры:</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Чаще спрашивают не backend-детали, а границы frontend-архитектуры:</p>
+<ul>
+<li>как загрузить и показать таблицу на миллионы строк;</li>
+<li>где делать фильтрацию, сортировку и агрегацию;</li>
+<li>как кешировать API responses и инвалидировать stale data;</li>
+<li>как пережить частичную недоступность API;</li>
+<li>как проектировать retry, timeout, optimistic update и rollback;</li>
+<li>как разложить фичу между frontend app, CDN, BFF/API и backend jobs;</li>
+<li>как наблюдать ошибки, latency и деградацию UX после release.</li>
+</ul>
+<p>Хороший ответ явно разделяет client, network, CDN, API и storage, называет trade-offs и предлагает graceful degradation.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-спроектировать-modaldialog-на-уровне-системы">Как спроектировать modal/dialog на уровне системы?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Dialog - не только overlay. Нужны focus trap, restore focus, Escape, click outside policy, scroll lock, aria attributes,
+stacking, portal/root strategy, animation with reduced motion и cleanup. Для design system важно определить API:
+controlled/uncontrolled open state, sizes, destructive actions, async submit, nested dialogs policy.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Dialog - не только overlay. Нужны focus trap, restore focus, Escape, click outside policy, scroll lock, aria attributes,
+stacking, portal/root strategy, animation with reduced motion и cleanup. Для design system важно определить API:
+controlled/uncontrolled open state, sizes, destructive actions, async submit, nested dialogs policy.</p>
+<p>В Angular это часто решают CDK Overlay/Dialog или UI-kit. Самописный dialog оправдан только если команда готова
+поддерживать accessibility contract и edge cases.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span></span>
+<span class="line"><span style="color:#B392F0">  role</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"dialog"</span></span>
+<span class="line"><span style="color:#B392F0">  aria-modal</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"true"</span></span>
+<span class="line"><span style="color:#B392F0">  aria-labelledby</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"dialog-title"</span></span>
+<span class="line"><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">h2</span><span style="color:#B392F0"> id</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"dialog-title"</span><span style="color:#E1E4E8">>Удалить проект?&#x3C;/</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"button"</span><span style="color:#E1E4E8">>Отмена&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"button"</span><span style="color:#E1E4E8">>Удалить&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-спроектировать-infinite-scroll">Как спроектировать infinite scroll?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Нужно описать API pagination contract, loading states, error retry, deduplication, scroll position, accessibility и
+observability. На клиенте часто используют IntersectionObserver для sentinel-элемента, но API должен поддерживать cursor
+pagination, иначе при изменении данных возможны пропуски и дубли.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Нужно описать API pagination contract, loading states, error retry, deduplication, scroll position, accessibility и
+observability. На клиенте часто используют <code>IntersectionObserver</code> для sentinel-элемента, но API должен поддерживать
+cursor pagination, иначе при изменении данных возможны пропуски и дубли.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> observer</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> IntersectionObserver</span><span style="color:#E1E4E8">(([</span><span style="color:#FFAB70">entry</span><span style="color:#E1E4E8">]) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (entry?.isIntersecting) {</span></span>
+<span class="line"><span style="color:#B392F0">    loadNextPage</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">observer.</span><span style="color:#B392F0">observe</span><span style="color:#E1E4E8">(sentinelElement);</span></span></code></pre></figure>
+<p>Важные trade-offs:</p>
+<ul>
+<li>infinite scroll удобен для ленты, но хуже для поиска конкретной позиции;</li>
+<li>нужна возможность восстановить позицию при возврате назад;</li>
+<li>для больших списков может понадобиться virtualization;</li>
+<li>keyboard и screen reader users должны иметь понятную навигацию;</li>
+<li>analytics должны различать load more, error и abandon.</li>
+</ul>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-выбрать-csr-ssr-ssg-или-isr-для-frontend-продукта">Как выбрать CSR, SSR, SSG или ISR для frontend-продукта?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>CSR проще для authenticated dashboards и internal tools, где SEO почти не важен. SSR помогает first paint, SEO и preview
+metadata, но добавляет server runtime, cache invalidation и hydration complexity. SSG хорош для стабильного content,
+ISR - для контента, который должен обновляться без полного rebuild.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>CSR проще для authenticated dashboards и internal tools, где SEO почти не важен. SSR помогает first paint, SEO и preview
+metadata, но добавляет server runtime, cache invalidation и hydration complexity. SSG хорош для стабильного content,
+ISR - для контента, который должен обновляться без полного rebuild.</p>
+<p>Решение принимают по типу страниц, freshness данных, SEO, personalization, hosting model, Core Web Vitals, стоимости
+операций и ownership команды. На интервью важно не продавать один rendering mode как универсальный.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> renderingByPageType</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  dashboard: </span><span style="color:#9ECBFF">'CSR'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  article: </span><span style="color:#9ECBFF">'SSG'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  productPage: </span><span style="color:#9ECBFF">'SSR'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  catalog: </span><span style="color:#9ECBFF">'ISR'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">as</span><span style="color:#F97583"> const</span><span style="color:#E1E4E8">;</span></span></code></pre></figure>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

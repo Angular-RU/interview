@@ -1,0 +1,839 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Linux, Unix shell, популярные команды, права, процессы, сеть, отличия от macOS и Homebrew"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Linux / Unix"><meta property="og:description" content="Linux, Unix shell, популярные команды, права, процессы, сеть, отличия от macOS и Homebrew"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/linux/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/linux/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/linux"><title>Linux / Unix</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/linux" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Linux / Unix"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="unix-linux-и-shell-basics"></span><span class="sidebar-navigation__marker" data-heading-marker="filesystem-и-навигация"></span><span class="sidebar-navigation__marker" data-heading-marker="permissions-и-пользователи"></span><span class="sidebar-navigation__marker" data-heading-marker="processes-и-system-information"></span><span class="sidebar-navigation__marker" data-heading-marker="network-diagnostics"></span><span class="sidebar-navigation__marker" data-heading-marker="package-managers"></span><span class="sidebar-navigation__marker" data-heading-marker="linux-vs-macos"></span><span class="sidebar-navigation__marker" data-heading-marker="homebrew"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#unix-linux-и-shell-basics" data-heading-link="unix-linux-и-shell-basics">Unix, Linux и shell basics</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#filesystem-и-навигация" data-heading-link="filesystem-и-навигация">Filesystem и навигация</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#permissions-и-пользователи" data-heading-link="permissions-и-пользователи">Permissions и пользователи</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#processes-и-system-information" data-heading-link="processes-и-system-information">Processes и system information</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#network-diagnostics" data-heading-link="network-diagnostics">Network diagnostics</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#package-managers" data-heading-link="package-managers">Package managers</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#linux-vs-macos" data-heading-link="linux-vs-macos">Linux vs macOS</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#homebrew" data-heading-link="homebrew">Homebrew</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="linux--unix">Linux / Unix</h2>
+<h3 id="unix-linux-и-shell-basics">Unix, Linux и shell basics</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-linux-и-чем-он-полезен-frontend-разработчику">Что такое Linux и чем он полезен frontend-разработчику?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Linux — семейство Unix-like operating systems на базе Linux kernel. Для frontend-разработчика он важен потому, что
+большая часть CI, Docker images, production servers и cloud-инфраструктуры работает именно в Linux-окружении.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Linux — это kernel и экосистема операционных систем вокруг него. Готовые дистрибутивы, например Ubuntu, Debian или
+Fedora, добавляют userland utilities, package manager, init system и набор системных настроек.</p>
+<p>Frontend-разработчик обычно не администрирует Linux глубоко, но постоянно сталкивается с ним:</p>
+<ul>
+<li>CI runners выполняют <code>npm ci</code>, tests и production build в Linux;</li>
+<li>Docker containers чаще всего основаны на Linux images;</li>
+<li>static files и SSR-приложения запускаются на Linux servers;</li>
+<li>shell scripts, permissions, paths и native dependencies могут вести себя иначе, чем на macOS или Windows.</li>
+</ul>
+<p>Например, import <code>./UserCard</code> может работать на case-insensitive filesystem macOS, но упасть в Linux CI, если файл
+называется <code>user-card.ts</code>. Другой частый случай — script работает локально, но не запускается в CI из-за отсутствующего
+execute permission.</p>
+<p>Практический минимум: понимать filesystem, shell, environment variables, processes, permissions, ports и package
+management. Этого достаточно, чтобы диагностировать большую часть проблем окружения, не превращаясь в системного
+администратора.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-unix-like-system">Что такое Unix-like system?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Unix-like system следует идеям Unix: filesystem как дерево, процессы, текстовые streams, pipes, permissions и набор
+маленьких утилит, которые можно комбинировать. Linux, macOS и BSD относятся к Unix-like системам, но используют разные
+kernels, системные утилиты и package managers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Unix-like называют систему, которая повторяет основные модели и пользовательские интерфейсы Unix, даже если не является
+оригинальной Unix-системой. Обычно это означает:</p>
+<ul>
+<li>единое дерево filesystem с root directory <code>/</code>;</li>
+<li>процессы с PID, environment и стандартными streams;</li>
+<li>модель owner/group/others и permissions;</li>
+<li>shell как основной интерфейс автоматизации;</li>
+<li>композицию маленьких программ через pipes;</li>
+<li>системные вызовы и API, похожие на POSIX.</li>
+</ul>
+<p>Linux, macOS и BSD поэтому ощущаются похожими: везде доступны <code>cd</code>, <code>ls</code>, <code>grep</code>, pipes и shell scripts. Но
+совместимость не абсолютная. Linux часто использует GNU utilities, macOS — BSD utilities, а kernels, service managers и
+package managers у систем разные.</p>
+<p>На интервью важно не говорить, что Linux и Unix — одно и то же. Linux является Unix-like системой, но не исходным Unix.
+Также Unix-like не гарантирует, что любой shell script без изменений запустится во всех таких системах.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-shell-отличается-от-terminal">Чем shell отличается от terminal?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Terminal — приложение или интерфейс, который показывает текстовый ввод/вывод. Shell — программа, которая интерпретирует
+команды: bash, zsh, fish.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Terminal предоставляет пользовательский интерфейс: принимает нажатия клавиш, показывает текст и связывает ввод/вывод с
+запущенным процессом. Современные Terminal, iTerm2, Windows Terminal и terminal в IDE являются terminal emulators.</p>
+<p>Shell — отдельная программа, которая работает внутри terminal. Она:</p>
+<ol>
+<li>читает командную строку;</li>
+<li>раскрывает variables, globs и substitutions;</li>
+<li>обрабатывает pipes и redirections;</li>
+<li>находит executable через <code>PATH</code>;</li>
+<li>запускает процессы и возвращает их exit code.</li>
+</ol>
+<p>Например, одно окно iTerm2 может запускать <code>zsh</code>, а другое — <code>bash</code>. Terminal останется тем же, но syntax, startup
+files, completion и некоторые возможности shell будут отличаться.</p>
+<p>Shell может работать и без визуального terminal: CI запускает non-interactive shell для выполнения scripts. Поэтому
+команда, которая работает в интерактивной сессии, иногда ломается в CI: там могут не загружаться <code>.zshrc</code>, aliases или
+локальные environment variables.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-path">Что такое PATH?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>PATH</code> — environment variable со списком directories, где shell ищет executable files. Когда выполняется <code>node</code>, shell
+проходит по <code>PATH</code> слева направо и запускает первый найденный executable.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>PATH</code> содержит directories, разделенные двоеточием в Linux и macOS. Когда пользователь вводит <code>node</code>, shell не ищет
+команду по всему диску, а последовательно проверяет directories из <code>PATH</code> и запускает первое совпадение.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$PATH</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#79B8FF">command</span><span style="color:#79B8FF"> -v</span><span style="color:#9ECBFF"> node</span></span>
+<span class="line"><span style="color:#79B8FF">type</span><span style="color:#79B8FF"> -a</span><span style="color:#9ECBFF"> node</span></span></code></pre></figure>
+<p>Порядок имеет значение. Если version manager добавил свою directory перед <code>/usr/local/bin</code>, будет запущена его версия
+Node.js. Поэтому <code>node --version</code> у двух терминалов может отличаться после изменения startup files.</p>
+<p>Типичные проблемы:</p>
+<ul>
+<li>package установлен, но его directory отсутствует в <code>PATH</code>;</li>
+<li>старая версия executable находится раньше новой;</li>
+<li>IDE и terminal получают разный <code>PATH</code>;</li>
+<li>script зависит от alias, которого нет в non-interactive shell.</li>
+</ul>
+<p>Добавлять current directory <code>.</code> в начало <code>PATH</code> небезопасно: команда может случайно запустить executable из
+недоверенного проекта. Для локальных scripts лучше использовать явный путь <code>./script.sh</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-stdin-stdout-и-stderr">Что такое stdin, stdout и stderr?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>У процесса есть три стандартных потока: <code>stdin</code> для ввода, <code>stdout</code> для обычного результата и <code>stderr</code> для ошибок и
+диагностики.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>При запуске процесс обычно получает три открытых file descriptors:</p>
+<ul>
+<li><code>0</code> — <code>stdin</code>, стандартный ввод;</li>
+<li><code>1</code> — <code>stdout</code>, обычный результат;</li>
+<li><code>2</code> — <code>stderr</code>, ошибки и диагностические сообщения.</li>
+</ul>
+<p>Благодаря общему контракту программа не обязана знать, откуда пришли данные и куда уйдет результат. Ввод может поступать
+с клавиатуры, из файла или от другой программы, а вывод — отображаться в terminal, записываться в файл или передаваться
+дальше через pipe.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> build.log</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF"> build-errors.log</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> build.log</span><span style="color:#F97583"> 2>&#x26;1</span></span></code></pre></figure>
+<p>Разделение <code>stdout</code> и <code>stderr</code> важно для автоматизации. Например, CLI может печатать JSON в <code>stdout</code>, а progress и
+warnings — в <code>stderr</code>, чтобы другой процесс мог безопасно разобрать результат.</p>
+<p>Pipe <code>|</code> по умолчанию передает только <code>stdout</code>. Если нужно передать и ошибки, redirection задают явно.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-работают-pipes-и-redirection">Как работают pipes и redirection?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Pipe <code>|</code> передает <code>stdout</code> одной команды в <code>stdin</code> следующей. Redirection перенаправляет стандартные потоки в файл, из
+файла или в другой file descriptor.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Shell создает процессы и связывает их file descriptors до запуска команд. В pipeline команды обычно работают
+одновременно: первая пишет данные, а следующая читает их по мере поступления.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ps</span><span style="color:#9ECBFF"> aux</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> node</span></span>
+<span class="line"><span style="color:#B392F0">cat</span><span style="color:#9ECBFF"> package.json</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> jq</span><span style="color:#9ECBFF"> '.scripts'</span></span></code></pre></figure>
+<p>Основные redirections:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79B8FF">command</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> output.log</span><span style="color:#6A737D">       # перезаписать stdout</span></span>
+<span class="line"><span style="color:#79B8FF">command</span><span style="color:#F97583"> >></span><span style="color:#9ECBFF"> output.log</span><span style="color:#6A737D">      # дописать stdout</span></span>
+<span class="line"><span style="color:#79B8FF">command</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF"> errors.log</span><span style="color:#6A737D">      # записать stderr</span></span>
+<span class="line"><span style="color:#79B8FF">command</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> all.log</span><span style="color:#F97583"> 2>&#x26;1</span><span style="color:#6A737D">     # объединить stdout и stderr</span></span>
+<span class="line"><span style="color:#79B8FF">command</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF"> input.txt</span><span style="color:#6A737D">        # передать файл в stdin</span></span></code></pre></figure>
+<p>Не всегда нужен <code>cat</code>: вместо <code>cat file | grep text</code> можно написать <code>grep text file</code>. Но pipeline полезен, когда данные
+действительно проходят через несколько независимых преобразований.</p>
+<p>В scripts важно учитывать exit codes pipeline. Без настройки shell итоговым обычно считается exit code последней
+команды. В Bash <code>set -o pipefail</code> позволяет считать pipeline неуспешным, если упала любая его часть.</p>
+</div></div>
+</details>
+<h3 id="filesystem-и-навигация">Filesystem и навигация</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-команды-pwd-ls-и-cd">Что делают команды pwd, ls и cd?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>pwd</code> показывает current working directory. <code>ls</code> выводит содержимое directory. <code>cd</code> меняет current directory текущего
+shell.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Каждый процесс имеет current working directory. Relative paths вычисляются относительно нее, поэтому перед запуском
+script полезно понимать, где именно находится shell.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79B8FF">pwd</span></span>
+<span class="line"><span style="color:#B392F0">ls</span></span>
+<span class="line"><span style="color:#B392F0">ls</span><span style="color:#79B8FF"> -la</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> src/pages</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ..</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> -</span></span></code></pre></figure>
+<p><code>ls -la</code> показывает hidden files, permissions, owner, group, size и timestamps. <code>cd -</code> возвращает в предыдущую
+directory, а <code>cd</code> без аргументов обычно переходит в home directory.</p>
+<p>Важно: <code>cd</code> изменяет directory только текущего shell. Отдельная программа не может изменить directory родительского
+shell после завершения, поэтому <code>cd</code> обычно является built-in командой shell, а не внешним executable.</p>
+<p>В scripts надежнее вычислять paths явно, особенно если script могут запускать из разных directories. Частая ошибка —
+предполагать, что current working directory всегда совпадает с directory самого script.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-mkdir-touch-cp-mv-и-rm">Что делают mkdir, touch, cp, mv и rm?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>mkdir</code> создает directory, <code>touch</code> создает пустой файл или обновляет timestamp, <code>cp</code> копирует, <code>mv</code> перемещает или
+переименовывает, а <code>rm</code> удаляет files и directories.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Базовые операции выглядят так:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> src/pages/linux</span></span>
+<span class="line"><span style="color:#B392F0">touch</span><span style="color:#9ECBFF"> notes.md</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> source.txt</span><span style="color:#9ECBFF"> copy.txt</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#79B8FF"> -R</span><span style="color:#9ECBFF"> assets</span><span style="color:#9ECBFF"> assets-backup</span></span>
+<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> old-name.txt</span><span style="color:#9ECBFF"> new-name.txt</span></span>
+<span class="line"><span style="color:#B392F0">rm</span><span style="color:#9ECBFF"> unused.txt</span></span>
+<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -R</span><span style="color:#9ECBFF"> generated</span></span></code></pre></figure>
+<p>Полезные детали:</p>
+<ul>
+<li><code>mkdir -p</code> создает всю недостающую цепочку directories;</li>
+<li><code>cp -R</code> нужен для directory;</li>
+<li><code>mv</code> внутри одного filesystem обычно является быстрым rename, а между filesystems может потребовать копирования;</li>
+<li><code>rm</code> удаляет сразу и обычно не использует корзину;</li>
+<li><code>rm -R</code> рекурсивно удаляет directory, поэтому ошибка в path особенно опасна.</li>
+</ul>
+<p>В automated scripts стоит использовать защитные проверки и quoted variables:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79B8FF">test</span><span style="color:#79B8FF"> -n</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BUILD_DIR</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#79B8FF"> --</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$BUILD_DIR</span><span style="color:#9ECBFF">"</span></span></code></pre></figure>
+<p><code>touch</code> не гарантирует создание parent directory и не является полноценным редактором файла. Его часто используют для
+создания marker files или обновления modification time.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-cat-less-head-и-tail">Что делают cat, less, head и tail?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>cat</code> печатает файл целиком, <code>less</code> открывает его постранично, <code>head</code> показывает начало, а <code>tail</code> — конец файла.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Команду выбирают по размеру файла и задаче:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cat</span><span style="color:#9ECBFF"> package.json</span></span>
+<span class="line"><span style="color:#B392F0">less</span><span style="color:#9ECBFF"> README.md</span></span>
+<span class="line"><span style="color:#B392F0">head</span><span style="color:#79B8FF"> -n</span><span style="color:#79B8FF"> 20</span><span style="color:#9ECBFF"> server.log</span></span>
+<span class="line"><span style="color:#B392F0">tail</span><span style="color:#79B8FF"> -n</span><span style="color:#79B8FF"> 100</span><span style="color:#9ECBFF"> server.log</span></span>
+<span class="line"><span style="color:#B392F0">tail</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> server.log</span></span></code></pre></figure>
+<p><code>cat</code> удобен для небольших text files или объединения нескольких файлов. Для большого log он может заполнить terminal
+тысячами строк, поэтому лучше использовать <code>less</code>.</p>
+<p><code>less</code> не загружает весь файл в интерфейс сразу, поддерживает поиск через <code>/text</code> и выход по <code>q</code>. <code>head</code> и <code>tail</code>
+полезны в scripts, когда нужны только первые или последние строки.</p>
+<p><code>tail -f</code> продолжает читать файл по мере добавления строк. Для log rotation иногда удобнее <code>tail -F</code>, который пытается
+переоткрыть файл после его замены.</p>
+<p>Эти utilities рассчитаны прежде всего на text data. Вывод binary file через <code>cat</code> может испортить отображение terminal.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-find-grep-и-ripgrep">Что делают find, grep и ripgrep?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>find</code> ищет filesystem objects по имени, типу и metadata. <code>grep</code> ищет строки по содержимому. <code>rg</code> или ripgrep — быстрый
+инструмент поиска по проекту, который по умолчанию учитывает <code>.gitignore</code>.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>find</code> обходит filesystem tree и фильтрует entries:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">find</span><span style="color:#9ECBFF"> src</span><span style="color:#79B8FF"> -type</span><span style="color:#9ECBFF"> f</span><span style="color:#79B8FF"> -name</span><span style="color:#9ECBFF"> "index.md"</span></span>
+<span class="line"><span style="color:#B392F0">find</span><span style="color:#9ECBFF"> .</span><span style="color:#79B8FF"> -type</span><span style="color:#9ECBFF"> f</span><span style="color:#79B8FF"> -mtime</span><span style="color:#79B8FF"> -1</span></span></code></pre></figure>
+<p><code>grep</code> ищет текст в переданных files или input stream:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">grep</span><span style="color:#79B8FF"> -R</span><span style="color:#9ECBFF"> "Docker"</span><span style="color:#9ECBFF"> src/pages</span></span>
+<span class="line"><span style="color:#B392F0">grep</span><span style="color:#79B8FF"> -n</span><span style="color:#9ECBFF"> "error"</span><span style="color:#9ECBFF"> server.log</span></span></code></pre></figure>
+<p><code>rg</code> оптимизирован для source repositories:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">rg</span><span style="color:#9ECBFF"> "kind: questions"</span><span style="color:#9ECBFF"> src</span></span>
+<span class="line"><span style="color:#B392F0">rg</span><span style="color:#79B8FF"> --files</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> rg</span><span style="color:#9ECBFF"> "index\.md$"</span></span></code></pre></figure>
+<p>Ripgrep обычно быстрее рекурсивного <code>grep</code>, пропускает ignored и hidden files, но это поведение можно изменить flags.
+<code>find</code> лучше подходит, когда условие связано не с текстом, а с типом, размером, временем или permissions файла.</p>
+<p>Для scripts полезны exit codes: <code>0</code> означает, что совпадение найдено, <code>1</code> — совпадений нет, а больше <code>1</code> — ошибка.
+Отсутствие совпадений не всегда должно считаться падением бизнес-сценария.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-absolute-и-relative-path">Что такое absolute и relative path?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Absolute path начинается от root directory, например <code>/home/user/project</code>. Relative path вычисляется от current working
+directory, например <code>src/pages</code> или <code>../README.md</code>.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Absolute path однозначно указывает location внутри текущего filesystem namespace:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/home/user/project/package.json</span></span>
+<span class="line"><span>/var/log/nginx/access.log</span></span></code></pre></figure>
+<p>Relative path зависит от current working directory:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/pages</span></span>
+<span class="line"><span>../README.md</span></span>
+<span class="line"><span>./scripts/build.sh</span></span></code></pre></figure>
+<p>Из-за этого один и тот же relative path может указывать на разные files в зависимости от места запуска команды. Это
+частая причина расхождений между local environment, IDE и CI.</p>
+<p>Absolute paths удобны внутри конкретной машины, но плохо переносятся между пользователями и runners. В project scripts
+обычно лучше строить path от repository root или directory самого script.</p>
+<p>Symlinks добавляют еще один нюанс: текстовый path и физический location могут отличаться. <code>pwd -P</code> показывает physical
+path без symlinks, а обычный <code>pwd</code> может сохранять logical path пользователя.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-означают-символы-и">Что означают символы ., .. и ~?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>.</code> означает current directory, <code>..</code> — parent directory, а <code>~</code> обычно раскрывается shell в home directory текущего
+пользователя.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Эти обозначения используются при построении paths:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">./scripts/build.sh</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ..</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ~/projects</span></span></code></pre></figure>
+<p><code>.</code> и <code>..</code> являются directory entries filesystem. <code>~</code> — не часть filesystem path сама по себе, а shell expansion. Shell
+заменяет ее на значение home directory до запуска команды.</p>
+<p>Поэтому поведение зависит от контекста:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> ~</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "~"</span></span></code></pre></figure>
+<p>В первом случае shell раскроет home directory, во втором quoted string останется <code>~</code>. Config parser или API также не
+обязаны понимать tilde, если они не используют shell expansion.</p>
+<p><code>.</code> в начале команды важно еще и потому, что current directory обычно отсутствует в <code>PATH</code>: <code>script.sh</code> может не
+найтись, а <code>./script.sh</code> явно указывает нужный executable.</p>
+</div></div>
+</details>
+<h3 id="permissions-и-пользователи">Permissions и пользователи</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-устроены-linux-permissions">Как устроены Linux permissions?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>У filesystem object есть owner, group и permissions для трех категорий: owner, group и others. Базовые права — <code>r</code>
+(read), <code>w</code> (write) и <code>x</code> (execute).</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Вывод <code>ls -l</code> может выглядеть так:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>-rwxr-xr-- 1 maxim developers 1200 Jul 28 build.sh</span></span></code></pre></figure>
+<p>Первый символ обозначает тип объекта, следующие девять — права owner, group и others.</p>
+<p>Для обычного файла:</p>
+<ul>
+<li><code>r</code> позволяет читать содержимое;</li>
+<li><code>w</code> позволяет изменять содержимое;</li>
+<li><code>x</code> позволяет запускать файл как executable.</li>
+</ul>
+<p>Для directory смысл отличается:</p>
+<ul>
+<li><code>r</code> позволяет получить список имен;</li>
+<li><code>w</code> позволяет создавать и удалять entries;</li>
+<li><code>x</code> позволяет проходить через directory и обращаться к объектам внутри.</li>
+</ul>
+<p>Права проверяются вместе с owner/group процесса. Новые files получают permissions с учетом <code>umask</code>, поэтому requested
+mode может быть дополнительно ограничен.</p>
+<p>Классические permissions не покрывают все случаи: существуют ACL, capabilities, SELinux и AppArmor. Но для frontend и CI
+обычно достаточно уверенно читать <code>ls -l</code> и понимать разницу прав файла и directory.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-chmod-chown-и-chgrp">Что делают chmod, chown и chgrp?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>chmod</code> меняет permissions, <code>chown</code> меняет owner, а <code>chgrp</code> меняет group filesystem object.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>chmod</code> поддерживает symbolic и numeric notation:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">chmod</span><span style="color:#9ECBFF"> +x</span><span style="color:#9ECBFF"> ./scripts/build.sh</span></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#9ECBFF"> u=rw,g=r,o=</span><span style="color:#9ECBFF"> README.md</span></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#79B8FF"> 644</span><span style="color:#9ECBFF"> README.md</span></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#79B8FF"> 755</span><span style="color:#9ECBFF"> ./scripts/build.sh</span></span></code></pre></figure>
+<p>В numeric notation <code>4</code> означает read, <code>2</code> — write, <code>1</code> — execute. Значения складываются отдельно для owner, group и
+others.</p>
+<p><code>chown</code> и <code>chgrp</code> меняют ownership:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> chown</span><span style="color:#9ECBFF"> maxim:developers</span><span style="color:#9ECBFF"> file.txt</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> chgrp</span><span style="color:#9ECBFF"> developers</span><span style="color:#9ECBFF"> file.txt</span></span></code></pre></figure>
+<p>Обычный пользователь обычно не может произвольно передать файл другому owner. Recursive flags нужно применять осторожно:
+ошибка в target directory может изменить ownership большого участка filesystem.</p>
+<p>Для frontend-разработчика частый случай — сохранить executable bit у shell script в Git. Если локально выполнить
+<code>chmod +x script.sh</code> и закоммитить изменение mode, script сможет запускаться в Linux CI.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-sudo">Для чего нужен sudo?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>sudo</code> запускает разрешенную команду с повышенными правами, обычно от <code>root</code>. Он нужен для системных операций, а не для
+обычной работы внутри project directory.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>sudo</code> проверяет policy, а затем запускает конкретную команду от другого пользователя, чаще всего <code>root</code>. Это не то же
+самое, что постоянно работать в root shell: повышенные права применяются к ограниченной операции и могут
+журналироваться.</p>
+<p>Типичные случаи:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> nginx</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> restart</span><span style="color:#9ECBFF"> nginx</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> chown</span><span style="color:#9ECBFF"> maxim:developers</span><span style="color:#9ECBFF"> /srv/app</span></span></code></pre></figure>
+<p>Использовать <code>sudo</code> нужно по принципу least privilege. Ошибочная команда от root может удалить системные files или
+изменить permissions всего проекта.</p>
+<p>Не стоит лечить <code>EACCES</code> через <code>sudo npm install</code>: после этого часть <code>node_modules</code> или cache может принадлежать root, и
+обычные команды начнут падать. Лучше исправить ownership, настроить version manager или использовать user-space prefix.</p>
+<p>На production доступ через <code>sudo</code> часто ограничивают списком разрешенных команд, а не предоставляют полный root access.</p>
+</div></div>
+</details>
+<h3 id="processes-и-system-information">Processes и system information</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-ps-top-htop-и-kill">Что делают ps, top, htop и kill?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>ps</code> показывает snapshot процессов, <code>top</code> и <code>htop</code> отображают их в реальном времени, а <code>kill</code> отправляет process signal.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>ps</code> удобен для фильтрации и scripts:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ps</span><span style="color:#9ECBFF"> aux</span></span>
+<span class="line"><span style="color:#B392F0">ps</span><span style="color:#9ECBFF"> aux</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> node</span></span>
+<span class="line"><span style="color:#B392F0">pgrep</span><span style="color:#79B8FF"> -af</span><span style="color:#9ECBFF"> node</span></span></code></pre></figure>
+<p><code>top</code> и <code>htop</code> помогают видеть CPU, memory, load и наиболее тяжелые процессы. <code>htop</code> обычно удобнее интерактивно, но
+может быть не установлен на сервере.</p>
+<p><code>kill</code> не обязательно “убивает” процесс: команда отправляет signal по PID.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79B8FF">kill</span><span style="color:#79B8FF"> 12345</span><span style="color:#6A737D">        # обычно SIGTERM</span></span>
+<span class="line"><span style="color:#79B8FF">kill</span><span style="color:#79B8FF"> -INT</span><span style="color:#79B8FF"> 12345</span><span style="color:#6A737D">   # аналог прерывания</span></span>
+<span class="line"><span style="color:#79B8FF">kill</span><span style="color:#79B8FF"> -9</span><span style="color:#79B8FF"> 12345</span><span style="color:#6A737D">     # SIGKILL</span></span></code></pre></figure>
+<p><code>SIGTERM</code> дает приложению возможность закрыть connections и записать данные. <code>SIGKILL</code> обрабатывается kernel немедленно,
+поэтому cleanup выполнить нельзя. Его используют только когда корректное завершение не работает.</p>
+<p>PID может быть переиспользован после завершения процесса, поэтому перед <code>kill</code> нужно убедиться, что выбран нужный
+process.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-понять-какой-процесс-занял-port">Как понять, какой процесс занял port?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>На Linux используют <code>ss</code>, <code>lsof</code> или <code>fuser</code>, а на macOS чаще всего <code>lsof</code>. Они показывают listening socket и PID
+процесса.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Примеры диагностики:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ss</span><span style="color:#79B8FF"> -ltnp</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> :3000</span></span>
+<span class="line"><span style="color:#B392F0">lsof</span><span style="color:#79B8FF"> -nP</span><span style="color:#79B8FF"> -iTCP:3000</span><span style="color:#79B8FF"> -sTCP:LISTEN</span></span>
+<span class="line"><span style="color:#B392F0">fuser</span><span style="color:#9ECBFF"> 3000/tcp</span></span></code></pre></figure>
+<p>Важно отличать listening socket от обычного исходящего connection. Для ошибки <code>EADDRINUSE</code> обычно нужен процесс со
+статусом <code>LISTEN</code>.</p>
+<p>Socket привязан не только к port, но и к address. Процесс, слушающий <code>127.0.0.1:3000</code>, доступен только локально, а
+<code>0.0.0.0:3000</code> принимает connections на всех IPv4 interfaces.</p>
+<p>После нахождения PID можно проверить команду и owner процесса, затем корректно остановить его через <code>SIGTERM</code>. Не
+следует автоматически применять <code>kill -9</code>: занятый port может принадлежать database, proxy или другому нужному service.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-показывают-df-du-и-free">Что показывают df, du и free?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>df</code> показывает занятое место на mounted filesystems, <code>du</code> считает размер files и directories, а <code>free</code> показывает
+использование RAM и swap в Linux.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Основные команды:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">df</span><span style="color:#79B8FF"> -h</span></span>
+<span class="line"><span style="color:#B392F0">du</span><span style="color:#79B8FF"> -sh</span><span style="color:#9ECBFF"> node_modules</span></span>
+<span class="line"><span style="color:#B392F0">du</span><span style="color:#79B8FF"> -h</span><span style="color:#79B8FF"> --max-depth=1</span><span style="color:#9ECBFF"> .</span></span>
+<span class="line"><span style="color:#B392F0">free</span><span style="color:#79B8FF"> -h</span></span></code></pre></figure>
+<p><code>df</code> смотрит на filesystem в целом, а <code>du</code> суммирует доступные ему directory entries. Их значения могут различаться,
+например когда большой файл уже удален, но процесс продолжает держать его открытым.</p>
+<p><code>du</code> может быть медленным на directory с сотнями тысяч files, например <code>node_modules</code>. Также результат зависит от
+permissions и поддержки sparse files.</p>
+<p>В <code>free</code> поле <code>available</code> обычно полезнее простого <code>free</code>: Linux использует незанятую RAM для filesystem cache и может
+освободить ее при необходимости. Высокое значение <code>used</code> само по себе не означает memory leak.</p>
+<p>На macOS <code>free</code> обычно отсутствует, поэтому используют Activity Monitor, <code>vm_stat</code> или другие system tools.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-uname-whoami-и-env">Что делают uname, whoami и env?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>uname</code> показывает информацию о kernel и platform, <code>whoami</code> — effective user текущего процесса, а <code>env</code> — environment
+variables.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">uname</span><span style="color:#79B8FF"> -a</span></span>
+<span class="line"><span style="color:#B392F0">uname</span><span style="color:#79B8FF"> -m</span></span>
+<span class="line"><span style="color:#B392F0">whoami</span></span>
+<span class="line"><span style="color:#B392F0">env</span></span>
+<span class="line"><span style="color:#B392F0">printenv</span><span style="color:#9ECBFF"> PATH</span></span></code></pre></figure>
+<p><code>uname -m</code> помогает определить architecture, например <code>x86_64</code> или <code>arm64</code>. Это важно при установке native binaries и
+диагностике несовместимых Docker images.</p>
+<p><code>whoami</code> показывает effective user, что полезно при проблемах permissions в CI или container. Процесс может быть запущен
+не тем пользователем, которого разработчик ожидает.</p>
+<p><code>env</code> выводит environment и умеет запускать команду с временно измененными variables:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#E1E4E8">NODE_ENV</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">production</span><span style="color:#B392F0"> npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#B392F0">env</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> PATH="</span><span style="color:#E1E4E8">$PATH</span><span style="color:#9ECBFF">"</span><span style="color:#9ECBFF"> npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> test</span></span></code></pre></figure>
+<p>Environment может содержать tokens и passwords, поэтому его нельзя бездумно печатать в public CI logs.</p>
+</div></div>
+</details>
+<h3 id="network-diagnostics">Network diagnostics</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-ping-curl-и-wget">Что делают ping, curl и wget?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>ping</code> проверяет ICMP-доступность host, <code>curl</code> выполняет network requests и показывает response, а <code>wget</code> ориентирован
+на скачивание files.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>ping</code> проверяет, доходят ли ICMP echo packets и какова примерная latency:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ping</span><span style="color:#9ECBFF"> example.com</span></span></code></pre></figure>
+<p>Но успешный <code>ping</code> не гарантирует работу HTTP, а неуспешный не доказывает недоступность server: ICMP часто блокируют
+firewall rules.</p>
+<p><code>curl</code> позволяет проверять конкретный protocol и endpoint:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -I</span><span style="color:#9ECBFF"> https://example.com</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -v</span><span style="color:#9ECBFF"> http://localhost:3000/health</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -H</span><span style="color:#9ECBFF"> 'Accept: application/json'</span><span style="color:#9ECBFF"> https://api.example.com/users</span></span></code></pre></figure>
+<p>С его помощью диагностируют DNS, TLS, redirects, headers, cookies, status codes и API payload.</p>
+<p><code>wget</code> удобен для downloads, recursive fetching и продолжения прерванной загрузки. Для CI важно проверять integrity
+скачанного artifact, а не выполнять неизвестный script напрямую через <code>curl | sh</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-делают-ssh-и-scp">Что делают ssh и scp?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>ssh</code> создает защищенное соединение с удаленной машиной и запускает shell или command. <code>scp</code> копирует files через SSH.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Базовое подключение:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ssh</span><span style="color:#9ECBFF"> user@example.com</span></span>
+<span class="line"><span style="color:#B392F0">ssh</span><span style="color:#9ECBFF"> user@example.com</span><span style="color:#9ECBFF"> 'systemctl status app'</span></span>
+<span class="line"><span style="color:#B392F0">scp</span><span style="color:#9ECBFF"> ./dist/app.tar.gz</span><span style="color:#9ECBFF"> user@example.com:/tmp/app.tar.gz</span></span></code></pre></figure>
+<p>SSH обычно использует key pair. Private key остается у клиента, а public key добавляется на server. При первом
+подключении клиент проверяет host key и сохраняет его в <code>known_hosts</code>, чтобы снизить риск man-in-the-middle attack.</p>
+<p>Для автоматизации применяют deploy keys, SSH agent и ограниченные credentials. Private keys нельзя хранить в repository
+или печатать в CI logs.</p>
+<p><code>scp</code> подходит для простого копирования. Для синхронизации directories часто удобнее <code>rsync</code> поверх SSH, потому что он
+передает только изменения и поддерживает дополнительные проверки.</p>
+<p>Прямой SSH-доступ к production может быть запрещен, но понимание protocol полезно для Git, CI и диагностики servers.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-ifconfig-отличается-от-ip">Чем ifconfig отличается от ip?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>ifconfig</code> — legacy utility из <code>net-tools</code>. В современных Linux-дистрибутивах interfaces, addresses и routes обычно
+настраивают через команду <code>ip</code> из <code>iproute2</code>.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Современные Linux-команды:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ip</span><span style="color:#9ECBFF"> addr</span></span>
+<span class="line"><span style="color:#B392F0">ip</span><span style="color:#9ECBFF"> link</span></span>
+<span class="line"><span style="color:#B392F0">ip</span><span style="color:#9ECBFF"> route</span></span></code></pre></figure>
+<p><code>ip addr</code> показывает addresses interfaces, <code>ip link</code> — состояние network links, <code>ip route</code> — routing table. <code>ifconfig</code>
+покрывает часть этих задач, но развивается значительно меньше и может быть не установлен.</p>
+<p>На macOS <code>ifconfig</code> остается стандартной командой, а Linux-вариант <code>ip</code> обычно отсутствует. Поэтому инструкции нужно
+адаптировать под target OS.</p>
+<p>Важно разделять уровни диагностики: interface может быть поднят, но route отсутствовать; route может работать, но DNS
+быть сломан; DNS может разрешить имя, но application port быть закрыт. Одна команда не проверяет всю цепочку.</p>
+</div></div>
+</details>
+<h3 id="package-managers">Package managers</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-какие-package-managers-бывают-в-linux">Какие package managers бывают в Linux?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Package manager зависит от дистрибутива: Debian/Ubuntu используют <code>apt</code>, Fedora/RHEL — <code>dnf</code>, Arch — <code>pacman</code>, openSUSE
+— <code>zypper</code>.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>System package manager устанавливает packages из repositories дистрибутива, разрешает dependencies, проверяет signatures
+и ведет database установленных files.</p>
+<p>Основные семейства:</p>
+<ul>
+<li>Debian/Ubuntu — <code>apt</code> и <code>dpkg</code>;</li>
+<li>Fedora/RHEL — <code>dnf</code> и <code>rpm</code>;</li>
+<li>Arch Linux — <code>pacman</code>;</li>
+<li>openSUSE — <code>zypper</code>;</li>
+<li>Alpine Linux — <code>apk</code>.</li>
+</ul>
+<p>Snap и Flatpak распространяют applications в более изолированном формате, но не заменяют system packages во всех
+сценариях.</p>
+<p>System package manager не следует путать с <code>npm</code>, <code>pnpm</code> или <code>pip</code>: первые управляют компонентами OS, вторые —
+dependencies конкретной language ecosystem. В Docker image выбор команды зависит от base distribution: инструкция с
+<code>apt</code> не сработает в <code>alpine</code>, где используется <code>apk</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-работать-с-apt">Как работать с apt?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>apt</code> обновляет package metadata, устанавливает, обновляет и удаляет packages в Debian и Ubuntu.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Базовый workflow:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> git</span><span style="color:#9ECBFF"> curl</span></span>
+<span class="line"><span style="color:#B392F0">apt</span><span style="color:#9ECBFF"> search</span><span style="color:#9ECBFF"> package-name</span></span>
+<span class="line"><span style="color:#B392F0">apt</span><span style="color:#9ECBFF"> show</span><span style="color:#9ECBFF"> package-name</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> remove</span><span style="color:#9ECBFF"> package-name</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> upgrade</span></span></code></pre></figure>
+<p><code>apt update</code> не обновляет сами packages — он скачивает актуальные indexes repositories. После этого <code>apt install</code>
+выбирает доступную version и устанавливает dependencies.</p>
+<p>Для воспроизводимости важно понимать, что без version pinning одна и та же команда в разное время может установить
+разные versions. В production images часто фиксируют base image digest или package version там, где это оправдано.</p>
+<p>В Dockerfile обычно используют non-interactive <code>apt-get</code>, объединяют update и install в один layer и удаляют package
+lists:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="dockerfile"><code><span class="line"><span style="color:#F97583">RUN</span><span style="color:#E1E4E8"> apt-get update \</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x26;&#x26; apt-get install -y --no-install-recommends curl \</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x26;&#x26; rm -rf /var/lib/apt/lists/*</span></span></code></pre></figure>
+<p>Разделение <code>apt-get update</code> и install по разным cached layers может привести к устаревшим indexes.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-apt-отличается-от-apt-get">Чем apt отличается от apt-get?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>apt</code> — удобный interactive CLI для человека. <code>apt-get</code> имеет более стабильный интерфейс и чаще используется в scripts и
+Dockerfile.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Обе команды работают поверх той же package management системы Debian. <code>apt</code> объединяет часто используемые возможности
+<code>apt-get</code> и <code>apt-cache</code>, показывает progress и предоставляет более дружелюбный output.</p>
+<p><code>apt-get</code> исторически ориентирован на автоматизацию. Его output и options меньше зависят от interactive terminal,
+поэтому он чаще встречается в CI и Dockerfile:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">apt-get</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"><span style="color:#B392F0">apt-get</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -y</span><span style="color:#79B8FF"> --no-install-recommends</span><span style="color:#9ECBFF"> curl</span></span></code></pre></figure>
+<p>Это не означает, что <code>apt</code> нельзя использовать в script, но сама команда может предупреждать, что ее CLI не считается
+стабильным для scripting.</p>
+<p>На интервью достаточно объяснить разницу назначения: <code>apt</code> удобнее вручную, <code>apt-get</code> предсказуемее для automation.</p>
+</div></div>
+</details>
+<h3 id="linux-vs-macos">Linux vs macOS</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-linux-отличается-от-macos">Чем Linux отличается от macOS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Linux использует Linux kernel и обычно GNU userland. macOS построена на Darwin с XNU kernel и BSD userland. Обе системы
+Unix-like, но отличаются utilities, filesystem behavior, services, package management и security model.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Сходство дает общий набор concepts: filesystem tree, processes, permissions, shell и POSIX-like APIs. Поэтому
+frontend-разработчик может использовать похожие команды на macOS и Linux.</p>
+<p>Различия проявляются в деталях:</p>
+<ul>
+<li>Linux distributions используют разные package managers, macOS обычно дополняют Homebrew;</li>
+<li>GNU и BSD utilities поддерживают разные flags;</li>
+<li>Linux services часто управляются <code>systemd</code>, macOS — <code>launchd</code>;</li>
+<li>Docker containers используют Linux kernel, даже когда Docker Desktop запущен на macOS через virtual machine;</li>
+<li>default filesystem macOS часто case-insensitive, Linux — case-sensitive;</li>
+<li>системные paths и security restrictions отличаются.</li>
+</ul>
+<p>Практический вывод: macOS удобна как Unix-like developer environment, но не является точной копией Linux production.
+Критичные scripts и builds нужно проверять в том окружении, где они будут выполняться, например в Linux CI container.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-почему-sed-date-и-другие-команды-ведут-себя-по-разному-в-linux-и-macos">Почему sed, date и другие команды ведут себя по-разному в Linux и macOS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Linux часто использует GNU utilities, а macOS — BSD variants. Названия команд похожи, но flags, regular expressions и
+формат output могут отличаться.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Стандарт описывает не все расширения CLI utilities. GNU и BSD implementations развивались отдельно и добавляли разные
+options.</p>
+<p>Например:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># GNU sed</span></span>
+<span class="line"><span style="color:#B392F0">sed</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> 's/old/new/g'</span><span style="color:#9ECBFF"> file.txt</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># BSD sed в macOS</span></span>
+<span class="line"><span style="color:#B392F0">sed</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> ''</span><span style="color:#9ECBFF"> 's/old/new/g'</span><span style="color:#9ECBFF"> file.txt</span></span></code></pre></figure>
+<p>Различаться могут <code>date</code>, <code>find</code>, <code>xargs</code>, <code>stat</code>, <code>grep</code> и <code>readlink</code>. Script, написанный только под локальную macOS,
+может упасть в Linux CI, и наоборот.</p>
+<p>Варианты решения:</p>
+<ul>
+<li>использовать только переносимое подмножество POSIX;</li>
+<li>явно проверять OS через <code>uname</code>;</li>
+<li>устанавливать GNU utilities на macOS;</li>
+<li>заменять сложные shell transformations на Node.js script с tests.</li>
+</ul>
+<p>Кроссплатформенность нужно выбирать осознанно: внутренний Linux-only deploy script не обязан поддерживать macOS, но
+project bootstrap для всей команды обычно должен.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-отличаются-filesystem-paths-в-linux-и-macos">Чем отличаются filesystem paths в Linux и macOS?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>В Linux home directory обычно находится в <code>/home/user</code>, а в macOS — в <code>/Users/user</code>. Также отличаются locations
+applications, system config и logs.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Типичные Linux paths:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/home/user</span></span>
+<span class="line"><span>/etc</span></span>
+<span class="line"><span>/var/log</span></span>
+<span class="line"><span>/usr/bin</span></span>
+<span class="line"><span>/opt</span></span></code></pre></figure>
+<p>Типичные macOS paths:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/Users/user</span></span>
+<span class="line"><span>/Applications</span></span>
+<span class="line"><span>/Library</span></span>
+<span class="line"><span>/System</span></span>
+<span class="line"><span>/opt/homebrew</span></span></code></pre></figure>
+<p>Hardcoded absolute path почти всегда плохо переносится между машинами. В scripts используют <code>$HOME</code>, temporary
+directories и project-relative paths.</p>
+<p>Существенное отличие — case sensitivity. Default APFS installation macOS часто case-insensitive, поэтому
+<code>import './Button'</code> может найти <code>button.ts</code>. На Linux такой import упадет.</p>
+<p>Кроме того, macOS защищает часть system directories через System Integrity Protection. Даже root не должен изменять их
+обычным способом. Developer tools лучше устанавливать в поддерживаемые prefixes, а не копировать binaries вручную в
+system locations.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-отличаются-launchd-и-systemd">Чем отличаются launchd и systemd?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>systemd</code> — распространенный service manager и init system в Linux. <code>launchd</code> управляет daemons и agents в macOS.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Обе системы запускают background services, следят за lifecycle и могут автоматически стартовать процессы после boot или
+login. Но formats и команды у них разные.</p>
+<p>В Linux с <code>systemd</code> используют:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">systemctl</span><span style="color:#9ECBFF"> status</span><span style="color:#9ECBFF"> nginx</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> restart</span><span style="color:#9ECBFF"> nginx</span></span>
+<span class="line"><span style="color:#B392F0">journalctl</span><span style="color:#79B8FF"> -u</span><span style="color:#9ECBFF"> nginx</span></span></code></pre></figure>
+<p>В macOS <code>launchd</code> читает property list files и управляется через <code>launchctl</code>. Homebrew services также интегрируются с
+<code>launchd</code>:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> services</span><span style="color:#9ECBFF"> start</span><span style="color:#9ECBFF"> postgresql</span></span></code></pre></figure>
+<p>Инструкция <code>systemctl restart ...</code> не применима к macOS. Для диагностики нужно сначала понять, кто запустил процесс:
+service manager, Docker, IDE, login item или обычный shell.</p>
+<p>Frontend-разработчик сталкивается с этим при локальных databases, reverse proxies, SSR services и CI runners.</p>
+</div></div>
+</details>
+<h3 id="homebrew">Homebrew</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-homebrew">Что такое Homebrew?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Homebrew — package manager, популярный на macOS и доступный на Linux. Он устанавливает CLI tools, libraries и desktop
+applications без ручного управления archives и paths.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Homebrew скачивает готовые bottles или собирает packages по recipes, размещает versions в собственном prefix и создает
+symlinks на активные executables.</p>
+<p>Основные области применения:</p>
+<ul>
+<li>CLI tools: <code>git</code>, <code>jq</code>, <code>ripgrep</code>, <code>nginx</code>;</li>
+<li>libraries и services: <code>openssl</code>, <code>postgresql</code>, <code>redis</code>;</li>
+<li>macOS applications через casks;</li>
+<li>одинаковый developer setup на нескольких machines.</li>
+</ul>
+<p>Homebrew не является частью macOS и не управляет самой операционной системой. Установленные tools могут конфликтовать с
+system versions, поэтому важно понимать порядок <code>PATH</code>.</p>
+<p>Для командной воспроизводимости одного списка устных инструкций недостаточно. Можно использовать <code>Brewfile</code>, version
+managers и project bootstrap scripts, но обновления все равно нужно тестировать.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-для-чего-нужен-brew-install">Для чего нужен brew install?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>brew install</code> устанавливает formula и ее dependencies, используя готовый bottle или локальную сборку.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Примеры:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> git</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> jq</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> ripgrep</span></span></code></pre></figure>
+<p>Homebrew находит formula, выбирает совместимый bottle для OS и architecture, скачивает dependencies и устанавливает
+package в Cellar. Затем executable связывается с Homebrew prefix.</p>
+<p>Если bottle недоступен, package может собираться из source, что дольше и требует build tools. После установки
+<code>brew info</code> показывает version, dependencies и caveats.</p>
+<p><code>brew install</code> без version policy может поставить новую major version после обновления formula. Для project runtime,
+например Node.js, часто надежнее version manager, который привязывает version к repository.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-formula-cask-и-tap-в-homebrew">Что такое formula, cask и tap в Homebrew?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Formula описывает CLI tool или library. Cask описывает macOS application, font или binary package. Tap — дополнительный
+repository с formulae и casks.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Formula содержит metadata, source или bottle, dependencies и инструкции установки:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> node</span></span></code></pre></figure>
+<p>Cask предназначен для applications и других macOS artifacts:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --cask</span><span style="color:#9ECBFF"> visual-studio-code</span></span></code></pre></figure>
+<p>Tap подключает внешний repository:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> tap</span><span style="color:#9ECBFF"> owner/repository</span></span></code></pre></figure>
+<p>После подключения его packages участвуют в обычном поиске и установке. Это удобно для internal tools и packages, которых
+нет в Homebrew core.</p>
+<p>Tap является источником executable code, поэтому подключать случайный repository небезопасно. В корпоративной среде
+важны review, ownership и обновление сторонних taps.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-обновлять-пакеты-через-homebrew">Как обновлять пакеты через Homebrew?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>brew update</code> обновляет metadata, <code>brew outdated</code> показывает устаревшие packages, <code>brew upgrade</code> обновляет их, а
+<code>brew cleanup</code> удаляет старые versions и cache.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Типичный workflow:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> outdated</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> upgrade</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> cleanup</span></span></code></pre></figure>
+<p><code>brew update</code> обновляет definitions formulae и casks, но не установленные packages. <code>brew upgrade</code> устанавливает новые
+versions. <code>brew cleanup</code> освобождает disk space.</p>
+<p>Массовый upgrade может одновременно изменить Node.js, database, compiler и CLI tools. На рабочей машине безопаснее
+сначала посмотреть <code>brew outdated</code>, обновлять критичные packages отдельно и проверить projects.</p>
+<p>Homebrew не заменяет lockfile приложения: package manager OS фиксирует tools окружения, а <code>package-lock.json</code> или
+<code>pnpm-lock.yaml</code> — JavaScript dependencies.</p>
+<p>Если package временно нельзя обновлять, существуют versioned formulae и pinning, но долгосрочно лучше устранить
+несовместимость, а не бесконечно удерживать старую version.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-диагностировать-проблемы-homebrew">Как диагностировать проблемы Homebrew?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Для диагностики используют <code>brew doctor</code>, <code>brew config</code>, <code>brew info</code>, <code>brew list</code> и проверку <code>PATH</code>.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Полезные команды:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> doctor</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> config</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> info</span><span style="color:#9ECBFF"> node</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> list</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#79B8FF"> --prefix</span></span>
+<span class="line"><span style="color:#79B8FF">command</span><span style="color:#79B8FF"> -v</span><span style="color:#9ECBFF"> node</span></span></code></pre></figure>
+<p><code>brew doctor</code> ищет типичные конфликты permissions, unsupported files и проблемы configuration. Его warnings нужно
+оценивать по контексту: не каждый warning блокирует работу.</p>
+<p><code>brew config</code> показывает OS, architecture, developer tools и prefix. Это помогает понять различия Intel и Apple Silicon.
+<code>brew info</code> показывает active version, dependencies и caveats.</p>
+<p>Частая проблема — package установлен, но shell запускает другой executable. Тогда проверяют <code>command -v</code>, <code>type -a</code> и
+порядок <code>PATH</code>. Другая проблема — одновременно установлены version manager и Homebrew version одного runtime.</p>
+<p>Не стоит исправлять Homebrew через случайный <code>sudo chown -R</code> без понимания target: можно повредить permissions system
+directories или shared machine.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-где-homebrew-устанавливает-пакеты">Где Homebrew устанавливает пакеты?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>На Apple Silicon macOS Homebrew обычно использует <code>/opt/homebrew</code>, на Intel macOS — <code>/usr/local</code>, а на Linux —
+<code>/home/linuxbrew/.linuxbrew</code>.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Конкретный prefix лучше узнавать командой:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#79B8FF"> --prefix</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#79B8FF"> --prefix</span><span style="color:#9ECBFF"> node</span></span></code></pre></figure>
+<p>Packages хранятся versioned directories внутри Cellar, а active executables доступны через symlinks в <code>bin</code>. Такая
+структура позволяет Homebrew переключать versions и удалять старые packages.</p>
+<p>Shell должен добавить Homebrew prefix в <code>PATH</code>. Рекомендуемую настройку можно получить через:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> shellenv</span></span></code></pre></figure>
+<p>На Apple Silicon и Intel hardcoded path отличается, поэтому bootstrap script не должен без необходимости предполагать
+<code>/usr/local/bin</code>.</p>
+<p>Если system tool и Homebrew tool имеют одинаковое имя, порядок <code>PATH</code> определяет, какой executable будет запущен.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-homebrew-отличается-от-apt">Чем Homebrew отличается от apt?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p><code>apt</code> — system package manager Debian/Ubuntu, тесно связанный с OS repositories. Homebrew — user-space package manager
+для developer tools, libraries и macOS applications.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>apt</code> управляет частью Linux system: устанавливает packages в стандартные system paths, интегрируется с security updates
+и использует repositories дистрибутива. Для его операций обычно нужны root privileges.</p>
+<p>Homebrew устанавливается в отдельный prefix и часто работает без <code>sudo</code>. Он ориентирован на developer tooling и дает
+более свежие versions многих utilities.</p>
+<p>На Linux server обычно используют native package manager, потому что он лучше интегрирован с OS lifecycle и security
+policy. На developer machine Homebrew удобен для одинакового набора CLI tools на macOS и Linux.</p>
+<p>Смешивание managers требует осторожности: две версии <code>openssl</code>, <code>python</code> или <code>node</code> могут одновременно существовать в
+разных paths, а фактически используемую определит <code>PATH</code>.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-когда-не-стоит-ставить-nodejs-через-homebrew">Когда не стоит ставить Node.js через Homebrew?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Если проекты требуют разные версии Node.js, удобнее использовать version manager: <code>nvm</code>, <code>fnm</code>, <code>volta</code> или похожий
+инструмент.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Homebrew хорошо подходит, когда на machine нужна одна актуальная version Node.js. Но frontend-разработчик часто
+поддерживает несколько repositories с разными требованиями.</p>
+<p>Version manager позволяет:</p>
+<ul>
+<li>переключать Node.js per shell или per project;</li>
+<li>читать <code>.nvmrc</code> или <code>.node-version</code>;</li>
+<li>устанавливать одинаковую version локально и в CI;</li>
+<li>обновлять один project независимо от других.</li>
+</ul>
+<p>Нужно сверять несколько источников:</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>.nvmrc</span></span>
+<span class="line"><span>.node-version</span></span>
+<span class="line"><span>package.json -> engines</span></span>
+<span class="line"><span>CI configuration</span></span>
+<span class="line"><span>Dockerfile</span></span></code></pre></figure>
+<p>Если они расходятся, локальная успешная сборка не гарантирует успех CI. Homebrew можно использовать для установки самого
+version manager, но project runtime лучше закреплять рядом с кодом.</p>
+<p>Volta дополнительно умеет фиксировать package manager и global CLI tools, а <code>nvm</code> и <code>fnm</code> чаще управляют прежде всего
+Node.js versions. Выбор зависит от workflow команды.</p>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Docker, containers, images, Dockerfile и Docker Compose для frontend-разработчика"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Docker"><meta property="og:description" content="Docker, containers, images, Dockerfile и Docker Compose для frontend-разработчика"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/docker/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/docker/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/docker"><title>Docker</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/docker" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Docker"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a><button class="sidebar-navigation__toggle" type="button" aria-controls="sidebar-navigation-content" aria-expanded="false" data-navigation-toggle><span class="sidebar-navigation__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="sidebar-navigation__title">Оглавление</span></button></div><div class="sidebar-navigation__rail" aria-hidden="true"><span class="sidebar-navigation__marker" data-heading-marker="docker-для-frontend-разработчика"></span><span class="sidebar-navigation__marker" data-heading-marker="docker-basics"></span><span class="sidebar-navigation__marker" data-heading-marker="docker-compose"></span></div><div class="sidebar-navigation__content" id="sidebar-navigation-content"><ul class="sidebar-navigation__list"><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#docker-для-frontend-разработчика" data-heading-link="docker-для-frontend-разработчика">Docker для frontend-разработчика</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#docker-basics" data-heading-link="docker-basics">Docker basics</a></li><li><a class="sidebar-navigation__link sidebar-navigation__link--depth-3" href="#docker-compose" data-heading-link="docker-compose">Docker Compose</a></li></ul></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="docker">Docker</h2>
+<h3 id="docker-для-frontend-разработчика">Docker для frontend-разработчика</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-нужно-знать-frontend-разработчику-о-docker">Что нужно знать frontend-разработчику о Docker?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>На уровне рабочего окружения достаточно понимать, что Docker фиксирует одинаковую среду для локального запуска, CI или
+integration tests. Глубокие вопросы про image, container, Dockerfile, Compose и frontend multi-stage build раскрыты в
+этом разделе.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>На уровне рабочего окружения достаточно понимать, что Docker фиксирует одинаковую среду для локального запуска, CI или
+integration tests. Глубокие вопросы про image, container, Dockerfile, Compose и frontend multi-stage build раскрыты в
+этом разделе.</p>
+</div></div>
+</details>
+<h3 id="docker-basics">Docker basics</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-docker">Что такое Docker?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Docker — инструменты и формат для сборки и запуска containers из reproducible images. Container упаковывает приложение,
+runtime и filesystem dependencies. Это упрощает одинаковый запуск в CI, local и production.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Docker — инструменты и формат для сборки и запуска containers из reproducible images. Container упаковывает приложение,
+runtime и filesystem dependencies. Это упрощает одинаковый запуск в CI, local и production.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-container-отличается-от-virtual-machine">Чем container отличается от virtual machine?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>VM включает гостевую ОС и виртуализирует hardware, container разделяет kernel host OS и изолирует процессы. Containers
+обычно запускаются быстрее и занимают меньше места. Изоляция отличается от полной VM и требует security hardening.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>VM включает гостевую ОС и виртуализирует hardware, container разделяет kernel host OS и изолирует процессы. Containers
+обычно запускаются быстрее и занимают меньше места. Изоляция отличается от полной VM и требует security hardening.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-docker-image">Что такое Docker image?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Image — immutable шаблон filesystem и metadata для запуска container. Он состоит из layers и обычно хранится в registry.
+Один image можно запускать много раз с разной конфигурацией.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Image — immutable шаблон filesystem и metadata для запуска container. Он состоит из layers и обычно хранится в registry.
+Один image можно запускать много раз с разной конфигурацией.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-docker-container">Что такое Docker container?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Container — запущенный instance image с writable layer, process и настройками сети. После удаления его локальные
+изменения исчезают, если данные не вынесены в volume. Container должен быть заменяемым.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Container — запущенный instance image с writable layer, process и настройками сети. После удаления его локальные
+изменения исчезают, если данные не вынесены в volume. Container должен быть заменяемым.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-dockerfile">Что такое Dockerfile?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это декларативная последовательность инструкций сборки image: base image, files, commands и startup metadata.
+Multi-stage build отделяет тяжелую сборочную среду от компактного runtime image. Секреты нельзя записывать в layers.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это декларативная последовательность инструкций сборки image: base image, files, commands и startup metadata.
+Multi-stage build отделяет тяжелую сборочную среду от компактного runtime image. Секреты нельзя записывать в layers.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="dockerfile"><code><span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> node:22-alpine </span><span style="color:#F97583">AS</span><span style="color:#E1E4E8"> build</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">WORKDIR</span><span style="color:#E1E4E8"> /app</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">COPY</span><span style="color:#E1E4E8"> package*.json ./</span></span>
+<span class="line"><span style="color:#F97583">RUN</span><span style="color:#E1E4E8"> npm ci</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">COPY</span><span style="color:#E1E4E8"> . .</span></span>
+<span class="line"><span style="color:#F97583">RUN</span><span style="color:#E1E4E8"> npm run build</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> nginx:alpine</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">COPY</span><span style="color:#E1E4E8"> --from=build /app/dist /usr/share/nginx/html</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">EXPOSE</span><span style="color:#E1E4E8"> 80</span></span></code></pre></figure>
+<p>Путь <code>/app/dist</code> зависит от output path конкретного Angular-проекта и может содержать дополнительную browser directory.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-build-context">Что такое build context?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Это directory и набор файлов, отправляемых Docker daemon/build engine для сборки. Инструкции COPY видят только context.
+Слишком большой context замедляет build и может случайно включить секреты.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Это directory и набор файлов, отправляемых Docker daemon/build engine для сборки. Инструкции <code>COPY</code> видят только
+context. Слишком большой context замедляет build и может случайно включить секреты.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-layer-в-docker-image">Что такое layer в Docker image?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Большинство Dockerfile instructions создают кешируемый immutable layer. Изменение раннего layer инвалидирует следующие.
+Поэтому manifests копируют и устанавливают dependencies до копирования часто меняющегося source code.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Большинство Dockerfile instructions создают кешируемый immutable layer. Изменение раннего layer инвалидирует следующие.
+Поэтому manifests копируют и устанавливают dependencies до копирования часто меняющегося source code.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-dockerignore">Что такое <code>.dockerignore</code>?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Файл исключает пути из build context, например nodemodules, .git, dist и local secrets. Это ускоряет передачу context и
+уменьшает риск утечки. Он работает похоже на .gitignore, но правила относятся к Docker build.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Файл исключает пути из build context, например <code>node_modules</code>, <code>.git</code>, <code>dist</code> и local secrets. Это ускоряет передачу
+context и уменьшает риск утечки. Он работает похоже на <code>.gitignore</code>, но правила относятся к Docker build.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-port-mapping">Что такое port mapping?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Mapping публикует port container на host, например -p 8080:80. Приложение внутри должно слушать нужный interface и
+container port. EXPOSE документирует port, но само mapping не создает.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Mapping публикует port container на host, например <code>-p 8080:80</code>. Приложение внутри должно слушать нужный interface и
+container port. <code>EXPOSE</code> документирует port, но само mapping не создает.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-volume">Что такое volume?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Volume хранит данные вне writable layer container. Он переживает пересоздание container и может монтировать host
+directory для разработки. Для static frontend production volume обычно не нужен, а backend/database используют его
+часто.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Volume хранит данные вне writable layer container. Он переживает пересоздание container и может монтировать host
+directory для разработки. Для static frontend production volume обычно не нужен, а backend/database используют его
+часто.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-environment-variables-в-docker">Что такое environment variables в Docker?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Они передают runtime configuration процессу container через -e, Compose или platform settings. Значения не следует
+встраивать в image как secrets. Browser frontend не может прочитать server environment после статической сборки без
+runtime config механизма.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Они передают runtime configuration процессу container через <code>-e</code>, Compose или platform settings. Значения не следует
+встраивать в image как secrets. Browser frontend не может прочитать server environment после статической сборки без
+runtime config механизма.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-собрать-docker-image">Как собрать Docker image?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Команда читает Dockerfile и build context, создавая image с заданным tag.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Команда читает Dockerfile и build context, создавая image с заданным tag.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> build</span><span style="color:#79B8FF"> -t</span><span style="color:#9ECBFF"> frontend-app</span><span style="color:#9ECBFF"> .</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-запустить-container">Как запустить container?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>—rm удалит остановленный container, а -p опубликует port.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>--rm</code> удалит остановленный container, а <code>-p</code> опубликует port.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --rm</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> 8080:80</span><span style="color:#9ECBFF"> frontend-app</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-посмотреть-логи-container">Как посмотреть логи container?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Сначала находят container, затем читают stdout/stderr. Приложение должно писать operational logs в стандартные streams.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Сначала находят container, затем читают stdout/stderr. Приложение должно писать operational logs в стандартные streams.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> ps</span></span>
+<span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> logs</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">container_i</span><span style="color:#E1E4E8">d</span><span style="color:#F97583">></span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-остановить-container">Как остановить container?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>docker stop отправляет graceful signal и после timeout завершает process. Приложение должно корректно обрабатывать
+shutdown.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>docker stop</code> отправляет graceful signal и после timeout завершает process. Приложение должно корректно обрабатывать
+shutdown.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> stop</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">container_i</span><span style="color:#E1E4E8">d</span><span style="color:#F97583">></span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-зайти-внутрь-container">Как зайти внутрь container?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>exec запускает новый process в работающем container. Команда полезна для диагностики, но production fixes нужно вносить
+в image, а не вручную.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>exec</code> запускает новый process в работающем container. Команда полезна для диагностики, но production fixes нужно
+вносить в image, а не вручную.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> exec</span><span style="color:#79B8FF"> -it</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">container_i</span><span style="color:#E1E4E8">d</span><span style="color:#F97583">></span><span style="color:#9ECBFF"> sh</span></span></code></pre></figure>
+</div></div>
+</details>
+<h3 id="docker-compose">Docker Compose</h3>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-docker-compose">Что такое Docker Compose?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Compose описывает несколько связанных containers, networks и volumes в YAML. Он удобен для локального окружения и
+integration tests. Production orchestration может использовать другие платформы.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Compose описывает несколько связанных containers, networks и volumes в YAML. Он удобен для локального окружения и
+integration tests. Production orchestration может использовать другие платформы.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-docker-compose-отличается-от-docker">Чем Docker Compose отличается от Docker?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Docker CLI управляет отдельными images и containers, Compose — набором services как одним проектом. Compose вызывает тот
+же container runtime. Он добавляет декларативную конфигурацию связей и lifecycle.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Docker CLI управляет отдельными images и containers, Compose — набором services как одним проектом. Compose вызывает тот
+же container runtime. Он добавляет декларативную конфигурацию связей и lifecycle.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-service-в-docker-composeyml">Что такое service в docker-compose.yml?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Service описывает image/build, command, ports, environment, volumes и dependencies одного типа container. Compose
+создает container instances service. Имя service также работает как DNS hostname внутри default network.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Service описывает image/build, command, ports, environment, volumes и dependencies одного типа container. Compose
+создает container instances service. Имя service также работает как DNS hostname внутри default network.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-network-в-docker-compose">Что такое network в Docker Compose?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Network соединяет services и изолирует их от других проектов. Containers обращаются друг к другу по service name и
+внутреннему port. Host port mapping для межконтейнерной связи не нужен.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Network соединяет services и изолирует их от других проектов. Containers обращаются друг к другу по service name и
+внутреннему port. Host port mapping для межконтейнерной связи не нужен.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-volume-в-docker-compose">Что такое volume в Docker Compose?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Volume объявляет persistent или bind-mounted storage для services. Named volume управляется Docker, bind mount связывает
+конкретный host path. Неправильный mount может скрыть файлы из image.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Volume объявляет persistent или bind-mounted storage для services. Named volume управляется Docker, bind mount связывает
+конкретный host path. Неправильный mount может скрыть файлы из image.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-запустить-несколько-сервисов-одной-командой">Как запустить несколько сервисов одной командой?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>up создает network, builds нужные images и запускает services. —build принудительно учитывает изменения Dockerfile и
+context.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>up</code> создает network, builds нужные images и запускает services. <code>--build</code> принудительно учитывает изменения Dockerfile
+и context.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> compose</span><span style="color:#9ECBFF"> up</span><span style="color:#79B8FF"> --build</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-посмотреть-логи-через-docker-compose">Как посмотреть логи через Docker Compose?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Команда агрегирует logs всех services; можно указать имя одного service. -f продолжает следить за output.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Команда агрегирует logs всех services; можно указать имя одного service. <code>-f</code> продолжает следить за output.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> compose</span><span style="color:#9ECBFF"> logs</span><span style="color:#79B8FF"> -f</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-остановить-окружение">Как остановить окружение?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>down останавливает и удаляет containers и project network. Named volumes сохраняются, если не добавить —volumes.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><code>down</code> останавливает и удаляет containers и project network. Named volumes сохраняются, если не добавить <code>--volumes</code>.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> compose</span><span style="color:#9ECBFF"> down</span></span></code></pre></figure>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-как-docker-compose-помогает-frontend-разработчику">Как Docker Compose помогает frontend-разработчику?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Одной командой поднимает frontend, backend, database и mocks с согласованными адресами. Это уменьшает расхождения
+локального окружения и onboarding. Health checks и seed data делают сценарий надежнее простого порядка запуска.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Одной командой поднимает frontend, backend, database и mocks с согласованными адресами. Это уменьшает расхождения
+локального окружения и onboarding. Health checks и seed data делают сценарий надежнее простого порядка запуска.</p>
+<figure class="content-figure code-figure"><figcaption class="content-figure__caption"><span class="content-figure__kind">Код</span><span class="content-figure__value">пример</span></figcaption><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">services</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  frontend</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    build</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">.</span></span>
+<span class="line"><span style="color:#85E89D">    ports</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">'4200:80'</span></span>
+<span class="line"><span style="color:#85E89D">    environment</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      API_URL</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'http://backend:3000'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">  backend</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    image</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">node:22-alpine</span></span>
+<span class="line"><span style="color:#85E89D">    working_dir</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">/app</span></span>
+<span class="line"><span style="color:#85E89D">    command</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">npm start</span></span>
+<span class="line"><span style="color:#85E89D">    volumes</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">./backend:/app</span></span>
+<span class="line"><span style="color:#85E89D">    ports</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">'3000:3000'</span></span></code></pre></figure>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="description" content="Сетевые протоколы, HTTP, безопасность, аутентификация и авторизация"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f6f8fb"><meta property="og:title" content="Веб-протоколы и безопасность"><meta property="og:description" content="Сетевые протоколы, HTTP, безопасность, аутентификация и авторизация"><meta property="og:type" content="website"><meta property="og:url" content="https://angular-ru.github.io/interview/web-protocols/"><meta property="og:locale" content="ru_RU"><link rel="canonical" href="https://angular-ru.github.io/interview/web-protocols/"><link rel="stylesheet" href="/interview/pagefind/pagefind-component-ui.css"><meta data-pagefind-filter="page[content]" content="/interview/web-protocols"><title>Веб-протоколы и безопасность</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/interview/_astro/ClientRouter.astro_astro_type_script_index_0_lang.6Spq5I16.js"></script><script type="module" src="/interview/pagefind/pagefind-component-ui.js"></script><link rel="stylesheet" href="/interview/_astro/Layout.5OSz7XWF.css"></head><body><main class="page"><article class="content" data-pagefind-body><div class="site-search" data-page-path="/interview/web-protocols" data-pagefind-ignore><pagefind-config bundle-path="/interview/pagefind/" base-url="/interview/" lang="ru"></pagefind-config><pagefind-modal-trigger placeholder="Поиск"></pagefind-modal-trigger><pagefind-modal></pagefind-modal></div><aside class="sidebar-navigation" aria-label="Навигация: Веб-протоколы и безопасность"><nav class="sidebar-navigation__panel"><div class="sidebar-navigation__header"><a class="sidebar-navigation__home" href="/interview/" aria-label="На главную"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.75 12 3l9 7.75V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.75Z"></path></svg><span class="sidebar-navigation__home-label">Главная</span></a></div></nav></aside><script type="module">var e,t=(e,t)=>{let n=e.querySelector(`.sidebar-navigation__panel`),r=e.querySelector(`[data-navigation-toggle]`);if(!n||!r)return;let i=[...e.querySelectorAll(`[data-heading-link]`)],a=[...e.querySelectorAll(`[data-heading-marker]`)],o=i.flatMap(e=>{let t=e.dataset.headingLink,n=t?document.getElementById(t):null;return t&&n?[{slug:t,heading:n}]:[]}),s=0,c=e=>{n.toggleAttribute(`data-open`,e),r.setAttribute(`aria-expanded`,String(e))},l=e=>{for(let t of i)t.dataset.headingLink===e?t.setAttribute(`aria-current`,`location`):t.removeAttribute(`aria-current`);for(let t of a)t.toggleAttribute(`data-active`,t.dataset.headingMarker===e)},u=()=>Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--anchor-offset`))||0,d=()=>{let e=o[0]?.slug,t=u(),n=document.documentElement.scrollHeight-window.innerHeight-window.scrollY;if(window.scrollY>0&&n<=1)return o.at(-1)?.slug;for(let{slug:n,heading:r}of o){if(r.getBoundingClientRect().top>t+1)break;e=n}return e},f=()=>{s=0,l(d())},p=()=>{s||=requestAnimationFrame(f)};r.addEventListener(`click`,()=>{c(!n.hasAttribute(`data-open`))},{signal:t}),e.addEventListener(`click`,e=>{let t=e.target;if(!(t instanceof Element))return;let n=t.closest(`[data-heading-link]`);n&&(l(n.dataset.headingLink),c(!1))},{signal:t}),document.addEventListener(`click`,t=>{let n=t.target;n instanceof Node&&!e.contains(n)&&c(!1)},{signal:t}),window.addEventListener(`scroll`,p,{passive:!0,signal:t}),window.addEventListener(`resize`,p,{signal:t}),window.addEventListener(`hashchange`,p,{signal:t}),t.addEventListener(`abort`,()=>cancelAnimationFrame(s),{once:!0}),p()};document.addEventListener(`astro:page-load`,()=>{e?.abort(),e=new AbortController;for(let n of document.querySelectorAll(`.sidebar-navigation`))t(n,e.signal)});</script><h2 id="веб-протоколы-и-безопасность">Веб-протоколы и безопасность</h2>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-протокол-какие-протоколы-знаешь">Что такое протокол? Какие протоколы знаешь?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Протокол — это набор правил, по которым участники обмениваются сообщениями: формат данных, порядок действий и реакция на
+ошибки. Например, HTTP описывает обмен веб-запросами, TCP — надежную доставку байтов, а IP — маршрутизацию пакетов.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Протокол задает контракт взаимодействия между независимыми системами. Обычно он определяет:</p>
+<ul>
+<li><strong>синтаксис</strong> — как устроено сообщение, какие поля и кодировки допустимы;</li>
+<li><strong>семантику</strong> — что означает каждое поле и какое действие должен выполнить получатель;</li>
+<li><strong>последовательность</strong> — кто начинает обмен и какие сообщения ожидаются дальше;</li>
+<li><strong>обработку ошибок</strong> — таймауты, повторные попытки, коды ошибок и завершение соединения.</li>
+</ul>
+<p>Протоколы работают слоями. Каждый слой решает свою задачу и использует нижележащий слой как транспорт:</p>
+<ul>
+<li><strong>прикладной уровень:</strong> HTTP, DNS, SMTP, SSH, WebSocket;</li>
+<li><strong>транспортный уровень:</strong> TCP, UDP, QUIC;</li>
+<li><strong>сетевой уровень:</strong> IPv4, IPv6, ICMP;</li>
+<li><strong>канальный уровень:</strong> Ethernet, Wi-Fi.</li>
+</ul>
+<p>Например, браузер может отправить HTTP-запрос через TLS и TCP поверх IP и Wi-Fi. HTTP не обязан знать, как Wi-Fi
+передает кадры, а Wi-Fi не обязан понимать HTTP-заголовки. Такое разделение позволяет менять реализацию одного слоя без
+полной переработки остальных.</p>
+<p>Важно различать протокол и продукт или API. REST — архитектурный стиль, gRPC — RPC-фреймворк и формат взаимодействия,
+который обычно использует HTTP/2, а JSON — формат данных. На интервью полезно не просто перечислить названия, а назвать
+уровень, задачу и один trade-off. Например: TCP гарантирует порядок и доставку, но имеет дополнительные задержки; UDP
+проще и быстрее, но надежность при необходимости реализует приложение.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-чем-отличается-http-от-https">Чем отличается http от https?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>HTTPS — это HTTP поверх TLS. TLS шифрует трафик, проверяет его целостность и обычно подтверждает подлинность сервера с
+помощью сертификата. HTTP без TLS передает данные открыто.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>HTTP описывает структуру запросов и ответов: методы, URL, заголовки, тело и статус-коды. Сам по себе HTTP не защищает
+данные между клиентом и сервером. Посредник в сети может прочитать или изменить незашифрованный запрос.</p>
+<p>HTTPS использует тот же HTTP, но перед обменом прикладными данными устанавливает защищенный канал TLS. Он дает три
+основных свойства:</p>
+<ul>
+<li><strong>конфиденциальность:</strong> содержимое запроса и ответа нельзя прочитать без ключей сессии;</li>
+<li><strong>целостность:</strong> изменение данных при передаче будет обнаружено;</li>
+<li><strong>аутентификация сервера:</strong> браузер проверяет сертификат, доменное имя, срок действия и цепочку доверия.</li>
+</ul>
+<p>Во время TLS-handshake клиент и сервер согласуют параметры соединения, сервер предъявляет сертификат, а стороны получают
+общие сессионные ключи. Асимметричная криптография помогает безопасно договориться о ключах, после чего основной трафик
+шифруется быстрым симметричным алгоритмом.</p>
+<p>Практические отличия:</p>
+<ul>
+<li>стандартные порты — <code>80</code> для HTTP и <code>443</code> для HTTPS;</li>
+<li>браузеры ограничивают опасный <strong>mixed content</strong>, когда HTTPS-страница загружает активный ресурс по HTTP;</li>
+<li>HSTS может заставить браузер всегда обращаться к домену по HTTPS;</li>
+<li>cookie с флагом <code>Secure</code> отправляется только по защищенному соединению.</li>
+</ul>
+<p>HTTPS не делает приложение автоматически безопасным. Он не защищает от XSS, SQL injection, утечки токена в логах или
+ошибочной авторизации. Защита действует только на участке TLS-соединения: после TLS-терминации на CDN или reverse proxy
+данные должны быть защищены уже инфраструктурой приложения.</p>
+<p>Также не всегда используется TCP. HTTP/1.1 и HTTP/2 обычно работают поверх TCP и TLS, а HTTP/3 — поверх QUIC, который
+использует UDP и включает TLS 1.3 в установление соединения. На интервью стоит сформулировать главное: HTTPS защищает
+канал передачи, но не заменяет безопасность самого приложения.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-авторизация-и-аутентификация">Что такое авторизация и аутентификация?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Аутентификация отвечает на вопрос «кто пользователь?», а авторизация — «что ему разрешено?». Сначала система
+подтверждает личность, затем проверяет права на конкретный ресурс или действие.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p><strong>Аутентификация</strong> подтверждает личность пользователя, сервиса или устройства. Для этого могут использоваться:</p>
+<ul>
+<li>пароль или PIN-код;</li>
+<li>одноразовый код, аппаратный ключ или приложение-аутентификатор;</li>
+<li>биометрия;</li>
+<li>клиентский сертификат;</li>
+<li>вход через внешний identity provider по OAuth 2.0 и OpenID Connect.</li>
+</ul>
+<p>Несколько независимых факторов образуют MFA. Например, пароль относится к фактору знания, а аппаратный ключ — к фактору
+владения. Два разных пароля не считаются двумя факторами.</p>
+<p>После успешной аутентификации сервер создает сессию или выдает токен. Cookie, session id и JWT не являются авторизацией
+сами по себе: они только переносят подтверждение личности и иногда набор claims между запросами.</p>
+<p><strong>Авторизация</strong> проверяет, разрешено ли уже известному субъекту выполнить конкретное действие. Распространенные модели:</p>
+<ul>
+<li><strong>RBAC:</strong> права назначаются ролям, например <code>admin</code> или <code>editor</code>;</li>
+<li><strong>ABAC:</strong> решение зависит от атрибутов пользователя, ресурса и контекста;</li>
+<li><strong>ACL:</strong> у ресурса хранится список субъектов и разрешенных операций;</li>
+<li><strong>policy-based access:</strong> правила описываются централизованными политиками.</li>
+</ul>
+<p>Пример: сотрудник успешно вошел в систему — это аутентификация. Просмотр собственной заявки ему разрешен, а изменение
+чужой заявки запрещено — это авторизация.</p>
+<p>Во frontend можно скрыть недоступную кнопку, но это только часть UX. Настоящая проверка должна выполняться на сервере
+для каждого защищенного действия. Иначе пользователь сможет вызвать API напрямую.</p>
+<p>В HTTP часто используют такое различие:</p>
+<ul>
+<li><code>401 Unauthorized</code> обычно означает, что аутентификация отсутствует или недействительна;</li>
+<li><code>403 Forbidden</code> означает, что сервер распознал пользователя, но не разрешает действие.</li>
+</ul>
+<p>На интервью полезно упомянуть принцип минимальных привилегий, отзыв сессий, срок жизни токенов и необходимость проверять
+доступ к конкретному объекту, а не только общую роль пользователя.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-происходит-когда-ты-переходишь-по-url">Что происходит когда ты переходишь по Url?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Браузер разбирает URL, проверяет кэши и Service Worker, находит IP через DNS, устанавливает защищенное соединение,
+отправляет HTTP-запрос, получает ответ и строит страницу из HTML, CSS и JavaScript.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Реальный путь зависит от кэша, Service Worker, версии HTTP и настроек сети, но типичная последовательность выглядит так.</p>
+<ol>
+<li><strong>Разбор URL.</strong> Браузер определяет схему, домен, порт, путь, query-параметры и fragment. Для поисковой строки он
+может сначала сформировать URL поисковой системы.</li>
+<li><strong>Проверка локальных источников.</strong> Ответ может быть получен из memory cache, disk cache, back-forward cache или
+перехвачен Service Worker. В таком случае часть сетевых шагов не потребуется.</li>
+<li><strong>DNS.</strong> Браузер или ОС ищет адрес в кэше. При отсутствии записи DNS-резолвер получает A или AAAA-запись домена.
+Результатом может быть адрес CDN или балансировщика, а не конечного application server.</li>
+<li><strong>Установление соединения.</strong> Для HTTP/1.1 или HTTP/2 обычно выполняется TCP-handshake, затем TLS-handshake. Для
+HTTP/3 используется QUIC поверх UDP, где транспортное и TLS-согласование тесно связаны.</li>
+<li><strong>HTTP-запрос.</strong> Браузер отправляет метод, путь, заголовки и при необходимости тело. Он может добавить <code>Cookie</code>,
+<code>Accept</code>, <code>Accept-Encoding</code>, <code>Referer</code> и условные заголовки кэша, например <code>If-None-Match</code>.</li>
+<li><strong>Обработка на серверной стороне.</strong> Запрос может пройти через CDN, WAF, reverse proxy и балансировщик. Приложение
+проверяет сессию и права, обращается к кэшу или базе данных и формирует ответ.</li>
+<li><strong>HTTP-ответ.</strong> Сервер возвращает статус, заголовки и тело. Браузер может обработать redirect, сохранить cookie,
+использовать <code>304 Not Modified</code>, распаковать контент или применить политику CSP.</li>
+<li><strong>Рендеринг.</strong> HTML-парсер строит DOM, CSS формирует CSSOM. Затем браузер создает render tree, рассчитывает layout,
+выполняет paint и compositing. Внешние CSS, JavaScript, шрифты и изображения загружаются дополнительными запросами.</li>
+<li><strong>Выполнение JavaScript.</strong> Скрипты могут блокировать парсинг, изменять DOM, запускать fetch-запросы и планировать
+задачи. После изменений браузер при необходимости повторяет layout, paint или compositing.</li>
+</ol>
+<p>Современный браузер оптимизирует этот процесс: переиспользует соединения, выполняет preconnect и preload, а HTTP/2 и
+HTTP/3 позволяют передавать несколько потоков через одно соединение. Поэтому фраза «для каждого ресурса создается новое
+TCP-соединение» обычно неверна.</p>
+<p>На интервью сначала стоит дать последовательность <code>URL -> DNS -> connection -> HTTP -> server -> rendering</code>, а затем
+добавить две оговорки: ответ может прийти из кэша или Service Worker, а HTTP/3 не использует TCP.</p>
+</div></div>
+</details>
+<details>
+<summary><h4 class="question-search-heading" id="question-что-такое-шифрование-данных">Что такое шифрование данных?</h4></summary>
+<div class="answer">
+<div class="answer-short"><p class="answer-title"><strong>Короткий ответ</strong></p>
+<p>Шифрование преобразует открытые данные в шифротекст с помощью алгоритма и ключа. Прочитать данные может тот, у кого есть
+подходящий ключ для расшифрования.</p>
+</div><div class="answer-full"><p class="answer-title"><strong>Полный ответ</strong></p>
+<p>Шифрование используется для конфиденциальности данных при передаче и хранении. Без знания ключа шифротекст не должен
+раскрывать исходное сообщение, даже если алгоритм известен. Безопасная система полагается на секретность ключа, а не на
+секретность алгоритма.</p>
+<p>Основные виды:</p>
+<ul>
+<li><strong>симметричное шифрование:</strong> один секретный ключ используется для шифрования и расшифрования; оно быстрое и подходит
+для больших объемов данных, например AES-GCM или ChaCha20-Poly1305;</li>
+<li><strong>асимметричная криптография:</strong> используется пара из открытого и закрытого ключей; она удобна для обмена ключами и
+цифровых подписей, но обычно медленнее симметричных алгоритмов;</li>
+<li><strong>гибридная схема:</strong> стороны с помощью асимметричной криптографии договариваются о сессионном секрете, а основной
+трафик шифруют симметрично. Такой подход используется в TLS.</li>
+</ul>
+<p>Современные системы обычно применяют authenticated encryption: кроме конфиденциальности оно проверяет целостность и
+подлинность сообщения. Простого шифрования без проверки целостности может быть недостаточно, потому что атакующий иногда
+способен изменить шифротекст предсказуемым образом.</p>
+<p>Шифрование не нужно путать с другими операциями:</p>
+<ul>
+<li><strong>хеширование</strong> односторонне преобразует данные и применяется, например, для проверки целостности;</li>
+<li><strong>пароли</strong> следует хранить не в зашифрованном виде, а как медленный salted hash с Argon2, scrypt или bcrypt;</li>
+<li><strong>цифровая подпись</strong> подтверждает автора и целостность, но сама по себе не скрывает содержимое;</li>
+<li><strong>кодирование</strong>, например Base64, не обеспечивает безопасность и легко обращается обратно.</li>
+</ul>
+<p>Главный практический риск — управление ключами. Сильный алгоритм не поможет, если ключ хранится рядом с данными,
+попадает в репозиторий или никогда не ротируется. В production используют secret manager или KMS, разграничивают доступ,
+планируют ротацию и резервное восстановление ключей.</p>
+<p>На интервью хороший ответ связывает шифрование с конкретной угрозой: TLS защищает данные в пути, disk encryption — при
+краже носителя, а application-level encryption может защищать отдельные поля даже от части инфраструктуры.</p>
+</div></div>
+</details></article></main><script type="module">document.addEventListener(`astro:before-swap`,()=>{window.PagefindComponents?.getInstanceManager().removeInstance(`default`)}),document.addEventListener(`astro:page-load`,()=>{let e=document.querySelector(`.site-search`)?.dataset.pagePath,t=document.querySelector(`.site-search pagefind-modal`);e&&window.PagefindComponents?.getInstanceManager().getInstance(`default`).triggerFilter(`page`,[e]),t?.addEventListener(`click`,e=>{let n=e.target instanceof Element?e.target.closest(`a[href]`):null;if(!n)return;let r=new URL(n.href);if(!(r.origin===window.location.origin&&r.pathname===window.location.pathname&&r.search===window.location.search&&r.hash))return;let i=t.querySelector(`dialog`);i&&(e.preventDefault(),i.addEventListener(`close`,()=>{window.location.hash=r.hash,document.getElementById(decodeURIComponent(r.hash.slice(1)))?.scrollIntoView()},{once:!0}),t.close())})});</script></body></html>

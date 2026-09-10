@@ -1,0 +1,1 @@
+import{d as t}from"./chunk-XBREKS7F.js";var i={federationManifest:{movies:"/interview/examples/angular/mfe/movies/remoteEntry.json","ticket-availability":"/interview/examples/angular/mfe/ticket-availability/remoteEntry.json"}};t(i.federationManifest).catch(e=>console.error(e)).then(()=>import("./chunk-O6X7CXDX.js")).catch(e=>console.error(e));

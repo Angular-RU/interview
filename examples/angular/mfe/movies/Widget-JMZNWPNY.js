@@ -1,0 +1,26 @@
+import { inject as l, output as p } from "@angular/core";
+import * as m from "@angular/core";
+var r = new URL(".", import.meta.url), n = class i {
+    movies = [{ id: 1, title: "Interstellar", year: 2014, genre: "Sci-Fi", rating: 8.7, preview: new URL("img/interstellar.png", r).href }, { id: 2, title: "The Matrix", year: 1999, genre: "Action", rating: 8.7, preview: new URL("img/matrix.png", r).href }, { id: 3, title: "Inception", year: 2010, genre: "Sci-Fi", rating: 8.8, preview: new URL("img/inception.png", r).href }];
+    getMovies() { return this.movies; }
+    static \u0275fac = function (t) { return new (t || i); };
+    static \u0275prov = m.\u0275\u0275defineInjectable({ token: i, factory: i.\u0275fac, providedIn: "root" });
+};
+import * as e from "@angular/core";
+var v = (i, o) => o.id;
+function _(i, o) { if (i & 1) {
+    let t = e.\u0275\u0275getCurrentView();
+    e.\u0275\u0275domElementStart(0, "article", 5), e.\u0275\u0275domElement(1, "img", 6), e.\u0275\u0275domElementStart(2, "div", 7)(3, "h3", 8), e.\u0275\u0275text(4), e.\u0275\u0275domElementEnd(), e.\u0275\u0275domElementStart(5, "p", 9), e.\u0275\u0275text(6), e.\u0275\u0275domElementEnd(), e.\u0275\u0275domElementStart(7, "p", 10), e.\u0275\u0275text(8), e.\u0275\u0275domElementEnd(), e.\u0275\u0275domElementStart(9, "button", 11), e.\u0275\u0275domListener("click", function () { let s = e.\u0275\u0275restoreView(t).$implicit, d = e.\u0275\u0275nextContext(); return e.\u0275\u0275resetView(d.selectMovie(s)); }), e.\u0275\u0275text(10, " Check availability "), e.\u0275\u0275domElementEnd()()();
+} if (i & 2) {
+    let t = o.$implicit;
+    e.\u0275\u0275advance(), e.\u0275\u0275domProperty("src", t.preview, e.\u0275\u0275sanitizeUrl)("alt", t.title), e.\u0275\u0275advance(3), e.\u0275\u0275textInterpolate(t.title), e.\u0275\u0275advance(2), e.\u0275\u0275textInterpolate2("", t.year, " \xB7 ", t.genre), e.\u0275\u0275advance(2), e.\u0275\u0275textInterpolate1("\u2605 ", t.rating);
+} }
+var c = class i {
+    moviesService = l(n);
+    movieSelected = p();
+    movies = this.moviesService.getMovies();
+    selectMovie(o) { this.movieSelected.emit(o); }
+    static \u0275fac = function (t) { return new (t || i); };
+    static \u0275cmp = e.\u0275\u0275defineComponent({ type: i, selectors: [["app-movies"]], outputs: { movieSelected: "movieSelected" }, decls: 9, vars: 0, consts: [[1, "movies"], [1, "movies__header"], [1, "movies__title"], [1, "movies__description"], [1, "movies__list"], [1, "movie-card"], [1, "movie-card__preview", 3, "src", "alt"], [1, "movie-card__content"], [1, "movie-card__title"], [1, "movie-card__meta"], [1, "movie-card__rating"], ["type", "button", 1, "movie-card__button", 3, "click"]], template: function (t, a) { t & 1 && (e.\u0275\u0275domElementStart(0, "section", 0)(1, "header", 1)(2, "h2", 2), e.\u0275\u0275text(3, "Movies"), e.\u0275\u0275domElementEnd(), e.\u0275\u0275domElementStart(4, "p", 3), e.\u0275\u0275text(5, "Choose a movie to check ticket availability in the booking widget."), e.\u0275\u0275domElementEnd()(), e.\u0275\u0275domElementStart(6, "div", 4), e.\u0275\u0275repeaterCreate(7, _, 11, 6, "article", 5, v), e.\u0275\u0275domElementEnd()()), t & 2 && (e.\u0275\u0275advance(7), e.\u0275\u0275repeater(a.movies)); }, styles: ["[_nghost-%COMP%]{display:block}.movies[_ngcontent-%COMP%]{display:grid;gap:24px}.movies__header[_ngcontent-%COMP%]{display:grid;gap:6px}.movies__title[_ngcontent-%COMP%]{margin:0;font-size:28px;line-height:1.1;letter-spacing:-.04em}.movies__description[_ngcontent-%COMP%]{margin:0;max-width:56ch;color:#64748b;font-size:15px;line-height:1.6}.movies__list[_ngcontent-%COMP%]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.movie-card[_ngcontent-%COMP%]{display:flex;flex-direction:column;overflow:hidden;border:1px solid #e2e8f0;border-radius:22px;background:#fff;box-shadow:0 12px 32px #0f172a0f;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}.movie-card[_ngcontent-%COMP%]:hover{transform:translateY(-3px);border-color:#c7d2fe;box-shadow:0 20px 48px #0f172a1f}.movie-card__preview[_ngcontent-%COMP%]{width:100%;aspect-ratio:4 / 5;object-fit:cover;background:#e2e8f0}.movie-card__content[_ngcontent-%COMP%]{display:flex;flex:1;flex-direction:column;gap:12px;padding:18px}.movie-card__title[_ngcontent-%COMP%]{margin:0;font-size:20px;line-height:1.2;letter-spacing:-.03em}.movie-card__meta[_ngcontent-%COMP%]{margin:0;color:#64748b;font-size:14px}.movie-card__rating[_ngcontent-%COMP%]{width:fit-content;margin:0;padding:5px 10px;border-radius:999px;color:#4338ca;background:#eef2ff;font-size:13px;font-weight:700}.movie-card__button[_ngcontent-%COMP%]{width:100%;margin-top:auto;border:0;border-radius:14px;padding:11px 14px;color:#fff;background:#111827;font:inherit;font-weight:700;cursor:pointer;transition:transform .12s ease,background .12s ease}.movie-card__button[_ngcontent-%COMP%]:hover{background:#4f46e5}.movie-card__button[_ngcontent-%COMP%]:active{transform:scale(.98)}@media(max-width:1100px){.movies__list[_ngcontent-%COMP%]{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.movies__list[_ngcontent-%COMP%]{grid-template-columns:1fr}}"] });
+};
+export { c as MoviesComponent, c as MoviesWidgetComponent };
